@@ -2,6 +2,19 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '@/styles/globals.scss';
 
+const themeScript = `
+  (function() {
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-color-scheme', savedTheme);
+      } else {
+        document.documentElement.setAttribute('data-color-scheme', 'light');
+      }
+    } catch (e) {}
+  })();
+`;
+
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
   display: 'swap',
@@ -20,7 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={pretendard.variable}>
+    <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+
       <body>{children}</body>
     </html>
   );

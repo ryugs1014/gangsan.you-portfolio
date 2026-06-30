@@ -2,6 +2,7 @@
 
 import type { Metadata } from 'next';
 import s from './page.module.scss';
+import ThemeToggle from '@/components/atoms/buttons/ThemeToggle';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  return <main className={s['main']}>Hello, wolrd!</main>;
+  return (
+    <main className={s['main']}>
+      <h1>Hello, wolrd!</h1>
+      <ThemeToggle />
+    </main>
+  );
 }
