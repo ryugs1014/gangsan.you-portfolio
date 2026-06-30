@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '@/styles/globals.scss';
 
+import InitialLoader from '@/components/session/InitialLoader';
+import PageTransition from '@/components/session/PageTransition';
+
 const themeScript = `
   (function() {
     try {
@@ -38,7 +41,11 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
 
-      <body>{children}</body>
+      <body>
+        <InitialLoader />
+
+        <PageTransition>{children}</PageTransition>
+      </body>
     </html>
   );
 }

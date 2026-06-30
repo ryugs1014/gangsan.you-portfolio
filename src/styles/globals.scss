@@ -9,6 +9,23 @@ body {
   overflow-x: hidden;
 }
 
+body {
+  position: relative;
+  overflow-x: hidden; // 가로 스크롤바 방지
+  width: 100vw;
+  height: 100vh;
+  background-color: purple;
+}
+
+.page-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform; /* 브라우저에게 애니메이션이 있을 것을 미리 알림 */
+}
+
 input,
 button,
 textarea,
