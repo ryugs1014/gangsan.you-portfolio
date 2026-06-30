@@ -1,0 +1,16 @@
+:root,
+[data-color-scheme='light'] {
+  --color-main: #396eff;
+  --color-bg-normal: #ffffff;
+  --color-label-normal: #0d0d0e;
+  --color-gray-0: #f8f8f9;
+  --color-gray-200: #131314;
+  --color-gray-700: #adafb7;
+  --color-gray-900: #858892;
+  --color-warning: #ff4d52;
+}
+
+[data-color-scheme='dark'] {
+  --color-bg-normal: #28282c;
+  --color-label-normal: #f8f8f9;
+}

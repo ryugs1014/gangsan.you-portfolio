@@ -1,0 +1,67 @@
+@import './rem';
+@import './variables';
+@import './reset';
+
+body {
+  font-family: var(--font-pretendard), sans-serif;
+  background-color: var(--color-bg-normal);
+  color: var(--color-label-normal);
+  overflow-x: hidden;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Form Elements */
+input,
+textarea {
+  border: 1px solid var(--color-gray-200); /* 1px은 rem 사용 안 함 */
+  border-radius: 0;
+  width: 100%;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: var(--color-gray-900);
+  }
+}
+
+textarea {
+  resize: none;
+  min-height: rem(100);
+}
+
+.disabled {
+  pointer-events: none;
+  background-color: var(--color-gray-700) !important;
+}
+
+/* Accessibility Hidden (구 ir_pm 대체) */
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+/* Layout Utilities (필요한 경우만 유지) */
+.flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* For Loop Utilities */
+@for $i from 0 through 20 {
+  .mt-#{5*$i} {
+    margin-top: rem(5 * $i);
+  }
+  .mb-#{5*$i} {
+    margin-bottom: rem(5 * $i);
+  }
+}
