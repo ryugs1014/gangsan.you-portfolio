@@ -1,6 +1,6 @@
-@import './rem';
-@import './variables';
-@import './reset';
+@use './rem' as *;
+@use './variables';
+@use './reset';
 
 body {
   font-family: var(--font-pretendard), sans-serif;
