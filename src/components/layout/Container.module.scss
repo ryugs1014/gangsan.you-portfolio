@@ -1,0 +1,11 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.container {
+  width: 100%;
+  max-width: calc(var(--content-max-width) + calc(var(--layout-padding)));
+  margin: 0 auto;
+  padding-left: calc(var(--layout-padding) / 2);
+  padding-right: calc(var(--layout-padding) / 2);
+  box-sizing: border-box;
+}

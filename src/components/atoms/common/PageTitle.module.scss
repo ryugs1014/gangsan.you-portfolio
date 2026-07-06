@@ -1,0 +1,17 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.title-wrapper {
+  padding-top: rem(165);
+  padding-bottom: rem(80);
+}
+
+.title {
+  @include typo(48, 700, 1.4);
+  word-break: keep-all;
+}
+
+.description {
+  @include typo(18, 400, 1.5);
+  color: #666;
+}

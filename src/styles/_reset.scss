@@ -2,9 +2,13 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  word-break: keep-all;
+  box-sizing: border-box;
 }
 
 html,

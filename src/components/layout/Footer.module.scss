@@ -1,0 +1,34 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.footer {
+  width: 100%;
+}
+
+.footer-container {
+  background-color: var(--color-black);
+  padding: rem(10) rem(40);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.footer-wrap {
+  @include grid-box(repeat(4, 1fr));
+  color: var(--color-white);
+
+  > li {
+    @include flex-box(start, center);
+  }
+}
+
+.menu-item {
+  @include typo(16, 400, 1.5);
+}
+
+.copyright {
+  @include typo(12, 400, 1.4);
+}
+
+.dummy {
+  height: rem(36);
+}

@@ -1,0 +1,33 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.section-container {
+  padding-bottom: rem(80);
+}
+
+.fake-image {
+  width: 100%;
+  aspect-ratio: 1920 / 610;
+  //background-color: #eceff4;
+  overflow: hidden;
+}
+
+.section-container {
+  /* 기존 스타일 유지 */
+
+  /* ✅ 애니메이션 초기 상태 설정 */
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Spline 로딩 지연에 대비해 다른 요소보다 살짝 더 딜레이를 주고 싶다면 아래 주석 해제 */
+  /* transition-delay: 0.2s; */
+}
+
+/* ✅ showAnimation이 true가 되어 클래스가 붙었을 때의 상태 */
+.section-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

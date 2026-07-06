@@ -1,0 +1,138 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: rem(62);
+  z-index: 100001;
+  transform-origin: 100% 0;
+  transition: transform 0.5s ease;
+  will-change: transform;
+
+  &.down {
+    transform: translateY(-100%);
+  }
+}
+
+.header-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-normal);
+}
+
+.header-container {
+  @include flex-box(space-between, center);
+  width: 100%;
+  height: 100%;
+}
+
+//header layout wraps
+.logo-wrap {
+  flex: 1;
+  @include flex-box(start, center);
+}
+
+.nav-wrap {
+  flex: 1;
+  @include flex-box(center, center, row, rem(40));
+}
+
+.function-wrap {
+  flex: 1;
+  @include flex-box(end, center);
+}
+
+//header contents
+.logo {
+  @include typo(20, 700, 1);
+  @include flex-box(start, center, row, rem(8));
+
+  .logo-sub {
+    color: var(--color-gray-200);
+  }
+}
+
+.nav-link {
+  .nav-button {
+    @include typo(16, 600, 1);
+    padding: rem(16);
+    margin: rem(-16);
+  }
+}
+
+.pc-function-wrap {
+  @include flex-box(end, center, row, rem(16));
+
+  .lang-wrap {
+    @include svg-box(rem(32));
+  }
+
+  .theme-wrap {
+    @include svg-box(rem(32));
+  }
+}
+
+/* 모바일 메뉴 (기본은 숨김) */
+.mobileMenuWrapper {
+  display: none;
+}
+
+.hamburgerBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 60; /* 오버레이보다 위에 있게 */
+  position: relative;
+  color: inherit;
+}
+
+.mobileOverlay {
+  position: absolute;
+  top: 80px; /* 헤더 바로 아래에 위치 */
+  left: 0;
+  width: 100%;
+  background-color: var(--color-bg-normal, #ffffff);
+  border-bottom: 1px solid var(--color-border, #eaeaea);
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobileNavLink {
+  font-size: 1.25rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mobileThemeArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #eaeaea);
+}
+
+/* === 반응형 (모바일 사이즈) === */
+@media (max-width: 767px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .desktopThemeToggle {
+    display: none;
+  }
+
+  .mobileMenuWrapper {
+    display: block;
+  }
+}

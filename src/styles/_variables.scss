@@ -1,16 +1,64 @@
 :root,
 [data-color-scheme='light'] {
   --color-main: #396eff;
-  --color-bg-normal: #ffffff;
+  --color-bg-normal: rgb(255, 255, 255);
   --color-label-normal: #0d0d0e;
-  --color-gray-0: #f8f8f9;
-  --color-gray-200: #131314;
+  --color-gray-0: #ffffff;
+  --color-gray-200: #d4d7db;
   --color-gray-700: #adafb7;
   --color-gray-900: #858892;
   --color-warning: #ff4d52;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-main-dark: #1ee100; /* * Site Main Color */
+
+  /* Gray scale */
+  --color-basic-font: #191919; /* * Gray Scale Color */
+  --color-basic-bg: #0a0a0a; /* * Gray Scale Color */
+  --color-dark-bg: #26272b; /* * Gray Scale Color */
+
+  --dark-color-font: #7b7c86; /* * Gray Scale Color */
+  --dark-color-line: #5a5b68; /* * Gray Scale Color */
+
+  --normal-color-font: #a6a7ae; /* * Gray Scale Color */
+  --normal-color-line: #d0d1da; /* * Gray Scale Color */
+
+  --border-dark-color-line: #e1e2e3; /* * Gray Scale Color */
+  --border-normal-color-line: #f1f2f3; /* * Gray Scale Color */
+
+  --border-black-dark-color-line: #333333; /* * Gray Scale Color */
+  --border-black-normal-color-line: #666666; /* * Gray Scale Color */
+
+  --color-gray-1000: #191919; /* * Gray Scale Color */
+  --color-gray-800: #27272a; /* * Gray Scale Color */
+  --color-gray-600: #52525b; /* * Gray Scale Color */
+  --color-gray-500: #71717a; /* * Gray Scale Color */
+  --color-gray-400: #a8a29e; /* * Gray Scale Color */
+  --color-gray-300: #d4d4d8; /* * Gray Scale Color */
+  --color-gray-100: #f4f4f5; /* * Gray Scale Color */
+  --color-gray-50: #fafafa; /* * Gray Scale Color */
+
+  /* System color */
+  --color-green: #00bd79; /* * Site System Color */
+  --color-green-bg: #d9f5eb; /* * Site System Color */
+  --color-lime: #75ce3c; /* * Site System Color */
+  --color-lime-bg: #d6f0c4; /* * Site System Color */
+  --color-red: #ff5247; /* * Site System Color */
+  --color-red-bg: #ffcbc8; /* * Site System Color */
+  --color-blue: #1b8cf8; /* * Site System Color */
+  --color-blue-bg: #bbddfd; /* * Site System Color */
+  --color-yellow: #ffde33; /* * Site System Color */
+  --color-yellow-bg: #fff5c2; /* * Site System Color */
+  --color-orange: #feae1a; /* * Site System Color */
+  --color-orange-bg: #ffe7ba; /* * Site System Color */
+  --color-purple: #79037d; /* * Site System Color */
+  --color-purple-bg: #d7b3d8; /* * Site System Color */
 }
 
 [data-color-scheme='dark'] {
   --color-bg-normal: #28282c;
   --color-label-normal: #f8f8f9;
+  --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
 }

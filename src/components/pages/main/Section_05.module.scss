@@ -1,0 +1,157 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.section-container {
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+
+.section-container {
+  padding: rem(240) 0 rem(240);
+}
+
+.section-wrap {
+  @include grid-box(null, rem(80));
+}
+
+.title-section {
+  @include flex-box(space-between, end, row, rem(10));
+}
+
+.text-section {
+  @include grid-box(null, rem(10));
+
+  .section-title {
+    @include typo(20, 700, 1.4);
+  }
+
+  .section-text {
+    @include typo(40, 700, 1.4);
+  }
+}
+
+.button-section {
+  @include flex-box(end, center, row, rem(10));
+
+  .more-button {
+    @include typo(16, 600, 1);
+  }
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+
+  // 🔥 카드 크기를 계산하기 위한 컨테이너 기준점 선언
+  container-type: inline-size;
+}
+
+/* 좌우 화살표 버튼 */
+.arrow-btn {
+  width: rem(50);
+  height: rem(50);
+  background-color: #fff;
+  border: rem(1) solid #e1e2e3;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  @include flex-box(center, center);
+  @include typo(18, 600, 1);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+  &.prev {
+    left: rem(-25); // 컨테이너 살짝 바깥에 위치 (디자인에 따라 조절 가능)
+  }
+
+  &.next {
+    right: rem(-25);
+  }
+}
+
+/* 슬라이더 트랙 */
+.slider-track {
+  display: flex;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  padding-top: rem(20);
+  padding-bottom: rem(20);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
+  &.grabbing {
+    cursor: grabbing;
+  }
+}
+
+/* 개별 스킬 카드 */
+.stack-card {
+  flex-shrink: 0;
+  width: 25cqw;
+  flex: 0 0 25cqw;
+  padding-right: rem(20);
+  box-sizing: border-box;
+
+  &:last-child {
+    padding-right: unset;
+  }
+
+  .stack-wrap {
+    @include grid-box(null, rem(40));
+  }
+
+  .card-info {
+    @include grid-box(null, rem(20));
+  }
+
+  .icon-box {
+    position: relative;
+    width: rem(120);
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    @include flex-box(center, center);
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .stack-name {
+    @include typo(32, 700, 1.2);
+    color: #111;
+  }
+
+  .stack-detail {
+    @include typo(16, 400, 1.6);
+    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-right: rem(40);
+  }
+}
+
+.slider-track {
+  display: flex;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+
+  &.grabbing {
+    cursor: grabbing;
+  }
+}

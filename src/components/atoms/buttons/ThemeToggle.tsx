@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react';
 import s from './ThemeToggle.module.scss';
 
+import DarkIcon from '@public/svg/layout/header/dark-theme.svg';
+import LightIcon from '@public/svg/layout/header/light-theme.svg';
+
 export default function ThemeToggle() {
   const [theme, setTheme] = useState('light');
   const [mounted, setMounted] = useState(false);
@@ -26,7 +29,11 @@ export default function ThemeToggle() {
 
   return (
     <button className={s['theme-button']} onClick={toggleTheme}>
-      {theme === 'light' ? '🌙 다크 모드로 전환' : '☀️ 라이트 모드로 전환'}
+      {theme === 'light' ? (
+        <DarkIcon width="32" height="32" viewBox="0 0 32 32" />
+      ) : (
+        <LightIcon width="32" height="32" viewBox="0 0 32 32" />
+      )}
     </button>
   );
 }

@@ -1,0 +1,16 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.fade-wrapper {
+  opacity: 0;
+  transform: translateY(rem(10)); /* 20px 아래에 위치 */
+  /* 부드러운 애니메이션 (원하는 속도/가속도로 조절하세요) */
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -34,14 +34,14 @@ export default function InitialLoader() {
           setTimeout(() => {
             setIsLoading(false);
             hasRunRef.current = true;
-          }, 300);
+          }, 500);
 
           return 100;
         }
 
         return nextProgress;
       });
-    }, 10); // (10ms * 100 = 1000ms지만 React 상태 업데이트 지연 고려 시 원하시는 속도에 맞춰 조정 필요)
+    }, 30); // (10ms * 100 = 1000ms지만 React 상태 업데이트 지연 고려 시 원하시는 속도에 맞춰 조정 필요)
 
     return () => clearInterval(interval);
   }, [pathname]); // pathname이 변경될 때마다 검사
@@ -53,11 +53,11 @@ export default function InitialLoader() {
           key="loader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          transition={{ duration: 1.5, ease: 'easeInOut' }}
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 9999,
+            zIndex: 9999999,
             backgroundColor: 'var(--color-bg-normal)',
             display: 'flex',
             flexDirection: 'column',
@@ -65,8 +65,8 @@ export default function InitialLoader() {
             alignItems: 'center',
           }}
         >
-          <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-            {progress}%
+          <div style={{ fontSize: '20rem', fontWeight: 'bold' }}>
+            {progress}
           </div>
         </motion.div>
       ) : (

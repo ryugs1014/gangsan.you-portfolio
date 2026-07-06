@@ -1,0 +1,32 @@
+[
+  {
+    "id": "glitchor-partners",
+    "main-color": "#ffffff",
+    "logo-image": "/image/page/main/icon/html.png",
+    "main-image": "/image/page/main/icon/html.png",
+    "work-title": "글리처파트너스 공식 웹사이트",
+    "full-work-title": "NEXT LIFESTYLE VENTURE STUDIO 글리처파트너스 공식 웹사이트",
+    "work-explan": "안녕하세요. Next.js와 React Native로 실서비스를 개발·운영해온 프론트엔드 개발자 황다희입니다.",
+    "client": "글리처파트너스",
+    "category": "web",
+    "work-start": "2026.01",
+    "work-end": "2026.02",
+    "work-contribution": "100%",
+    "key-features": "로그인, 회원가입, 데이터 시각화, CRUD 구현",
+    "key-techs": "HTML, CSS, JavaScript",
+    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "link": "https://gangsan-you-portfolio.vercel.app",
+    "detail": [
+      {
+        "detail-title": "테크 기업의 새로운 정체성을 전달하는 메인 페이지",
+        "detail-explan": "디자인, 기술, 그리고 사용자 경험이 만나는 지점에서 디지털 경험을 만들어가는 소프트웨어 개발자입니다.",
+        "detail-image": "/image/page/main/icon/html.png"
+      },
+      {
+        "detail-title": "테크 기업의 새로운 정체성을 전달하는 메인 페이지",
+        "detail-explan": "디자인, 기술, 그리고 사용자 경험이 만나는 지점에서 디지털 경험을 만들어가는 소프트웨어 개발자입니다.",
+        "detail-image": "/image/page/main/icon/html.png"
+      }
+    ]
+  }
+]

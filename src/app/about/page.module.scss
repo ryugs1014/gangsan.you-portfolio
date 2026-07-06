@@ -1,0 +1,10 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.main {
+}
+
+.section-wrap {
+  padding: rem(80) 0 rem(240);
+  box-sizing: border-box;
+}

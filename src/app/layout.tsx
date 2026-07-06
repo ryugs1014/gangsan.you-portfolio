@@ -3,7 +3,10 @@ import localFont from 'next/font/local';
 import '@/styles/globals.scss';
 
 import InitialLoader from '@/components/session/InitialLoader';
-import PageTransition from '@/components/session/PageTransition';
+
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import ScrollToTop from '@/components/atoms/buttons/ScrollToTop';
 
 const themeScript = `
   (function() {
@@ -44,7 +47,12 @@ export default function RootLayout({
       <body>
         <InitialLoader />
 
-        <PageTransition>{children}</PageTransition>
+        <div className="app-wrapper">
+          <Header />
+          {children}
+          <Footer />
+          <ScrollToTop />
+        </div>
       </body>
     </html>
   );

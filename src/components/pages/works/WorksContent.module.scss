@@ -1,0 +1,7 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.works-list-container {
+  padding: rem(240) 0;
+  box-sizing: border-box;
+}
