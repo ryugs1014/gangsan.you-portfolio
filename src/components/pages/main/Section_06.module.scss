@@ -40,11 +40,11 @@
   > li {
     padding: rem(60) rem(10);
     box-sizing: border-box;
-    border-bottom: rem(1) solid #e1e2e3;
+    border-bottom: rem(1) solid var(--color-line-noraml);
     width: 100%;
 
     &:first-child {
-      border-top: rem(1) solid #e1e2e3;
+      border-top: rem(1) solid var(--color-line-noraml);
       padding: rem(40) rem(10) rem(80);
     }
   }
@@ -60,5 +60,9 @@
     width: 100%;
     @include flex-box(space-between, center, row, rem(10));
     @include typo(20, 600, 1);
+
+    > button {
+      color: var(--color-gray-1000);
+    }
   }
 }

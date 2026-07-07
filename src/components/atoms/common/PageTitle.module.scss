@@ -13,5 +13,5 @@
 
 .description {
   @include typo(18, 400, 1.5);
-  color: #666;
+  color: var(--color-gray-400);
 }

@@ -38,10 +38,10 @@
     @include grid-box(rem(400) 1fr, rem(20));
     padding: rem(60) rem(10);
     box-sizing: border-box;
-    border-bottom: rem(1) solid #e1e2e3;
+    border-bottom: rem(1) solid var(--color-line-noraml);
 
     &:first-child {
-      border-top: rem(1) solid #e1e2e3;
+      border-top: rem(1) solid var(--color-line-noraml);
     }
   }
 
@@ -51,7 +51,7 @@
     @include typo(40, 700, 1);
 
     .sub-title {
-      color: #d4d7db;
+      color: var(--color-gray-200);
     }
   }
 
@@ -63,18 +63,18 @@
     @include grid-box(null, rem(16));
 
     > li {
-      color: #a5a7aa;
+      color: var(--color-gray-400);
       @include grid-box(rem(210) 1fr, rem(60));
 
       .flex-box {
         @include flex-box(space-between, start, row, rem(60));
 
         .list-title {
-          color: var(--color-black);
+          color: var(--color-gray-1000);
         }
 
         .list-title-sub {
-          color: #a5a7aa;
+          color: var(--color-gray-400);
         }
 
         .list-sub {
@@ -94,7 +94,7 @@
       padding: rem(4) rem(4);
       box-sizing: border-box;
       border-radius: rem(4);
-      background-color: #eceff4;
+      background-color: var(--color-gray-100);
     }
   }
 }

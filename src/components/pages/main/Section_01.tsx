@@ -7,24 +7,28 @@ import Container from '@/components/layout/Container';
 export default function Section_01() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [overlayOpacity, setOverlayOpacity] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
-      // 현재 섹션의 화면 상단(viewport) 기준 위치를 가져옵니다.
       const { top } = sectionRef.current.getBoundingClientRect();
 
       // 애니메이션이 진행될 스크롤 거리 (화면 높이의 2배 = 200vh)
       const scrollDistance = window.innerHeight * 2;
 
-      // 진행도 계산: top이 0 이하로 내려갈 때부터 시작 (음수값을 양수로 변환)
+      // 1. 기존 비디오 진행도 계산 (0 ~ 1 사이 유지)
       let currentProgress = -top / scrollDistance;
-
-      // 진행도를 0(시작점) ~ 1(도착점) 사이로 제한
       currentProgress = Math.max(0, Math.min(1, currentProgress));
-
       setProgress(currentProgress);
+
+      // 2. 새로운 오버레이 텍스트 진행도 계산
+      // 비디오가 100%가 되는 지점(-top이 scrollDistance를 넘어설 때)부터 페이드인 시작
+      // 화면 높이의 절반(0.5vh) 동안 부드럽게 나타나도록 계산
+      let currentOpacity = (-top - scrollDistance) / (window.innerHeight * 0.5);
+      currentOpacity = Math.max(0, Math.min(1, currentOpacity));
+      setOverlayOpacity(currentOpacity);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -33,33 +37,23 @@ export default function Section_01() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- 스크롤 진행도(progress)에 따른 동적 스타일 계산 ---
-
-  // 1. 영상 너비: 500px -> 100vw(전체 화면)
+  // --- 기존 코드 완벽 유지 ---
   const videoWidth = `calc(600px + (100vw - 600px) * ${progress})`;
-
-  // 2. 영상 높이: 281px(16:9 비율) -> 100vh(전체 화면)
   const videoHeight = `calc(1080px + (100vh - 281px) * ${progress})`;
-
-  // 3. 위치(위로 올라감): 화면 65% 지점(제목 아래) -> 50% 지점(정중앙)
   const videoTop = `calc(125% - (75% * ${progress}))`;
-
-  // 4. 테두리 둥글기: 24px -> 0px (전체화면일 때는 각지게)
   const videoRadius = `${24 * (1 - progress)}px`;
 
-  // 5. 제목 투명도 및 위로 밀림 효과 (스크롤 절반쯤에 완전히 사라짐)
   const titleOpacity = 1 - progress * 2.5;
   const titleTranslateY = `-${progress * 50}px`;
 
   return (
     <div ref={sectionRef} className={s['section-container']}>
-      {/* 화면에 고정되는 끈적이(Sticky) 래퍼 */}
       <div className={s['sticky-wrap']}>
-        {/* 제목 영역 */}
         <Container className={s['title-container']}>
           <h1
             className={s['title']}
             style={{
+              opacity: titleOpacity, // 기존에 계산해두신 투명도 변수만 적용했습니다
               transform: `translateY(${titleTranslateY})`,
             }}
           >
@@ -87,6 +81,21 @@ export default function Section_01() {
             playsInline
             className={s['video-element']}
           />
+
+          {/* 새로 추가된 배경 및 텍스트 오버레이 */}
+          <div
+            className={s['overlay']}
+            style={{
+              opacity: overlayOpacity,
+              pointerEvents: overlayOpacity > 0 ? 'auto' : 'none',
+            }}
+          >
+            <div className={s['overlay-bg']} />
+            <div className={s['overlay-text']}>
+              <p>새로운 비전을 제시하는</p>
+              <p>프론트엔드 개발자입니다</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

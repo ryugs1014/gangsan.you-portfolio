@@ -48,11 +48,13 @@ export default async function Stacks() {
         </PageTitle>
       </FadeIn>
 
-      <Section_Banner />
+      <FadeIn delay={0.3}>
+        <Section_Banner />
+      </FadeIn>
 
       <TabNavigation tabs={tabs} />
 
-      <FadeIn delay={0.5}>
+      <FadeIn threshold={0.2}>
         <StackList groupedStacks={groupedStacks} />
       </FadeIn>
     </main>

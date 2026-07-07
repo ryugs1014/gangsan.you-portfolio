@@ -2,7 +2,6 @@
 
 import type { Metadata } from 'next';
 import s from './page.module.scss';
-import Section_01 from '@/components/pages/main/Section_01';
 import PageTitle from '@/components/atoms/common/PageTitle';
 import Section_Banner from '@/components/pages/works/Section_Banner';
 import WorksContent from '@/components/pages/works/WorksContent';
@@ -24,11 +23,11 @@ export default async function Works() {
         </PageTitle>
       </FadeIn>
 
-      <Section_Banner />
-
-      <FadeIn delay={0.5}>
-        <WorksContent />
+      <FadeIn delay={0.3}>
+        <Section_Banner />
       </FadeIn>
+
+      <WorksContent />
     </main>
   );
 }

@@ -3,7 +3,7 @@
 
 .section-container {
   /* 스크롤 애니메이션이 동작할 충분한 트랙(여백) 확보 */
-  height: 300vh;
+  height: 500dvh;
   position: relative;
 }
 
@@ -42,4 +42,38 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* --- 추가된 오버레이 관련 스타일 --- */
+.overlay {
+  position: absolute;
+  inset: 0; // top, left, right, bottom 0을 의미
+  @include flex-box(center, center);
+  flex-direction: column;
+  z-index: 10;
+  will-change: opacity;
+}
+
+.overlay-bg {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); // 배경을 반투명하게 어둡게 (원하시는 밝기로 조절)
+  z-index: -1;
+}
+
+.overlay-text {
+  color: var(--color-white-fix);
+  text-align: center;
+  font-size: rem(48); // 텍스트 크기 조절
+  font-weight: 700;
+  line-height: 1.4;
+
+  p {
+    margin: 0;
+  }
 }

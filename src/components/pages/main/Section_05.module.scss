@@ -3,7 +3,7 @@
 
 .section-container {
   overflow: hidden;
-  background-color: #f7f7f7;
+  background-color: var(--color-bg-stacks);
 }
 
 .section-container {
@@ -50,8 +50,9 @@
 .arrow-btn {
   width: rem(50);
   height: rem(50);
-  background-color: #fff;
-  border: rem(1) solid #e1e2e3;
+  color: var(--color-gray-1000);
+  background-color: var(--color-gray-0);
+  border: rem(1) solid var(--color-line-noraml);
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
@@ -60,9 +61,9 @@
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: #111;
-    color: #fff;
-    border-color: #111;
+    background-color: var(--color-gray-1000);
+    color: var(--color-gray-0);
+    border-color: var(--color-gray-1000);
   }
 
   &.prev {
@@ -131,12 +132,12 @@
 
   .stack-name {
     @include typo(32, 700, 1.2);
-    color: #111;
+    color: var(--color-gray-1000);
   }
 
   .stack-detail {
     @include typo(16, 400, 1.6);
-    color: #555;
+    color: var(--color-gray-400);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;

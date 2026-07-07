@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import s from './TabNavigation.module.scss';
 import Container from '@/components/layout/Container';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 export interface TabItem {
   name: string;
@@ -95,19 +96,21 @@ export default function TabNavigation({ tabs }: TabNavigationProps) {
 
   return (
     <div className={`${s['tab-wrapper']} ${isUp ? s['up'] : ''}`}>
-      <Container className={s['tab-container']}>
-        <div className={s['tab-wrap']}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`${s['tab-button']} ${activeTab === tab.id ? s['active'] : ''}`}
-              onClick={() => handleTabClick(tab.id)}
-            >
-              {tab.name}
-            </button>
-          ))}
-        </div>
-      </Container>
+      <FadeIn threshold={0.2}>
+        <Container className={s['tab-container']}>
+          <div className={s['tab-wrap']}>
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                className={`${s['tab-button']} ${activeTab === tab.id ? s['active'] : ''}`}
+                onClick={() => handleTabClick(tab.id)}
+              >
+                {tab.name}
+              </button>
+            ))}
+          </div>
+        </Container>
+      </FadeIn>
     </div>
   );
 }

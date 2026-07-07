@@ -60,6 +60,7 @@
     @include typo(16, 600, 1);
     padding: rem(16);
     margin: rem(-16);
+    color: var(--color-gray-1000);
   }
 }
 
@@ -68,6 +69,7 @@
 
   .lang-wrap {
     @include svg-box(rem(32));
+    color: var(--color-gray-100);
   }
 
   .theme-wrap {
@@ -95,8 +97,8 @@
   top: 80px; /* 헤더 바로 아래에 위치 */
   left: 0;
   width: 100%;
-  background-color: var(--color-bg-normal, #ffffff);
-  border-bottom: 1px solid var(--color-border, #eaeaea);
+  background-color: var(--color-bg-normal);
+  border-bottom: rem(1) solid var(--color-line-noraml);
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
@@ -119,7 +121,7 @@
   align-items: center;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid var(--color-border, #eaeaea);
+  border-top: rem(1) solid var(--color-line-noraml);
 }
 
 /* === 반응형 (모바일 사이즈) === */

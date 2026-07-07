@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import s from './TabNavigation.module.scss';
 import Container from '@/components/layout/Container';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 interface TabCategoryProps {
   categories: string[];
@@ -70,20 +71,22 @@ export default function TabCategory({
 
   return (
     <div className={`${s['tab-wrapper']} ${isUp ? s['up'] : ''}`}>
-      <Container className={s['tab-container']}>
-        <div className={s['tab-wrap']}>
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`${s['tab-button']} ${activeCategory === category ? s['active'] : ''}`}
-              // ✅ onClick 이벤트에 handleTabClick 함수 연결
-              onClick={() => handleTabClick(category)}
-            >
-              {category.toUpperCase()}
-            </button>
-          ))}
-        </div>
-      </Container>
+      <FadeIn threshold={0.2}>
+        <Container className={s['tab-container']}>
+          <div className={s['tab-wrap']}>
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`${s['tab-button']} ${activeCategory === category ? s['active'] : ''}`}
+                // ✅ onClick 이벤트에 handleTabClick 함수 연결
+                onClick={() => handleTabClick(category)}
+              >
+                {category.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </Container>
+      </FadeIn>
     </div>
   );
 }

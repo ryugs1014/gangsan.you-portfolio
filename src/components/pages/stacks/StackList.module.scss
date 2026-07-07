@@ -45,18 +45,18 @@
     background-color: rgb(255, 255, 255);
     user-select: none;
     pointer-events: none;
-    border: rem(1) solid #e1e2e3;
+    border: rem(1) solid var(--color-line-noraml);
     border-radius: rem(20);
   }
 
   .stack-name {
     @include typo(32, 700, 1.2);
-    color: #111;
+    color: var(--color-gray-1000);
   }
 
   .stack-detail {
     @include typo(14, 400, 1.6);
-    color: #555;
+    color: var(--color-gray-400);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;

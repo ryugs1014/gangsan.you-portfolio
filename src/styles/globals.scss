@@ -6,8 +6,12 @@
 body {
   font-family: var(--font-pretendard), sans-serif;
   background-color: var(--color-bg-normal);
-  color: var(--color-label-normal);
+  color: var(--color-font-noraml);
   overflow: visible;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .app-wrapper {

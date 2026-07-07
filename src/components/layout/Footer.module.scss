@@ -6,7 +6,7 @@
 }
 
 .footer-container {
-  background-color: var(--color-black);
+  background-color: var(--color-gray-1000);
   padding: rem(10) rem(40);
   box-sizing: border-box;
   width: 100%;
@@ -14,7 +14,7 @@
 
 .footer-wrap {
   @include grid-box(repeat(4, 1fr));
-  color: var(--color-white);
+  color: var(--color-gray-0);
 
   > li {
     @include flex-box(start, center);

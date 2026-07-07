@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Container from '@/components/layout/Container';
 import s from './WorkDetail.module.scss';
 import Image from 'next/image';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 export interface PortfolioDetailItem {
   'detail-title': string;
@@ -78,38 +79,44 @@ export default function WorkDetail({ data }: WorkDetailProps) {
     <article className={s['detail-container']}>
       <section className={s['hero-section']}>
         <div className={s['hero-header']}>
-          <h1 className={s['header-title']}>{data['work-title']}</h1>
+          <FadeIn>
+            <h1 className={s['header-title']}>{data['work-title']}</h1>
+          </FadeIn>
 
-          <div className={s['action-links']}>
-            <a href={'/works'} className={`${s['back-button']}`}>
-              ← 목록 돌아가기{' '}
-            </a>
+          <FadeIn delay={0.3}>
+            <div className={s['action-links']}>
+              <a href={'/works'} className={`${s['back-button']}`}>
+                ← 목록 돌아가기{' '}
+              </a>
 
-            <a
-              href={data.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${s['link-btn']} ${s['primary']}`}
-            >
-              사이트 방문하기
-            </a>
+              <a
+                href={data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${s['link-btn']} ${s['primary']}`}
+              >
+                사이트 방문하기
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.6}>
+          <div className={s['main-image-box']}>
+            <Image
+              src={data['main-image']}
+              alt={data['work-title']}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+              }}
+            />
           </div>
-        </div>
-
-        <div className={s['main-image-box']}>
-          <Image
-            src={data['main-image']}
-            alt={data['work-title']}
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-              display: 'block',
-            }}
-          />
-        </div>
+        </FadeIn>
 
         {/*<div className={s['logo-box']}>*/}
         {/*  /!* 실제 프로젝트에서는 로고 이미지를 렌더링 *!/*/}
@@ -122,118 +129,124 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       </section>
 
       <Container>
-        <section className={s['info-section']}>
-          <div className={s['info-grid']}>
-            <div className={s['grid-wrap']}>
-              <div className={s['info-title']}>
-                <span className={s['value']}>{data['full-work-title']}</span>
-              </div>
-
-              <div className={s['info-wrap']}>
-                <div className={s['info-item']}>
-                  <span className={s['label']}>클라이언트</span>
-                  <span className={s['value']}>{data.client}</span>
+        <FadeIn threshold={0.2}>
+          <section className={s['info-section']}>
+            <div className={s['info-grid']}>
+              <div className={s['grid-wrap']}>
+                <div className={s['info-title']}>
+                  <span className={s['value']}>{data['full-work-title']}</span>
                 </div>
 
-                <div className={s['info-item']}>
-                  <span className={s['label']}>카테고리</span>
-                  <span className={s['value']}>
-                    {data.category.toUpperCase()}
-                  </span>
-                </div>
+                <div className={s['info-wrap']}>
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>클라이언트</span>
+                    <span className={s['value']}>{data.client}</span>
+                  </div>
 
-                <div className={s['info-item']}>
-                  <span className={s['label']}>진행 기간</span>
-                  <span className={s['value']}>
-                    {data['work-start']} ~ {data['work-end']}
-                  </span>
-                </div>
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>카테고리</span>
+                    <span className={s['value']}>
+                      {data.category.toUpperCase()}
+                    </span>
+                  </div>
 
-                <div className={s['info-item']}>
-                  <span className={s['label']}>기여도</span>
-                  <span className={s['value']}>
-                    {data['work-contribution']}
-                  </span>
-                </div>
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>진행 기간</span>
+                    <span className={s['value']}>
+                      {data['work-start']} ~ {data['work-end']}
+                    </span>
+                  </div>
 
-                <div className={s['info-item']}>
-                  <span className={s['label']}>주요 기능</span>
-                  <div className={s['tags']}>{data['key-features']}</div>
-                </div>
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>기여도</span>
+                    <span className={s['value']}>
+                      {data['work-contribution']}
+                    </span>
+                  </div>
 
-                <div className={s['info-item']}>
-                  <span className={s['label']}>주요 기술</span>
-                  <div className={s['tags']}>
-                    {data['key-techs']?.split(',').map((feature, idx) => (
-                      <span key={idx} className={s['tag']}>
-                        {feature.trim()}
-                      </span>
-                    ))}
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>주요 기능</span>
+                    <div className={s['tags']}>{data['key-features']}</div>
+                  </div>
+
+                  <div className={s['info-item']}>
+                    <span className={s['label']}>주요 기술</span>
+                    <div className={s['tags']}>
+                      {data['key-techs']?.split(',').map((feature, idx) => (
+                        <span key={idx} className={s['tag']}>
+                          {feature.trim()}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className={s['grid-wrap']}>
-              <p className={s['explan']}>{data['work-explan']}</p>
-            </div>
+              <div className={s['grid-wrap']}>
+                <p className={s['explan']}>{data['work-explan']}</p>
+              </div>
 
-            <div className={s['button-wrap']}>
-              <a
-                href={data.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={s['out-link']}
-              >
-                GitHub
-              </a>
-              <a
-                href={data.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={s['site-link']}
-              >
-                사이트 방문
-              </a>
+              <div className={s['button-wrap']}>
+                <a
+                  href={data.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s['out-link']}
+                >
+                  GitHub
+                </a>
+                <a
+                  href={data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s['site-link']}
+                >
+                  사이트 방문
+                </a>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </FadeIn>
       </Container>
 
       <Container>
         <section className={s['detail-list-section']}>
           {data.detail?.map((item, idx) => (
-            <div key={idx} className={s['detail-block']}>
-              <div className={s['text-area']}>
-                <h3 className={s['detail-title']}>{item['detail-title']}</h3>
-                <p className={s['detail-explan']}>{item['detail-explan']}</p>
-              </div>
+            <FadeIn key={idx} threshold={0.2}>
+              <div className={s['detail-block']}>
+                <div className={s['text-area']}>
+                  <h3 className={s['detail-title']}>{item['detail-title']}</h3>
+                  <p className={s['detail-explan']}>{item['detail-explan']}</p>
+                </div>
 
-              <div className={s['detail-image-box']}>
-                <Image
-                  src={item['detail-image']}
-                  alt={item['detail-title']}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block',
-                  }}
-                />
+                <div className={s['detail-image-box']}>
+                  <Image
+                    src={item['detail-image']}
+                    alt={item['detail-title']}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </section>
       </Container>
 
       <Container>
-        <div className={s['footer-button-section']}>
-          <a href={'/works'} className={`${s['footer-back-button']}`}>
-            ← 목록 돌아가기{' '}
-          </a>
-        </div>
+        <FadeIn threshold={0.2}>
+          <div className={s['footer-button-section']}>
+            <a href={'/works'} className={`${s['footer-back-button']}`}>
+              ← 목록 돌아가기{' '}
+            </a>
+          </div>
+        </FadeIn>
       </Container>
 
       {data.next && (

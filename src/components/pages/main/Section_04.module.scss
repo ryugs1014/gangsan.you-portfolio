@@ -44,14 +44,15 @@
       background-image: url('/image/page/main/web_section.png');
       background-position: center center;
       background-size: cover;
+      color: var(--color-black-fix);
     }
   }
+
   &:nth-child(2) {
     .category-name {
       background-image: url('/image/page/main/mobile_section.png');
       background-position: center center;
       background-size: cover;
-      color: var(--color-white);
     }
   }
 }
@@ -120,7 +121,7 @@
 
   .work-explan {
     @include typo(16, 400, 1.5);
-    color: #444444;
+    color: var(--color-gray-700);
   }
 
   .key-features {
@@ -133,7 +134,7 @@
       padding: rem(6) rem(4);
       box-sizing: border-box;
       border-radius: rem(4);
-      background-color: #eceff4;
+      background-color: var(--color-gray-100);
     }
   }
 
@@ -153,12 +154,12 @@
     }
 
     .out-link {
-      border: rem(1) solid var(--color-black);
+      border: rem(1) solid var(--color-gray-1000);
     }
 
     .site-link {
-      color: var(--color-white);
-      background-color: var(--color-black);
+      color: var(--color-gray-0);
+      background-color: var(--color-gray-1000);
     }
 
     .detail-button {
@@ -169,6 +170,6 @@
   .work-image {
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: #eceff4;
+    background-color: var(--color-gray-100);
   }
 }

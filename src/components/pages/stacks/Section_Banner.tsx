@@ -19,8 +19,11 @@ export default function Section_Banner() {
     >
       <div className={s['fake-image']}>
         <div className={s['spline-wrap']}>
+          {/*<Spline*/}
+          {/*  scene="https://prod.spline.design/sWxotQm2vsZXYv4h/scene.splinecode"*/}
+          {/*/>*/}
           <Spline
-            scene="https://prod.spline.design/sWxotQm2vsZXYv4h/scene.splinecode"
+            scene="https://prod.spline.design/UI87BciL0x34BOij/scene.splinecode"
             onLoad={handleLoad} // Spline 로딩 완료 시 핸들러 호출
           />
         </div>

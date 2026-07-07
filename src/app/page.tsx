@@ -9,6 +9,7 @@ import Section_04 from '@/components/pages/main/Section_04';
 import Section_05 from '@/components/pages/main/Section_05';
 import Section_06 from '@/components/pages/main/Section_06';
 import TabNavigation from '@/components/atoms/buttons/TabNavigation';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,10 +31,21 @@ export default async function Home() {
 
       <TabNavigation tabs={HOME_TABS} />
 
-      <Section_03 />
-      <Section_04 />
-      <Section_05 />
-      <Section_06 />
+      <FadeIn threshold={0.2}>
+        <Section_03 />
+      </FadeIn>
+
+      <FadeIn threshold={0.2}>
+        <Section_04 />
+      </FadeIn>
+
+      <FadeIn threshold={0.2}>
+        <Section_05 />
+      </FadeIn>
+
+      <FadeIn threshold={0.2}>
+        <Section_06 />
+      </FadeIn>
     </main>
   );
 }
