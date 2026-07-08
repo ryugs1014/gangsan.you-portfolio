@@ -7,8 +7,7 @@
 
 .fake-image {
   width: 100%;
-  aspect-ratio: 1920 / 610;
-  //background-color: #eceff4;
+  aspect-ratio: 1920 / 700;
   overflow: hidden;
   //position: relative;
 
@@ -25,14 +24,29 @@
 
 .section-container {
   opacity: 0;
-  transform: translateY(20px); // 살짝 아래에서 위로
+  transform: translateY(rem(20));
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
 }
 
-/* is-visible 클래스가 붙으면 제자리로 오면서 나타남 */
 .section-container.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: rem(1600)) {
+  .fake-image {
+    aspect-ratio: 1920 / 600;
+  }
+
+  .spline-wrap {
+    height: 150%;
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .fake-image {
+    aspect-ratio: 1920 / 1200;
+  }
 }

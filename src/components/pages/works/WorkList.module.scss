@@ -86,5 +86,63 @@
     @include typo(16, 600, 1);
     opacity: 0;
     transition: opacity 0.25s ease;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: rem(1600)) {
+  .portfolio-list {
+    @include grid-box(repeat(2, 1fr), rem(40));
+    row-gap: rem(80);
+    width: 100%;
+  }
+
+  .portfolio-item {
+    .web-links {
+      bottom: rem(20);
+      right: rem(20);
+    }
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .portfolio-list {
+    @include grid-box(repeat(2, 1fr), rem(30));
+    row-gap: rem(60);
+    width: 100%;
+  }
+
+  .portfolio-item {
+    .work-info {
+      @include grid-box(null, rem(10));
+    }
+
+    .work-title {
+      @include typo(24, 700, 1.4);
+    }
+
+    .work-explan {
+      @include typo(14, 400, 1.5);
+    }
+
+    .web-links {
+      @include flex-box(start, center, row, rem(6));
+      bottom: rem(16);
+      right: rem(16);
+    }
+
+    .out-link,
+    .site-link {
+      @include typo(14, 700, 1);
+      padding: rem(12) rem(16);
+    }
+  }
+}
+
+@media (max-width: rem(768)) {
+  .portfolio-list {
+    @include grid-box(1fr, rem(40));
+    row-gap: rem(80);
+    width: 100%;
   }
 }

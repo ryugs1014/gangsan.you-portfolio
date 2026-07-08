@@ -2,7 +2,6 @@
 @use '@/styles/rem' as *;
 
 .section-container {
-  /* 스크롤 애니메이션이 동작할 충분한 트랙(여백) 확보 */
   height: 500dvh;
   position: relative;
 }
@@ -10,9 +9,9 @@
 .sticky-wrap {
   position: sticky;
   top: 0;
-  height: 100vh; /* 화면 전체 높이만큼 꽉 차게 고정 */
+  height: 100vh;
   width: 100%;
-  overflow: hidden; /* 비디오가 커질 때 스크롤바가 생기지 않도록 방지 */
+  overflow: hidden;
 }
 
 .title-container {
@@ -25,14 +24,14 @@
   margin-top: 25dvh;
   font-size: rem(80);
   font-weight: 700;
-  /* 부드러운 움직임을 위한 하드웨어 가속 */
   will-change: opacity, transform;
 }
 
 .video-wrapper {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%); /* 중심축을 정중앙으로 설정 */
+  //transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   overflow: hidden;
   will-change: width, height, top, border-radius;
   @include flex-box(center, center);
@@ -44,10 +43,9 @@
   object-fit: cover;
 }
 
-/* --- 추가된 오버레이 관련 스타일 --- */
 .overlay {
   position: absolute;
-  inset: 0; // top, left, right, bottom 0을 의미
+  inset: 0;
   @include flex-box(center, center);
   flex-direction: column;
   z-index: 10;
@@ -57,23 +55,34 @@
 .overlay-bg {
   position: absolute;
   inset: 0;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); // 배경을 반투명하게 어둡게 (원하시는 밝기로 조절)
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
 .overlay-text {
   color: var(--color-white-fix);
   text-align: center;
-  font-size: rem(48); // 텍스트 크기 조절
+  font-size: rem(48);
   font-weight: 700;
   line-height: 1.4;
 
   p {
     margin: 0;
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .title {
+    font-size: 8cqw;
+  }
+
+  .overlay-text {
+    font-size: 6cqw;
+  }
+}
+
+@media (max-width: rem(768)) {
+  .video-wrapper {
+    //width: 100% !important;
   }
 }

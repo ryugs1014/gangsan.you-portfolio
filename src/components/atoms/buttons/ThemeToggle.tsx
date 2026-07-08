@@ -11,20 +11,33 @@ export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // 컴포넌트가 브라우저에 마운트되면 로컬 스토리지 값을 읽어옵니다.
     setMounted(true);
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
+
+    // 1. 커스텀 이벤트 리스너 등록: 다른 컴포넌트에서 테마를 변경했는지 감지합니다.
+    const syncTheme = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setTheme(customEvent.detail); // 전달받은 새 테마로 내 상태도 업데이트
+    };
+
+    window.addEventListener('theme-change', syncTheme);
+
+    return () => {
+      window.removeEventListener('theme-change', syncTheme);
+    };
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme); // 캐시에 저장
-    document.documentElement.setAttribute('data-color-scheme', newTheme); // HTML 속성 변경
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-color-scheme', newTheme);
+
+    // 2. 테마 변경 알림 발송: 내 상태를 바꾼 후, 다른 <ThemeToggle /> 들에게도 알립니다.
+    window.dispatchEvent(new CustomEvent('theme-change', { detail: newTheme }));
   };
 
-  // 💡 Hydration 에러 방지: 브라우저에 마운트되기 전에는 아무것도 보여주지 않습니다.
   if (!mounted) return null;
 
   return (

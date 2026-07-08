@@ -17,8 +17,7 @@ export default async function Works() {
     <main className={s['main']}>
       <FadeIn>
         <PageTitle>
-          고객의 이야기를 가장 가까이에서 듣고,
-          <br />
+          고객의 이야기를 가장 가까이에서 듣고, <br />
           만족을 넘어서는 경험을 제공해요.
         </PageTitle>
       </FadeIn>

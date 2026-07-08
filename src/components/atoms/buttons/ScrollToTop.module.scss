@@ -39,3 +39,15 @@
     transform: translateY(rem(-5));
   }
 }
+
+@media (max-width: rem(1000)) {
+  .scroll-button {
+    right: rem(20);
+  }
+}
+
+@media (max-width: rem(768)) {
+  .scroll-button {
+    right: rem(10);
+  }
+}

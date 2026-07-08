@@ -341,6 +341,17 @@
       user-select: none;
       @include typo(40, 700, 1.2);
       text-align: left;
+
+      .button-container {
+        @include flex-box(start, center, row, rem(16));
+
+        .svg-box {
+          rect,
+          path {
+            stroke: var(--color-gray-0);
+          }
+        }
+      }
     }
   }
 }
@@ -350,7 +361,14 @@
   margin-top: rem(80);
 
   .message-title {
+    @include flex-box(start, center, row, rem(16));
     @include typo(40, 700, 1.2);
+
+    .svg-box {
+      path {
+        fill: var(--color-font-noraml);
+      }
+    }
   }
 
   .message-sub {
@@ -469,7 +487,7 @@
   }
 }
 
-@media (max-width: rem(991)) {
+@media (max-width: rem(1000)) {
   .section-wrap {
     .form-wrap {
       .title-wrap {
@@ -481,7 +499,7 @@
 
 @media (max-width: rem(768)) {
   .section-wrap {
-    padding: rem(100) 0;
+    padding-bottom: rem(160);
 
     .file-warning {
       @include typo(14, 400, 1.2);
@@ -502,8 +520,25 @@
           }
         }
 
+        input {
+          height: rem(72);
+
+          &.text-input {
+            @include typo(20, 400, 1.4);
+
+            &::placeholder {
+              @include typo(20, 700, 1.4);
+            }
+          }
+        }
+
         textarea {
+          @include typo(20, 400, 1.4);
           min-height: rem(340);
+
+          &::placeholder {
+            @include typo(20, 700, 1.4);
+          }
         }
       }
 
@@ -522,15 +557,16 @@
     }
 
     .button-wrap {
-      > button {
-        height: auto;
-        padding: rem(24) rem(54);
-        @include typo(24, 500, 1.2);
-        word-break: keep-all;
-        white-space: nowrap;
+      margin-top: rem(60);
+
+      .submit-button {
+        width: 100%;
+        height: rem(72);
+        @include typo(32, 700, 1.2);
       }
     }
   }
+
   .modal {
     padding: rem(24) rem(20);
     max-width: rem(360);
@@ -547,5 +583,17 @@
   .modal-buttons {
     margin-top: rem(24);
     gap: rem(10);
+  }
+
+  .message-wrap {
+    margin-top: rem(60);
+
+    .message-title {
+      @include typo(24, 700, 1.2);
+    }
+
+    .message-sub {
+      @include typo(14, 600, 1.5);
+    }
   }
 }

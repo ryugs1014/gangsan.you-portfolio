@@ -46,8 +46,11 @@
         @include grid-box(null, rem(16));
 
         .list-title {
+          @include flex-box(start, start, row, rem(10));
+          row-gap: 0;
           @include typo(32, 700, 1.5);
           color: var(--color-gray-1000);
+          flex-wrap: wrap;
         }
 
         .list-title-sub {
@@ -73,6 +76,55 @@
       box-sizing: border-box;
       border-radius: rem(4);
       background-color: var(--color-gray-100);
+    }
+  }
+}
+
+@media (max-width: rem(768)) {
+  .content-section {
+    > li {
+      @include grid-box(null, rem(40));
+    }
+
+    .about-title {
+      @include typo(32, 700, 1);
+    }
+
+    .about-content {
+      @include typo(14, 400, 1.5);
+    }
+
+    .about-content-list {
+      @include grid-box(1fr);
+      row-gap: rem(40);
+
+      > li {
+        @include grid-box(null, rem(8));
+        @include typo(14, 400, 1.4);
+
+        .flex-box {
+          @include grid-box(null, rem(8));
+
+          .list-title {
+            @include flex-box(start, start, row, rem(6));
+            @include typo(20, 700, 1.5);
+          }
+
+          .list-title-bar {
+            font-weight: 200;
+          }
+        }
+      }
+    }
+
+    .about-block-list {
+      @include flex-box(start, start, row, rem(10));
+      flex-wrap: wrap;
+
+      .about-block {
+        @include typo(14, 400, 1);
+        padding: rem(4) rem(4);
+      }
     }
   }
 }

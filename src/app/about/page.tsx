@@ -30,8 +30,8 @@ export default async function About() {
     <main className={s['main']}>
       <FadeIn>
         <PageTitle>
-          되는 방법을 먼저 찾고, 더 나은 결과를 만들어 가는
-          <br />
+          되는 방법을 먼저 찾고, <br className={s['mobile-br']} />더 나은 결과를
+          만들어 가는 <br />
           4년차 프론트엔드 개발자 유강산 입니다.
         </PageTitle>
       </FadeIn>

@@ -27,6 +27,7 @@
 
 .button-section {
   .more-button {
+    @include flex-box(end, center, row, rem(12));
     @include typo(16, 600, 1);
   }
 }
@@ -95,6 +96,122 @@
       box-sizing: border-box;
       border-radius: rem(4);
       background-color: var(--color-gray-100);
+    }
+  }
+}
+
+@media (max-width: rem(1600)) {
+  .content-section {
+    > li {
+      @include grid-box(rem(300) 1fr, rem(20));
+    }
+
+    .about-title {
+      @include typo(32, 700, 1);
+      flex-wrap: wrap;
+    }
+
+    .about-content-list {
+      > li {
+        @include grid-box(rem(160) 1fr, rem(20));
+
+        .flex-box {
+          @include flex-box(space-between, start, row, rem(20));
+
+          .list-title {
+            @include flex-box(start, start, row, rem(6));
+            flex-wrap: wrap;
+          }
+
+          .list-sub {
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .section-container {
+    padding: rem(160) 0;
+  }
+
+  .title-section {
+    @include flex-box(start, start, column, rem(40));
+    width: 100%;
+  }
+
+  .text-section {
+    .section-title {
+      @include typo(16, 700, 1.4);
+    }
+
+    .section-text {
+      @include typo(32, 700, 1.4);
+    }
+  }
+
+  .button-section {
+    @include flex-box(end, center);
+    width: 100%;
+  }
+
+  .content-section {
+    > li {
+      @include grid-box(1fr, rem(40));
+    }
+
+    .about-content-list {
+      > li {
+        @include grid-box(rem(160) 1fr, rem(20));
+      }
+    }
+  }
+}
+
+@media (max-width: rem(768)) {
+  .content-section {
+    > li {
+      padding: rem(40) rem(10);
+    }
+
+    .about-content {
+      @include typo(14, 400, 1.5);
+    }
+
+    .about-content-list {
+      > li {
+        @include grid-box(1fr, rem(10));
+
+        .list-time {
+          order: 1;
+          @include typo(14, 400, 1.4);
+        }
+
+        .flex-box {
+          @include grid-box(1fr, rem(10));
+
+          .list-title {
+            @include flex-box(start, start, row, rem(6));
+            flex-wrap: wrap;
+            @include typo(20, 700, 1.4);
+          }
+
+          .list-sub {
+            text-align: left;
+            white-space: unset;
+            color: var(--color-gray-1000);
+            @include typo(14, 400, 1.4);
+          }
+        }
+      }
+    }
+
+    .about-block-list {
+      .about-block {
+        @include typo(14, 400, 1);
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@/components/layout/Container';
 import s from './Section_03.module.scss';
+import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
 const STACKS = [
   'HTML',
@@ -44,7 +45,11 @@ export default function Section_03() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>자세히 보러가기 →</button>
+              <button className={s['more-button']}>
+                <span>자세히 보러가기</span>
+
+                <RightArrowSVG />
+              </button>
             </div>
           </div>
 

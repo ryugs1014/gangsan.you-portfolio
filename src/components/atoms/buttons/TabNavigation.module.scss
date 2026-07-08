@@ -7,6 +7,7 @@
   z-index: 50;
   background-color: var(--color-bg-normal);
   transition: top 0.5s ease;
+  width: 100vw;
 
   &:after {
     content: '';
@@ -48,5 +49,30 @@
   &.active {
     color: var(--color-bg-normal);
     background-color: var(--color-gray-1000);
+  }
+}
+
+@media (max-width: rem(768)) {
+  .tab-container {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .tab-wrap {
+    @include flex-box(start, center, row, rem(6));
+  }
+
+  .tab-button {
+    @include typo(12, 600, 1);
+    padding: rem(12) rem(16);
+    white-space: nowrap;
+
+    &.active {
+      color: var(--color-bg-normal);
+      background-color: var(--color-gray-1000);
+    }
   }
 }

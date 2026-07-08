@@ -1,2 +1,8 @@
 @use '@/styles/mixins' as *;
 @use '@/styles/rem' as *;
+
+.theme-button {
+  path {
+    stroke: var(--color-gray-1000);
+  }
+}

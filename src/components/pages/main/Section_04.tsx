@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import s from './Section_04.module.scss';
 import { fetchPortfolios } from '@/api/portfolio';
+import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
 interface Portfolio {
   id: string;
@@ -94,7 +95,11 @@ export default function Section_04() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>자세히 보러가기 →</button>
+              <button className={s['more-button']}>
+                <span>자세히 보러가기</span>
+
+                <RightArrowSVG />
+              </button>
             </div>
           </div>
         </Container>
@@ -134,29 +139,33 @@ export default function Section_04() {
 
                     <div className={s['work-links']}>
                       <div className={s['web-links']}>
-                        <a
+                        <Link
                           href={work.github}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={s['out-link']}
+                          onClick={(e) => e.stopPropagation()}
                         >
                           GitHub
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                           href={work.link}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={s['site-link']}
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          Live Site
-                        </a>
+                          사이트 방문
+                        </Link>
                       </div>
 
                       <Link
                         href={`/works/${work.id}`}
                         className={s['detail-button']}
                       >
-                        상세보기 →
+                        <span>상세보기</span>
+
+                        <RightArrowSVG responsivSize={true} />
                       </Link>
                     </div>
                   </li>

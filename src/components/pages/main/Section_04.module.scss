@@ -27,9 +27,11 @@
 
 .button-section {
   .more-button {
+    @include flex-box(end, center, row, rem(12));
     @include typo(16, 600, 1);
   }
 }
+
 .works-wrap {
   @include grid-box();
 }
@@ -147,8 +149,8 @@
 
     .out-link,
     .site-link {
-      @include typo(16, 600, 1);
-      padding: rem(10) rem(17);
+      @include typo(14, 600, 1);
+      padding: rem(12) rem(17);
       border-radius: rem(100);
       box-sizing: border-box;
     }
@@ -163,6 +165,7 @@
     }
 
     .detail-button {
+      @include flex-box(end, center, row, rem(12));
       @include typo(16, 600, 1);
     }
   }
@@ -171,5 +174,124 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     background-color: var(--color-gray-100);
+  }
+}
+
+@media (max-width: rem(1600)) {
+  .category-name {
+    .category-content {
+      > span {
+        @include typo(54, 700, 1.2);
+      }
+    }
+  }
+
+  .portfolio-item {
+    padding: rem(80) rem(40);
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .section-container {
+    padding: rem(160) 0;
+  }
+
+  .title-section {
+    @include flex-box(start, start, column, rem(40));
+    width: 100%;
+  }
+
+  .text-section {
+    .section-title {
+      @include typo(16, 700, 1.4);
+    }
+
+    .section-text {
+      @include typo(32, 700, 1.4);
+    }
+  }
+
+  .button-section {
+    @include flex-box(end, center);
+    width: 100%;
+  }
+
+  .category-group {
+    @include flex-box(start, start, column, 0);
+    position: relative;
+  }
+
+  .category-name {
+    width: 100%;
+    position: unset;
+    top: unset;
+
+    &.up {
+      top: unset;
+
+      .category-wrap {
+        height: auto;
+      }
+    }
+
+    .category-wrap {
+      height: auto;
+    }
+
+    .category-content {
+      padding: rem(160) rem(30) rem(40);
+      max-width: 100%;
+
+      > span {
+        @include typo(54, 700, 1.2);
+      }
+    }
+  }
+
+  .portfolio-item {
+    padding: rem(80) rem(30);
+  }
+}
+
+@media (max-width: rem(768)) {
+  .category-name {
+    .category-content {
+      padding: rem(160) rem(20) rem(40);
+
+      > span {
+        @include typo(40, 700, 1.2);
+      }
+    }
+  }
+
+  .portfolio-item {
+    @include grid-box(null, rem(20));
+    padding: rem(80) rem(20);
+
+    .work-title {
+      @include typo(20, 700, 1.4);
+    }
+
+    .work-explan {
+      @include typo(14, 400, 1.5);
+    }
+
+    .work-links {
+      @include flex-box(space-between, center, row, rem(10));
+
+      .web-links {
+        @include flex-box(start, center, row, rem(10));
+      }
+
+      .out-link,
+      .site-link {
+        @include typo(14, 600, 1);
+        padding: rem(12) rem(16);
+      }
+
+      .detail-button {
+        @include typo(14, 600, 1);
+      }
+    }
   }
 }

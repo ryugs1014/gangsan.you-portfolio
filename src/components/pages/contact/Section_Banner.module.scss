@@ -7,8 +7,7 @@
 
 .fake-image {
   width: 100%;
-  aspect-ratio: 1920 / 610;
-  //background-color: #eceff4;
+  aspect-ratio: 1920 / 700;
   overflow: hidden;
 }
 
@@ -20,7 +19,7 @@
 
 .section-container {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(rem(20));
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
@@ -29,4 +28,20 @@
 .section-container.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: rem(1600)) {
+  .fake-image {
+    aspect-ratio: 1920 / 600;
+  }
+
+  .spline-wrap {
+    height: 150%;
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .fake-image {
+    aspect-ratio: 1920 / 1200;
+  }
 }

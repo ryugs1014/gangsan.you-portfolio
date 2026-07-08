@@ -4,35 +4,5 @@
     "stack": "React",
     "detail": "컴포넌트 기반 아키텍처를 이해하고 있으며, 커스텀 훅을 활용한 비즈니스 로직 분리와 효율적인 상태 관리가 가능합니다.",
     "icon-image": "/image/page/main/icon/html.png"
-  },
-  {
-    "category": "Frontend",
-    "stack": "Next.js",
-    "detail": "SSR, SSG, ISR 등 다양한 렌더링 방식을 상황에 맞게 적용할 수 있으며, App Router 기반의 최적화된 웹 페이지를 구축합니다.",
-    "icon-image": "/image/page/main/mobile_section.png"
-  },
-  {
-    "category": "Frontend",
-    "stack": "TypeScript",
-    "detail": "정적 타이핑을 통해 런타임 에러를 방지하고, 명확한 인터페이스 정의를 통해 유지보수하기 좋은 코드를 작성합니다.",
-    "icon-image": "/image/page/main/mobile_section.png"
-  },
-  {
-    "category": "Frontend",
-    "stack": "React",
-    "detail": "컴포넌트 기반 아키텍처를 이해하고 있으며, 커스텀 훅을 활용한 비즈니스 로직 분리와 효율적인 상태 관리가 가능합니다.",
-    "icon-image": "/image/page/main/icon/html.png"
-  },
-  {
-    "category": "Frontend",
-    "stack": "Next.js",
-    "detail": "SSR, SSG, ISR 등 다양한 렌더링 방식을 상황에 맞게 적용할 수 있으며, App Router 기반의 최적화된 웹 페이지를 구축합니다.",
-    "icon-image": "/image/page/main/mobile_section.png"
-  },
-  {
-    "category": "Frontend",
-    "stack": "TypeScript",
-    "detail": "정적 타이핑을 통해 런타임 에러를 방지하고, 명확한 인터페이스 정의를 통해 유지보수하기 좋은 코드를 작성합니다.",
-    "icon-image": "/image/page/main/mobile_section.png"
   }
 ]

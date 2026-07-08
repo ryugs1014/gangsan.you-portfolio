@@ -17,8 +17,7 @@ export default async function Contact() {
     <main className={s['main']}>
       <FadeIn>
         <PageTitle>
-          함께 작업하기를 희망 하시거나,
-          <br />
+          함께 작업하기를 희망 하시거나, <br />
           다른 문의가 있으신가요?
         </PageTitle>
       </FadeIn>

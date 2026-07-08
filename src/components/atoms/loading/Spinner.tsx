@@ -49,7 +49,7 @@ const Spinner = ({
     ...style,
     width: size || style?.width || '20',
     height: size || style?.height || '20',
-    color: color || style?.color || 'var(--color-main)',
+    color: color || style?.color || 'var(--color-gray-1000)',
   };
 
   return (

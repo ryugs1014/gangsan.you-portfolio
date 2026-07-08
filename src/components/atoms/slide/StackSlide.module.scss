@@ -3,11 +3,10 @@
 
 .section-container {
   overflow: hidden;
-  background-color: var(--color-bg-stacks);
 }
 
 .section-container {
-  padding: rem(240) 0 rem(240);
+  padding-bottom: rem(160);
 }
 
 .section-wrap {
@@ -16,6 +15,16 @@
 
 .title-section {
   @include flex-box(space-between, end, row, rem(10));
+
+  .about-title {
+    @include grid-box(null, rem(16));
+    @include grid-item(start, start);
+    @include typo(48, 700, 1);
+
+    .sub-title {
+      color: var(--color-gray-200);
+    }
+  }
 }
 
 .text-section {
@@ -186,10 +195,6 @@
 }
 
 @media (max-width: rem(1000)) {
-  .section-container {
-    padding: rem(160) 0;
-  }
-
   .title-section {
     @include flex-box(start, start, column, rem(40));
     width: 100%;
@@ -206,7 +211,7 @@
   }
 
   .button-section {
-    @include flex-box(end, center);
+    @include flex-box(start, center);
     width: 100%;
   }
 
@@ -244,6 +249,16 @@
 }
 
 @media (max-width: rem(768)) {
+  .section-container {
+    padding-bottom: rem(80);
+  }
+
+  .title-section {
+    .about-title {
+      @include typo(32, 700, 1);
+    }
+  }
+
   .stack-card {
     width: rem(210);
     flex: 0 0 rem(210);

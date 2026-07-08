@@ -2,6 +2,8 @@
   {
     "id": "glitchor-partners",
     "main-color": "#ffffff",
+    "sub-color": "#ffffff",
+    "color-theme": "dark",
     "logo-image": "/image/page/main/icon/html.png",
     "main-image": "/image/page/main/icon/html.png",
     "work-title": "글리처파트너스 공식 웹사이트",

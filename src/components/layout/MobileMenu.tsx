@@ -1,57 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import s from './Header.module.scss';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS } from './Header';
 import ThemeToggle from '@/components/atoms/buttons/ThemeToggle';
-import s from './Header.module.scss';
+
+import LangIcon from '@public/svg/layout/header/lang.svg';
+import MenuIcon from '@public/svg/layout/header/menu.svg';
+import CloseIcon from '@public/svg/layout/header/close.svg';
+import RightArrow from '@public/svg/layout/header/right-menu-arrow.svg';
+import RotateArrow from '@public/svg/layout/header/rotate-arrow.svg';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
 
+  // 모달이 열려있을 때 배경 스크롤 방지
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
-    <div className={s.mobileMenuWrapper}>
-      {/* 햄버거 버튼 */}
-      <button className={s.hamburgerBtn} onClick={toggleMenu} aria-label="Menu">
-        {isOpen ? '✕' : '☰'}
-      </button>
+    <>
+      <div className={s['mobile-menu-wrapper']}>
+        <button
+          className={s['menu-button']}
+          onClick={openMenu}
+          aria-label="Menu"
+        >
+          <div className={s['menu-wrap']}>
+            <MenuIcon width="24" height="24" viewBox="0 0 24 24" />
+          </div>
+        </button>
 
-      {/* 모바일 오버레이 메뉴 */}
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            className={s.mobileOverlay}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <nav className={s.mobileNav}>
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.path}
-                  className={s.mobileNavLink}
-                  onClick={closeMenu}
-                >
-                  {link.name}
-                </Link>
-              ))}
-
-              <div className={s.mobileThemeArea}>
-                <span>다크 모드</span>
-                <ThemeToggle />
+        <div className={`${s['mobile-fullscreen']} ${isOpen ? s.open : ''}`}>
+          <div className={s['mobile-header']}>
+            <div className={s['mobile-actions']}>
+              <div className={s['button-wrap']}>
+                <div className={s['lang-wrap']}>
+                  <LangIcon width="32" height="32" viewBox="0 0 32 32" />
+                </div>
               </div>
-            </nav>
-          </motion.div>
-        ) : (
-          (null as any)
-        )}
-      </AnimatePresence>
-    </div>
+
+              <div className={s['button-wrap']}>
+                <div className={s['theme-wrap']}>
+                  <ThemeToggle />
+                </div>
+              </div>
+            </div>
+
+            <button
+              className={s['close-button']}
+              onClick={closeMenu}
+              aria-label="Close"
+            >
+              <div className={s['close-wrap']}>
+                <CloseIcon width="24" height="24" viewBox="0 0 24 24" />
+              </div>
+            </button>
+          </div>
+
+          <nav className={s['mobile-nav']}>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={s['mobile-nav-link']}
+                onClick={closeMenu}
+              >
+                <span> {link.name}</span>
+
+                <div className={s['svg-box']}>
+                  <RightArrow width="36" height="36" viewBox="0 0 36 36" />
+                </div>
+              </Link>
+            ))}
+          </nav>
+
+          <ul className={s['mobile-footer-wrap']}>
+            <li className={s['menu-item']}>
+              <Link href="/" className={s['menu-link']}>
+                <span>ryugs@gmail.com</span>
+
+                <div className={s['svg-box']}>
+                  <RotateArrow width="24" height="24" viewBox="0 0 36 36" />
+                </div>
+              </Link>
+            </li>
+
+            <li className={s['menu-item']}>
+              <Link href="/" className={s['menu-link']}>
+                <span>GitHub</span>
+
+                <div className={s['svg-box']}>
+                  <RotateArrow width="24" height="24" viewBox="0 0 36 36" />
+                </div>
+              </Link>
+            </li>
+
+            <li className={s['copyright']}>GANGSAN.YOU, ALL RIGHTS RESERVED</li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        className={`${s['close-bg']} ${isOpen ? s.open : ''}`}
+        onClick={closeMenu}
+      />
+    </>
   );
 }

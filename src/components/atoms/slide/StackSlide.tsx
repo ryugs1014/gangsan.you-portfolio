@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Container from '@/components/layout/Container';
-import s from './Section_05.module.scss';
+import s from './StackSlide.module.scss';
 import { fetchStacks } from '@/api/stack';
 import Image from 'next/image';
-import LeftArrow from '@public/svg/common/slide-left-arrow.svg';
 import RightArrow from '@public/svg/common/slide-right-arrow.svg';
+import LeftArrow from '@public/svg/common/slide-left-arrow.svg';
 
 interface Stack {
   stack: string;
@@ -15,7 +14,7 @@ interface Stack {
   [key: string]: any;
 }
 
-export default function Section_05() {
+export default function StackSlide() {
   const [stacks, setStacks] = useState<Stack[]>([]);
 
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -125,71 +124,62 @@ export default function Section_05() {
 
   return (
     <section id="section-05" className={s['section-container']}>
-      <Container>
-        <div className={s['section-wrap']}>
-          <div className={s['title-section']}>
-            <div className={s['text-section']}>
-              <div className={s['section-title']}>Stacks</div>
-              <div className={s['section-text']}>
-                기술을 유연하게 받아들이고,
-                <br />
-                완성도 높은 결과물로 다듬어냅니다.
-              </div>
-            </div>
+      <div className={s['section-wrap']}>
+        <div className={s['title-section']}>
+          <div className={s['about-title']}>STACKS & TOOLS</div>
 
-            <div className={s['button-section']}>
-              <button
-                className={`${s['arrow-btn']} ${s['prev']}`}
-                onClick={handlePrev}
-                aria-label="이전 스택"
-              >
-                <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
-              </button>
-              <button
-                className={`${s['arrow-btn']} ${s['next']}`}
-                onClick={handleNext}
-                aria-label="다음 스택"
-              >
-                <RightArrow width="20" height="20" viewBox="0 0 20 20" />
-              </button>
-            </div>
-          </div>
-
-          <div className={s['slider-wrapper']} ref={wrapperRef}>
-            <div
-              ref={sliderRef}
-              className={`${s['slider-track']} ${isGrabbing ? s['grabbing'] : ''}`}
-              onMouseDown={onMouseDown}
-              onMouseLeave={onMouseLeave}
-              onMouseUp={onMouseUp}
-              onMouseMove={onMouseMove}
+          <div className={s['button-section']}>
+            <button
+              className={`${s['arrow-btn']} ${s['prev']}`}
+              onClick={handlePrev}
+              aria-label="이전 스택"
             >
-              {stacks.map((item, idx) => (
-                <div key={idx} className={s['stack-card']}>
-                  <div className={s['stack-wrap']}>
-                    <div className={s['icon-box']}>
-                      <Image
-                        src={item['icon-image']}
-                        alt={`total`}
-                        fill
-                        sizes="10vw"
-                        style={{
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </div>
-
-                    <div className={s['card-info']}>
-                      <h3 className={s['stack-name']}>{item.stack}</h3>
-                      <p className={s['stack-detail']}>{item.detail}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+              <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
+            </button>
+            <button
+              className={`${s['arrow-btn']} ${s['next']}`}
+              onClick={handleNext}
+              aria-label="다음 스택"
+            >
+              <RightArrow width="20" height="20" viewBox="0 0 20 20" />
+            </button>
           </div>
         </div>
-      </Container>
+
+        <div className={s['slider-wrapper']} ref={wrapperRef}>
+          <div
+            ref={sliderRef}
+            className={`${s['slider-track']} ${isGrabbing ? s['grabbing'] : ''}`}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+          >
+            {stacks.map((item, idx) => (
+              <div key={idx} className={s['stack-card']}>
+                <div className={s['stack-wrap']}>
+                  <div className={s['icon-box']}>
+                    <Image
+                      src={item['icon-image']}
+                      alt={`total`}
+                      fill
+                      sizes="10vw"
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+
+                  <div className={s['card-info']}>
+                    <h3 className={s['stack-name']}>{item.stack}</h3>
+                    <p className={s['stack-detail']}>{item.detail}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -27,6 +27,7 @@
 
 .button-section {
   .more-button {
+    @include flex-box(end, center, row, rem(12));
     @include typo(16, 600, 1);
   }
 }
@@ -42,10 +43,11 @@
     box-sizing: border-box;
     border-bottom: rem(1) solid var(--color-line-noraml);
     width: 100%;
+    overflow: hidden;
 
     &:first-child {
       border-top: rem(1) solid var(--color-line-noraml);
-      padding: rem(40) rem(10) rem(80);
+      padding: rem(40) rem(10) 6cqw;
     }
   }
 
@@ -54,6 +56,8 @@
     font-weight: 600;
     line-height: 1;
     white-space: nowrap;
+    text-align: center;
+    transform: translateX(-1.3cqw);
   }
 
   .contact-buttons {
@@ -62,7 +66,53 @@
     @include typo(20, 600, 1);
 
     > button {
+      @include flex-box(end, center, row, rem(12));
       color: var(--color-gray-1000);
+    }
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .section-container {
+    padding: rem(160) 0;
+  }
+
+  .title-section {
+    @include flex-box(start, start, column, rem(40));
+    width: 100%;
+  }
+
+  .text-section {
+    .section-title {
+      @include typo(16, 700, 1.4);
+    }
+
+    .section-text {
+      @include typo(32, 700, 1.4);
+    }
+  }
+
+  .button-section {
+    @include flex-box(end, center);
+    width: 100%;
+  }
+}
+
+@media (max-width: rem(768)) {
+  .content-section {
+    > li {
+      &:first-child {
+        padding: rem(40) rem(10) 10cqw;
+      }
+    }
+
+    .contact-mail {
+      font-size: 11.5cqw;
+    }
+
+    .contact-buttons {
+      width: 100%;
+      @include typo(16, 600, 1);
     }
   }
 }

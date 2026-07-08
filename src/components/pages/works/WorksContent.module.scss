@@ -5,3 +5,9 @@
   padding: rem(240) 0;
   box-sizing: border-box;
 }
+
+@media (max-width: rem(1000)) {
+  .works-list-container {
+    padding: rem(160) 0;
+  }
+}

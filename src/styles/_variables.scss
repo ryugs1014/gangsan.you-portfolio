@@ -2,9 +2,10 @@
 [data-color-scheme='light'] {
   /* System color */
   --color-main: #396eff;
-  --color-bg-normal: rgb(255, 255, 255);
+  --color-bg-normal: rgba(255, 255, 255, 1);
   --color-font-noraml: #171718;
   --color-line-noraml: #e1e2e3;
+  --color-menu-noraml: rgba(255, 255, 255, 1);
   --color-bg-stacks: #f7f7f7;
 
   /* Gray scale */
@@ -50,6 +51,7 @@
   --color-bg-normal: rgb(0, 0, 0);
   --color-font-noraml: rgb(255, 255, 255);
   --color-line-noraml: #2f2f30;
+  --color-menu-noraml: rgba(255, 255, 255, 0.1);
   --color-bg-stacks: rgb(0, 0, 0);
 
   /* Gray scale */

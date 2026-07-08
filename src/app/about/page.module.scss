@@ -8,3 +8,13 @@
   padding: rem(80) 0 rem(240);
   box-sizing: border-box;
 }
+
+.mobile-br {
+  display: none;
+}
+
+@media (max-width: rem(768)) {
+  .mobile-br {
+    display: inline-block;
+  }
+}

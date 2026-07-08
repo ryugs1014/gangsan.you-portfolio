@@ -1,0 +1,13 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/rem' as *;
+
+.number {
+  @include typo(320, 400, 1);
+  letter-spacing: rem(-6);
+}
+
+@media (max-width: rem(1600)) {
+  .number {
+    font-size: 26cqw;
+  }
+}

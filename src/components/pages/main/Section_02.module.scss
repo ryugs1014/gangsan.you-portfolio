@@ -5,19 +5,17 @@
   width: 100%;
   position: relative;
   padding: rem(80) 0;
-  overflow: hidden; /* 바깥으로 빠져나가는 Bar를 숨깁니다 */
+  overflow: hidden;
 }
 
-/* 애니메이션 궤도 (트랙) 역할을 하는 컨테이너 */
 .bar-wrapper {
   position: relative;
   width: 100%;
-  height: rem(780); /* 애니메이션이 진행될 세로 영역 (필요에 따라 조절) */
+  height: rem(780);
   margin: 0 auto;
   overflow: hidden;
 }
 
-/* 개별 Bar의 기본 설정 */
 .bar {
   position: absolute;
   top: rem(-100);
@@ -25,33 +23,48 @@
   width: 100%;
   height: 0;
   background-color: var(--color-bar-fix);
-
-  /* 크기가 줄어들 때 중앙이 아닌 '위쪽'을 기준으로 줄어들게 만듭니다 */
   transform-origin: center;
-
-  /* 애니메이션 설정:
-    - 4s: 한 사이클이 도는 시간
-    - cubic-bezier: 아래로 갈수록 간격이 좁아보이도록 살짝 감속 효과 부여 (원근감)
-    - infinite: 무한 반복
-  */
   animation: flowDown 15s cubic-bezier(0.15, 0.46, 0.45, 0.94) infinite;
-
-  /* 핵심! 14개의 Bar가 일정한 간격으로 연속해서 떨어지도록 음수(-) 딜레이를 줍니다 */
   animation-delay: calc(-15s / 14 * var(--i));
 }
 
-/* 내려갈수록 위치, 크기, 투명도가 변하는 키프레임 */
 @keyframes flowDown {
   0% {
-    height: rem(80); /* 시작 높이 (가장 두꺼울 때) */
-    transform: translateY(0); /* 원래 위치, 원래 높이(100px) */
-    opacity: 1; /* 완전 불투명 */
+    height: rem(80);
+    transform: translateY(0);
+    opacity: 1;
   }
   100% {
-    height: 0; /* 시작 높이 (가장 두꺼울 때) */
-    transform: translateY(
-      rem(780)
-    ); /* 600px 아래로 이동하며, 높이는 거의 0에 수렴 */
-    opacity: 1; /* 완전 투명 */
+    height: 0;
+    transform: translateY(rem(780));
+    opacity: 1;
+  }
+}
+
+@media (max-width: rem(768)) {
+  .section-container {
+    padding: rem(60) 0;
+  }
+
+  .bar-wrapper {
+    height: rem(390);
+  }
+
+  .bar {
+    animation: flowDown 7.5s cubic-bezier(0.15, 0.46, 0.45, 0.94) infinite;
+    animation-delay: calc(-7.5s / 14 * var(--i));
+  }
+
+  @keyframes flowDown {
+    0% {
+      height: rem(40);
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      height: 0;
+      transform: translateY(rem(390));
+      opacity: 1;
+    }
   }
 }

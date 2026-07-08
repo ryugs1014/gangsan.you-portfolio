@@ -2,30 +2,6 @@ import React from 'react';
 import Container from '@/components/layout/Container';
 import s from './Section_01.module.scss';
 
-const STACKS = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'jQuery',
-  'Styled Components',
-  'TypeScript',
-  'React',
-  'NextJS',
-  'Axios',
-  'SASS(SCSS)',
-  'Git',
-  'Github',
-  'Vercel',
-  'Supabase',
-  'Docker',
-  'Adobe Illustrator',
-  'Adobe Photoshop',
-  'Adobe Premiere Pro',
-  'Figma',
-  'SketchUp',
-  'Blender',
-];
-
 export default function Section_04() {
   return (
     <section id="section-04" className={s['section-container']}>

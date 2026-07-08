@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import s from './Section_Form.module.scss';
 import Container from '@/components/layout/Container';
-import { IconCheck } from '@tabler/icons-react';
 import Spinner from '@/components/atoms/loading/Spinner';
+import RightArrow from '@public/svg/common/right-arrow.svg';
+import PixelSmile from '@public/svg/common/pixel-smile.svg';
 
 interface FormDataType {
   name: string;
@@ -226,21 +227,32 @@ export default function Section_Form() {
             onClick={handleConfirmSubmit}
             disabled={loading}
           >
-            <Container>SEND →</Container>
+            <Container className={s['button-container']}>
+              <span>SEND</span>
+
+              <div className={s['svg-box']}>
+                <RightArrow width="36" height="36" viewBox="0 0 36 36" />
+              </div>
+            </Container>
           </button>
         </div>
       </form>
 
       <Container>
         <div className={s['message-wrap']}>
-          <span className={s['message-title']}>언제든 편하게 연락주세요</span>
+          <div className={s['message-title']}>
+            <span>언제든 편하게 연락주세요</span>
+
+            <div className={s['svg-box']}>
+              <PixelSmile width="48" height="48" viewBox="0 0 48 48" />
+            </div>
+          </div>
           <span className={s['message-sub']}>
             1–2일 이내에 반드시 답장을 드릴게요
           </span>
         </div>
       </Container>
 
-      {/* 모달 */}
       {showModal && (
         <div className={s['modal-overlay']}>
           <div className={s['modal']}>
@@ -254,7 +266,6 @@ export default function Section_Form() {
         </div>
       )}
 
-      {/* 토스트 */}
       <div className={s['toast-container']}>
         {toasts.map((toast) => (
           <div key={toast.id} className={`${s['toast']} ${s[toast.type]}`}>
@@ -263,7 +274,6 @@ export default function Section_Form() {
         ))}
       </div>
 
-      {/* 로딩 스피너 */}
       {loading && (
         <div className={s['global-loading']}>
           <Spinner size={48} floating />

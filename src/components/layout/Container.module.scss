@@ -9,3 +9,23 @@
   padding-right: calc(var(--layout-padding) / 2);
   box-sizing: border-box;
 }
+
+@media (max-width: rem(1600)) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: rem(1000)) {
+  .container {
+    padding-left: calc(var(--layout-padding-tablet) / 2);
+    padding-right: calc(var(--layout-padding-tablet) / 2);
+  }
+}
+
+@media (max-width: rem(768)) {
+  .container {
+    padding-left: calc(var(--layout-padding-mobile) / 2);
+    padding-right: calc(var(--layout-padding-mobile) / 2);
+  }
+}

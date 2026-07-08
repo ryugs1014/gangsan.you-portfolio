@@ -6,6 +6,8 @@ import Container from '@/components/layout/Container';
 import s from './WorkDetail.module.scss';
 import Image from 'next/image';
 import FadeIn from '@/components/atoms/animation/FadeIn';
+import LeftArrow from '@public/svg/common/left-arrow.svg';
+import RightArrow from '@public/svg/common/right-arrow.svg';
 
 export interface PortfolioDetailItem {
   'detail-title': string;
@@ -16,6 +18,8 @@ export interface PortfolioDetailItem {
 export interface Portfolio {
   id: string;
   'main-color': string;
+  'sub-color': string;
+  'color-theme': string;
   'main-image': string;
   'logo-image': string;
   'work-title': string;
@@ -86,7 +90,11 @@ export default function WorkDetail({ data }: WorkDetailProps) {
           <FadeIn delay={0.3}>
             <div className={s['action-links']}>
               <a href={'/works'} className={`${s['back-button']}`}>
-                ← 목록 돌아가기{' '}
+                <div className={s['svg-box']}>
+                  <LeftArrow width="36" height="36" viewBox="0 0 36 36" />
+                </div>
+
+                <span>목록 돌아가기</span>
               </a>
 
               <a
@@ -243,7 +251,11 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         <FadeIn threshold={0.2}>
           <div className={s['footer-button-section']}>
             <a href={'/works'} className={`${s['footer-back-button']}`}>
-              ← 목록 돌아가기{' '}
+              <div className={s['svg-box']}>
+                <LeftArrow width="36" height="36" viewBox="0 0 36 36" />
+              </div>
+
+              <span>목록 돌아가기</span>
             </a>
           </div>
         </FadeIn>
@@ -252,13 +264,19 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       {data.next && (
         <a
           href={`/works/${data.next.id}`}
-          className={s['footer-next-section']}
+          className={`${s['footer-next-section']} ${data['color-theme'] == 'dark' ? s['dark'] : s['light']}`}
           style={{ '--dynamic-bg': data['main-color'] } as React.CSSProperties}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <div className={s['next-button-section']}>
-            <div className={s['next-button']}>Next Work →</div>
+            <div className={s['next-button']}>
+              <span>Next Work</span>
+
+              <div className={s['svg-box']}>
+                <RightArrow width="36" height="36" viewBox="0 0 36 36" />
+              </div>
+            </div>
 
             <span className={s['next-title']}>{data.next.title} </span>
           </div>

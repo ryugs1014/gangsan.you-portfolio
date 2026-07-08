@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@/components/layout/Container';
 import s from './Section_06.module.scss';
+import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
 export default function Section_06() {
   const getEmail = () => {
@@ -20,7 +21,11 @@ export default function Section_06() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>자세히 보러가기 →</button>
+              <button className={s['more-button']}>
+                <span>자세히 보러가기</span>
+
+                <RightArrowSVG />
+              </button>
             </div>
           </div>
 
@@ -30,9 +35,21 @@ export default function Section_06() {
             </li>
             <li>
               <div className={s['contact-buttons']}>
-                <button>GitHub →</button>
-                <button>이력서 →</button>
-                <button>메일 보내기 →</button>
+                <button>
+                  <span>GitHub</span>
+
+                  <RightArrowSVG responsivSize={true} />
+                </button>
+                <button>
+                  <span>이력서</span>
+
+                  <RightArrowSVG responsivSize={true} />
+                </button>
+                <button>
+                  <span>메일 보내기</span>
+
+                  <RightArrowSVG responsivSize={true} />
+                </button>
               </div>
             </li>
           </ul>

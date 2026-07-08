@@ -42,8 +42,7 @@ export default async function Stacks() {
     <main className={s['main']}>
       <FadeIn>
         <PageTitle>
-          기술을 유연하게 받아들이고,
-          <br />
+          기술을 유연하게 받아들이고, <br />
           완성도 높은 결과물로 다듬어냅니다.
         </PageTitle>
       </FadeIn>
