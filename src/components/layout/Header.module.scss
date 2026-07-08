@@ -29,7 +29,6 @@
   height: 100%;
 }
 
-//header layout wraps
 .logo-wrap {
   flex: 1;
   @include flex-box(start, center);
@@ -134,7 +133,7 @@
   top: 0;
   right: 0;
   width: 100vw;
-  max-width: rem(400);
+  max-width: rem(420);
   height: 100dvh;
   background-color: var(--color-bg-normal);
   z-index: 200000;
