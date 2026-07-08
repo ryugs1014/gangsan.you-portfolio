@@ -284,5 +284,9 @@
   .arrow-btn {
     width: rem(42);
     height: rem(42);
+
+    .svg-box {
+      @include svg-box(rem(16));
+    }
   }
 }

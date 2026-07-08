@@ -143,14 +143,18 @@ export default function Section_05() {
                 onClick={handlePrev}
                 aria-label="이전 스택"
               >
-                <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
+                <div className={s['svg-box']}>
+                  <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
+                </div>
               </button>
               <button
                 className={`${s['arrow-btn']} ${s['next']}`}
                 onClick={handleNext}
                 aria-label="다음 스택"
               >
-                <RightArrow width="20" height="20" viewBox="0 0 20 20" />
+                <div className={s['svg-box']}>
+                  <RightArrow width="20" height="20" viewBox="0 0 20 20" />
+                </div>
               </button>
             </div>
           </div>

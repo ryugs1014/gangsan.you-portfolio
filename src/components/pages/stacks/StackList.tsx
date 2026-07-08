@@ -21,11 +21,9 @@ export default function StackList({ groupedStacks }: StackListProps) {
       <Container>
         <div className={s['stack-list-wrap']}>
           {Object.entries(groupedStacks).map(([category, items]) => {
-            // page.tsx에서 만든 규칙과 동일하게 id를 생성합니다.
             const sectionId = category.toLowerCase().replace(/\s+/g, '-');
 
             return (
-              // ✅ TabNavigation이 찾을 수 있도록 id 속성을 부여합니다.
               <div
                 key={category}
                 id={sectionId}

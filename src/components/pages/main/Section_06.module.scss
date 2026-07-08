@@ -29,6 +29,7 @@
   .more-button {
     @include flex-box(end, center, row, rem(12));
     @include typo(16, 600, 1);
+    color: var(--color-gray-1000);
   }
 }
 
@@ -58,6 +59,7 @@
     white-space: nowrap;
     text-align: center;
     transform: translateX(-1.3cqw);
+    text-decoration: none !important;
   }
 
   .contact-buttons {

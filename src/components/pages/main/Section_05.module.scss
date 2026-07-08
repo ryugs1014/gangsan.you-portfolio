@@ -36,6 +36,7 @@
   .more-button {
     @include flex-box(end, center, row, rem(12));
     @include typo(16, 600, 1);
+    color: var(--color-gray-1000);
   }
 }
 
@@ -269,5 +270,9 @@
   .arrow-btn {
     width: rem(42);
     height: rem(42);
+
+    .svg-box {
+      @include svg-box(rem(16));
+    }
   }
 }
