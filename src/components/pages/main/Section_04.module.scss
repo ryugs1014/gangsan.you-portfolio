@@ -61,8 +61,7 @@
 }
 
 .category-name {
-  //width: 40%; // 왼쪽 영역 너비
-  width: calc(#{rem(845)} + 50vw - 1920px / 2);
+  width: calc(#{rem(845)} + 50vw - rem(1920) / 2);
   flex-shrink: 0;
   position: sticky;
   top: rem(64);
@@ -291,6 +290,7 @@
       }
 
       .detail-button {
+        @include flex-box(end, center, row, rem(6));
         @include typo(14, 600, 1);
       }
     }

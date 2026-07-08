@@ -145,4 +145,20 @@
     row-gap: rem(80);
     width: 100%;
   }
+
+  .portfolio-item {
+    .web-links {
+      opacity: 1;
+    }
+
+    .out-link,
+    .site-link {
+      @include typo(12, 700, 1);
+      padding: rem(12) rem(14);
+    }
+
+    .out-link {
+      border: rem(1) solid var(--color-gray-1000);
+    }
+  }
 }

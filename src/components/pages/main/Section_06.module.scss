@@ -115,6 +115,10 @@
     .contact-buttons {
       width: 100%;
       @include typo(16, 600, 1);
+
+      > button {
+        @include flex-box(end, center, row, rem(6));
+      }
     }
   }
 }

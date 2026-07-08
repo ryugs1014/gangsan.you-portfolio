@@ -23,14 +23,12 @@
   justify-content: center;
   font-size: rem(24);
 
-  // 1. 300px 이상 내려왔을 때
   &.show {
     bottom: rem(40);
     opacity: 1;
     visibility: visible;
   }
 
-  // 2. Footer와 만났을 때 (색상 반전 예시)
   &.footer {
     bottom: rem(10);
   }
