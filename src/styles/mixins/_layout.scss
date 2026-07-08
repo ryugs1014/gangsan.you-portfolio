@@ -1,4 +1,6 @@
 @use '../rem' as *;
+@use 'sass:meta';
+@use 'sass:math';
 
 // ---------------------------------------------------------
 // 내부 유틸리티 함수 (사용자 입력값 자동 변환기)
@@ -16,7 +18,7 @@
 
 // 2. 숫자 자동 rem 변환 (숫자면 rem 변환, 아니면 그대로 반환)
 @function parse-unit($val) {
-  @if type-of($val) == 'number' and unitless($val) {
+  @if meta.type-of($val) == 'number' and math.is-unitless($val) {
     @return rem($val);
   }
   @return $val; // rem(), % 등 문자가 섞인 값이면 그대로 패스
