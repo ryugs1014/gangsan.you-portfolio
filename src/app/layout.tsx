@@ -45,7 +45,7 @@ export default function RootLayout({
       </head>
 
       <body>
-        <InitialLoader />
+        {/*<InitialLoader />*/}
 
         <div className="app-wrapper">
           <Header />

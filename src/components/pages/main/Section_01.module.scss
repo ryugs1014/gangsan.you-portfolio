@@ -2,14 +2,14 @@
 @use '@/styles/rem' as *;
 
 .section-container {
-  height: 500dvh;
+  height: 500svh;
   position: relative;
 }
 
 .sticky-wrap {
   position: sticky;
   top: 0;
-  height: 100dvh;
+  height: 100svh;
   width: 100%;
   overflow: hidden;
 }
@@ -21,7 +21,7 @@
 
 .title {
   text-align: center;
-  margin-top: 25dvh;
+  margin-top: 25svh;
   font-size: rem(80);
   font-weight: 700;
   will-change: opacity, transform;
