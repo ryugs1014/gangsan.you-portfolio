@@ -47,7 +47,7 @@ export default function Section_01() {
 
   const videoWidth = `calc(${startWidth} + (100vw - ${startWidth}) * ${progress})`;
 
-  const videoHeight = `calc(480px + (100vh - 480px) * ${progress})`;
+  const videoHeight = `calc(480px + (100% - 480px) * ${progress})`;
   const videoTop = `calc(70% - (70% * ${progress}))`;
   const videoRadius = `${24 * (1 - progress)}px`;
 
