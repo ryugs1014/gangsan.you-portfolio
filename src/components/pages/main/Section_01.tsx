@@ -5,6 +5,7 @@ import s from './Section_01.module.scss';
 import Container from '@/components/layout/Container';
 
 export default function Section_01() {
+  const headerActiveRef = useRef(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [overlayOpacity, setOverlayOpacity] = useState(0);
@@ -14,12 +15,21 @@ export default function Section_01() {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
-      const { top } = sectionRef.current.getBoundingClientRect();
+      const { top, bottom } = sectionRef.current.getBoundingClientRect();
       const scrollDistance = window.innerHeight * 2;
 
       let currentProgress = -top / scrollDistance;
       currentProgress = Math.max(0, Math.min(1, currentProgress));
       setProgress(currentProgress);
+
+      const isNowActive = currentProgress === 1 && bottom >= window.innerHeight;
+      if (headerActiveRef.current !== isNowActive) {
+        headerActiveRef.current = isNowActive;
+        // 커스텀 이벤트 발송 (detail에 true/false 값 담기)
+        window.dispatchEvent(
+          new CustomEvent('header-active', { detail: isNowActive }),
+        );
+      }
 
       let currentOpacity = (-top - scrollDistance) / (window.innerHeight * 0.5);
       currentOpacity = Math.max(0, Math.min(1, currentOpacity));
@@ -39,6 +49,8 @@ export default function Section_01() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      // 언마운트 시 Header active 해제 (안전장치)
+      window.dispatchEvent(new CustomEvent('header-active', { detail: false }));
     };
   }, []);
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import s from './Header.module.scss';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
@@ -17,10 +18,40 @@ export const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrollDirection, setScrollDirection] = useState('up');
+  const [isActive, setIsActive] = useState(false);
 
   const lastScrollY = useRef(0);
   const isReady = useRef(false);
+
+  useEffect(() => {
+    const handleHeaderActive = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsActive(customEvent.detail);
+    };
+
+    window.addEventListener('header-active', handleHeaderActive);
+
+    return () => {
+      window.removeEventListener('header-active', handleHeaderActive);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleHeaderActive = (e: Event) => {
+      if (pathname !== '/') return;
+
+      const customEvent = e as CustomEvent;
+      setIsActive(customEvent.detail);
+    };
+
+    window.addEventListener('header-active', handleHeaderActive);
+
+    return () => {
+      window.removeEventListener('header-active', handleHeaderActive);
+    };
+  }, [pathname]); // 💡 의존성 배열에 pathname 추가
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -56,7 +87,7 @@ export default function Header() {
 
   return (
     <header
-      className={`${s['header']} ${scrollDirection === 'down' ? s['down'] : ''}`}
+      className={`${s['header']} ${scrollDirection === 'down' ? s['down'] : ''} ${isActive ? s['active'] : ''}`}
     >
       <div className={s['header-wrap']}>
         <Container className={s['header-container']}>

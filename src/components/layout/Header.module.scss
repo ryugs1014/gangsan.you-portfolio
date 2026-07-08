@@ -11,9 +11,58 @@
   transform-origin: 100% 0;
   transition: transform 0.5s ease;
   will-change: transform;
+  background-color: transparent;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  outline: 1px solid transparent;
 
   &.down {
-    transform: translateY(-100%);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  &.active {
+    .header-wrap {
+      background-color: transparent;
+      filter: brightness(100) invert(1);
+    }
+
+    .logo {
+      color: var(--color-black-fix);
+
+      .logo-sub {
+        color: var(--color-black-fix);
+      }
+    }
+
+    .nav-link {
+      .nav-button {
+        color: var(--color-black-fix);
+      }
+    }
+
+    .pc-function-wrap {
+      .lang-wrap {
+        path {
+          fill: var(--color-black-fix);
+        }
+      }
+
+      .theme-wrap {
+        path {
+          stroke: var(--color-black-fix);
+        }
+      }
+    }
+
+    .menu-button {
+      color: var(--color-black-fix);
+
+      .menu-wrap {
+        path {
+          fill: var(--color-black-fix);
+        }
+      }
+    }
   }
 }
 
