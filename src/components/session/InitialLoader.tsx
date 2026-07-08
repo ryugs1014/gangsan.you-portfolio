@@ -13,14 +13,29 @@ export default function InitialLoader() {
   const hasRunRef = useRef(false);
 
   useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
     if (isLoading) {
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('wheel', preventScroll, { passive: false });
     } else {
       document.body.style.overflow = 'unset';
+      document.body.style.touchAction = 'auto';
+
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('wheel', preventScroll);
     }
 
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.style.touchAction = 'auto';
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('wheel', preventScroll);
     };
   }, [isLoading]);
 
