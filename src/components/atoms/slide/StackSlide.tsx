@@ -139,6 +139,28 @@ export default function StackSlide() {
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
+  // ==========================================
+  // 터치 이벤트 핸들러 (Mobile / Tablet)
+  // ==========================================
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!sliderRef.current) return;
+    isDown.current = true;
+    setIsGrabbing(true);
+    // 터치 이벤트는 touches 배열의 첫 번째 요소를 사용합니다.
+    startX.current = e.touches[0].pageX - sliderRef.current.offsetLeft;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+  };
+
+  const onTouchEnd = handleDragEnd;
+  const onTouchCancel = handleDragEnd;
+
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDown.current || !sliderRef.current) return;
+    const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
   return (
     <section id="section-05" className={s['section-container']}>
       <div className={s['section-wrap']}>
@@ -173,10 +195,16 @@ export default function StackSlide() {
           <div
             ref={sliderRef}
             className={`${s['slider-track']} ${isGrabbing ? s['grabbing'] : ''}`}
+            // 마우스 이벤트
             onMouseDown={onMouseDown}
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
+            // 터치 이벤트
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchCancel}
             onScroll={handleScroll}
           >
             {stacks.map((item, idx) => (
