@@ -59,6 +59,13 @@
   @include typo(18, 600, 1);
   transition: all 0.25s ease;
 
+  &.disabled {
+    opacity: 0.5;
+    cursor: unset;
+    pointer-events: none;
+    user-select: none;
+  }
+
   path {
     stroke: var(--color-gray-1000);
   }

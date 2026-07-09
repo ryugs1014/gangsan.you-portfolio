@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import s from './Section_04.module.scss';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
-import s from './Section_04.module.scss';
 import { fetchPortfolios } from '@/api/portfolio';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
@@ -95,11 +95,13 @@ export default function Section_04() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>
-                <span>자세히 보러가기</span>
+              <Link href={'/works'} className={s['site-link']}>
+                <button className={s['more-button']}>
+                  <span>자세히 보러가기</span>
 
-                <RightArrowSVG />
-              </button>
+                  <RightArrowSVG />
+                </button>
+              </Link>
             </div>
           </div>
         </Container>

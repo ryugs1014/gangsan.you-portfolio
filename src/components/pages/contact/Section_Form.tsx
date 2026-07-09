@@ -69,8 +69,8 @@ export default function Section_Form() {
     const newErrors: Partial<Record<keyof FormDataType, string>> = {};
 
     if (!form.name.trim()) newErrors.name = '- 이름을 입력해주세요.';
-    if (!form.company.trim()) newErrors.company = '- 기업명을 입력해주세요.';
-    if (!form.phone.trim()) newErrors.phone = '- 연락처를 입력해주세요.';
+    // if (!form.company.trim()) newErrors.company = '- 기업명을 입력해주세요.';
+    // if (!form.phone.trim()) newErrors.phone = '- 연락처를 입력해주세요.';
     if (!form.email.trim()) newErrors.email = '- 이메일을 입력해주세요.';
     if (!form.message.trim()) newErrors.message = '- 문의 내용을 입력해주세요.';
     // if (!form.agree)
@@ -128,7 +128,7 @@ export default function Section_Form() {
       <form className={s['form-wrap']} onSubmit={(e) => e.preventDefault()}>
         <Container>
           <div className={s['input-group-wrap']}>
-            <div className={s['input-group']}>
+            <div className={`${s['input-group']} ${s['forced']}`}>
               {/*<label>이름</label>*/}
               <input
                 name="name"
@@ -156,21 +156,7 @@ export default function Section_Form() {
           </div>
 
           <div className={s['input-group-wrap']}>
-            <div className={s['input-group']}>
-              {/*<label>연락처</label>*/}
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                className={s['text-input']}
-                placeholder="H.P (연락처)"
-              />
-              {errors.phone && (
-                <p className={s['error-text']}>{errors.phone}</p>
-              )}
-            </div>
-
-            <div className={s['input-group']}>
+            <div className={`${s['input-group']} ${s['forced']}`}>
               {/*<label>이메일</label>*/}
               <input
                 type="email"
@@ -184,9 +170,25 @@ export default function Section_Form() {
                 <p className={s['error-text']}>{errors.email}</p>
               )}
             </div>
+
+            <div className={s['input-group']}>
+              {/*<label>연락처</label>*/}
+              <input
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                className={s['text-input']}
+                placeholder="H.P (연락처)"
+              />
+              {errors.phone && (
+                <p className={s['error-text']}>{errors.phone}</p>
+              )}
+            </div>
           </div>
 
-          <div className={s['input-group']}>
+          <div
+            className={`${s['input-group']} ${s['forced']} ${s['input-textarea-group']}`}
+          >
             {/*<label>문의 내용</label>*/}
             <textarea
               name="message"

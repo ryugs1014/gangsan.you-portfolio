@@ -11,6 +11,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: var(--color-gray-1000);
+  color: var(--color-gray-0);
+}
+
 html,
 body {
   width: 100%;

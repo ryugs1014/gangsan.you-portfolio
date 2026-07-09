@@ -1,6 +1,7 @@
 import React from 'react';
-import Container from '@/components/layout/Container';
 import s from './Section_06.module.scss';
+import Link from 'next/link';
+import Container from '@/components/layout/Container';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
 export default function Section_06() {
@@ -21,11 +22,13 @@ export default function Section_06() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>
-                <span>자세히 보러가기</span>
+              <Link href={'/contact'} className={s['site-link']}>
+                <button className={s['more-button']}>
+                  <span>자세히 보러가기</span>
 
-                <RightArrowSVG />
-              </button>
+                  <RightArrowSVG />
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -35,21 +38,24 @@ export default function Section_06() {
             </li>
             <li>
               <div className={s['contact-buttons']}>
-                <button>
+                <button className={s['link-button']}>
                   <span>GitHub</span>
 
                   <RightArrowSVG responsivSize={true} />
                 </button>
-                <button>
+                <button className={s['link-button']}>
                   <span>이력서</span>
 
                   <RightArrowSVG responsivSize={true} />
                 </button>
-                <button>
-                  <span>메일 보내기</span>
 
-                  <RightArrowSVG responsivSize={true} />
-                </button>
+                <Link href={'/contact'} className={s['site-link']}>
+                  <button className={s['link-button']}>
+                    <span>메일 작성</span>
+
+                    <RightArrowSVG responsivSize={true} />
+                  </button>
+                </Link>
               </div>
             </li>
           </ul>

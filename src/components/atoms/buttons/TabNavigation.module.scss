@@ -45,6 +45,7 @@
     color 0.5s ease;
   cursor: pointer;
   color: var(--color-gray-1000);
+  user-select: none;
 
   &.active {
     color: var(--color-bg-normal);

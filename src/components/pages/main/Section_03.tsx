@@ -1,6 +1,7 @@
 import React from 'react';
-import Container from '@/components/layout/Container';
 import s from './Section_03.module.scss';
+import Link from 'next/link';
+import Container from '@/components/layout/Container';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 
 const STACKS = [
@@ -45,11 +46,13 @@ export default function Section_03() {
             </div>
 
             <div className={s['button-section']}>
-              <button className={s['more-button']}>
-                <span>자세히 보러가기</span>
+              <Link href={'/about'} className={s['site-link']}>
+                <button className={s['more-button']}>
+                  <span>자세히 보러가기</span>
 
-                <RightArrowSVG />
-              </button>
+                  <RightArrowSVG />
+                </button>
+              </Link>
             </div>
           </div>
 

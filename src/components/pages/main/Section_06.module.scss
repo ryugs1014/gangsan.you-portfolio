@@ -67,7 +67,7 @@
     @include flex-box(space-between, center, row, rem(10));
     @include typo(20, 600, 1);
 
-    > button {
+    .link-button {
       @include flex-box(end, center, row, rem(12));
       color: var(--color-gray-1000);
     }
@@ -104,7 +104,7 @@
   .content-section {
     > li {
       &:first-child {
-        padding: rem(40) rem(10) 10cqw;
+        padding: rem(40) rem(10) 12cqw;
       }
     }
 
@@ -116,7 +116,7 @@
       width: 100%;
       @include typo(16, 600, 1);
 
-      > button {
+      .link-button {
         @include flex-box(end, center, row, rem(6));
       }
     }

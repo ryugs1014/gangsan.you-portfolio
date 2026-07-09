@@ -4,6 +4,8 @@
 .number {
   @include typo(320, 400, 1);
   letter-spacing: rem(-6);
+  user-select: none;
+  pointer-events: none;
 }
 
 @media (max-width: rem(1600)) {

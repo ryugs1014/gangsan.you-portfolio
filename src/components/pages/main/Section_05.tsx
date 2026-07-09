@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Container from '@/components/layout/Container';
 import s from './Section_05.module.scss';
-import { fetchStacks } from '@/api/stack';
 import Image from 'next/image';
+import Container from '@/components/layout/Container';
+import { fetchStacks } from '@/api/stack';
 import LeftArrow from '@public/svg/common/slide-left-arrow.svg';
 import RightArrow from '@public/svg/common/slide-right-arrow.svg';
 
@@ -26,6 +26,10 @@ export default function Section_05() {
   const scrollLeft = useRef(0);
   const [isGrabbing, setIsGrabbing] = useState(false);
 
+  // 버튼 활성화/비활성화 상태 관리
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchStacks();
@@ -33,6 +37,26 @@ export default function Section_05() {
     };
     loadData();
   }, []);
+
+  // --- 스크롤 위치에 따라 버튼 상태 업데이트 ---
+  const handleScroll = () => {
+    if (!sliderRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+
+    // 스크롤이 맨 앞인지 확인 (0 이하)
+    setIsAtStart(scrollLeft <= 0);
+
+    // 스크롤이 맨 끝인지 확인 (소수점 오차를 고려해 Math.ceil 사용 또는 여유값 1px 부여)
+    setIsAtEnd(Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 1);
+  };
+
+  // 데이터가 로드되거나 화면 크기가 바뀔 때 초기 상태 세팅
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('resize', handleScroll);
+    return () => window.removeEventListener('resize', handleScroll);
+  }, [stacks]);
 
   // --- 실제 카드의 너비를 동적으로 계산하는 헬퍼 함수 ---
   const getCardWidth = () => {
@@ -139,18 +163,20 @@ export default function Section_05() {
 
             <div className={s['button-section']}>
               <button
-                className={`${s['arrow-btn']} ${s['prev']}`}
+                className={`${s['arrow-btn']} ${s['prev']} ${isAtStart ? s['disabled'] : ''}`}
                 onClick={handlePrev}
                 aria-label="이전 스택"
+                disabled={isAtStart}
               >
                 <div className={s['svg-box']}>
                   <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
                 </div>
               </button>
               <button
-                className={`${s['arrow-btn']} ${s['next']}`}
+                className={`${s['arrow-btn']} ${s['next']} ${isAtEnd ? s['disabled'] : ''}`}
                 onClick={handleNext}
                 aria-label="다음 스택"
+                disabled={isAtEnd}
               >
                 <div className={s['svg-box']}>
                   <RightArrow width="20" height="20" viewBox="0 0 20 20" />
@@ -167,6 +193,7 @@ export default function Section_05() {
               onMouseLeave={onMouseLeave}
               onMouseUp={onMouseUp}
               onMouseMove={onMouseMove}
+              onScroll={handleScroll}
             >
               {stacks.map((item, idx) => (
                 <div key={idx} className={s['stack-card']}>

@@ -4,6 +4,8 @@
 .section-container {
   height: 500svh;
   position: relative;
+  user-select: none;
+  pointer-events: none;
 }
 
 .sticky-wrap {

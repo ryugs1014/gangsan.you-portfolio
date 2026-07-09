@@ -72,8 +72,21 @@
 
     .input-group {
       width: 100%;
+      position: relative;
 
-      label {
+      &.forced {
+        &:after {
+          content: '*';
+          @include typo(20, 700, 1);
+          position: absolute;
+          top: 0;
+          left: 0;
+          transform: translate(rem(-20), rem(40));
+          color: var(--color-red);
+        }
+      }
+
+      &.input-textar label {
         height: rem(70);
         @include flex-box(start, center, row, 2);
         @include typo(24, 500, 1.2);
@@ -511,6 +524,25 @@
       }
 
       .input-group {
+        &.forced {
+          &:after {
+            @include typo(16, 700, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(rem(-10), rem(20));
+            color: var(--color-red);
+          }
+        }
+
+        &.input-textarea-group {
+          &.forced {
+            &:after {
+              transform: translate(rem(-10), rem(30));
+            }
+          }
+        }
+
         label {
           height: rem(50);
           @include typo(20, 500, 1.2);

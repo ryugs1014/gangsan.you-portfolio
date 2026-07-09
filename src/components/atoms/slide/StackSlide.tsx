@@ -25,6 +25,10 @@ export default function StackSlide() {
   const scrollLeft = useRef(0);
   const [isGrabbing, setIsGrabbing] = useState(false);
 
+  // 버튼 활성화/비활성화 상태 관리
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchStacks();
@@ -32,6 +36,19 @@ export default function StackSlide() {
     };
     loadData();
   }, []);
+
+  // --- 스크롤 위치에 따라 버튼 상태 업데이트 ---
+  const handleScroll = () => {
+    if (!sliderRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+
+    // 스크롤이 맨 앞인지 확인 (0 이하)
+    setIsAtStart(scrollLeft <= 0);
+
+    // 스크롤이 맨 끝인지 확인 (소수점 오차를 고려해 Math.ceil 사용 또는 여유값 1px 부여)
+    setIsAtEnd(Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 1);
+  };
 
   // --- 실제 카드의 너비를 동적으로 계산하는 헬퍼 함수 ---
   const getCardWidth = () => {
@@ -130,18 +147,20 @@ export default function StackSlide() {
 
           <div className={s['button-section']}>
             <button
-              className={`${s['arrow-btn']} ${s['prev']}`}
+              className={`${s['arrow-btn']} ${s['prev']} ${isAtStart ? s['disabled'] : ''}`}
               onClick={handlePrev}
               aria-label="이전 스택"
+              disabled={isAtStart}
             >
               <div className={s['svg-box']}>
                 <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
               </div>
             </button>
             <button
-              className={`${s['arrow-btn']} ${s['next']}`}
+              className={`${s['arrow-btn']} ${s['next']} ${isAtEnd ? s['disabled'] : ''}`}
               onClick={handleNext}
               aria-label="다음 스택"
+              disabled={isAtEnd}
             >
               <div className={s['svg-box']}>
                 <RightArrow width="20" height="20" viewBox="0 0 20 20" />
@@ -158,6 +177,7 @@ export default function StackSlide() {
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
+            onScroll={handleScroll}
           >
             {stacks.map((item, idx) => (
               <div key={idx} className={s['stack-card']}>
