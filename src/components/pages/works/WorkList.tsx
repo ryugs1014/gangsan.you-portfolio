@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import s from './WorkList.module.scss';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
+import FadeIn from '@/components/atoms/animation/FadeIn';
+import Image from 'next/image';
 
 export interface Portfolio {
   id: string;
@@ -39,47 +41,58 @@ export default function WorkList({ portfolios }: WorkListProps) {
     <Container>
       <ul className={s['portfolio-list']}>
         {portfolios.map((work) => (
-          <li key={work.id} className={s['portfolio-item-wrap']}>
-            <div
-              className={s['detail-button']}
-              onClick={() => router.push(`/works/${work.id}`)}
-            >
-              <div className={s['portfolio-item']}>
-                <div className={s['work-image']}>
-                  <div className={s['web-links']}>
-                    <Link
-                      href={work.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={s['out-link']}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      GitHub
-                    </Link>
-                    <Link
-                      href={work.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={s['site-link']}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      사이트 방문
-                    </Link>
+          <FadeIn key={work.id} threshold={0.2}>
+            <li className={s['portfolio-item-wrap']}>
+              <div
+                className={s['detail-button']}
+                onClick={() => router.push(`/works/${work.id}`)}
+              >
+                <div className={s['portfolio-item']}>
+                  <div className={s['work-image']}>
+                    <Image
+                      src={work['main-image']}
+                      alt={`${work.id} icon`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                      unoptimized={true}
+                    />
+
+                    <div className={s['web-links']}>
+                      <Link
+                        href={work.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={s['out-link']}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        GitHub
+                      </Link>
+                      <Link
+                        href={work.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={s['site-link']}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        사이트 방문
+                      </Link>
+                    </div>
                   </div>
-                </div>
 
-                <div className={s['work-info']}>
-                  <div className={s['title-container']}>
-                    <h4 className={s['work-title']}>{work['work-title']}</h4>
+                  <div className={s['work-info']}>
+                    <div className={s['title-container']}>
+                      <h4 className={s['work-title']}>{work['work-title']}</h4>
 
-                    <RightArrowSVG responsivSize={true} />
+                      <RightArrowSVG responsivSize={true} />
+                    </div>
+
+                    <p className={s['work-explan']}>{work['work-explan']}</p>
                   </div>
-
-                  <p className={s['work-explan']}>{work['work-explan']}</p>
                 </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </FadeIn>
         ))}
       </ul>
     </Container>

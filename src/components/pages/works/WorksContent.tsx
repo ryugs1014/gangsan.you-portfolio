@@ -5,7 +5,6 @@ import s from './WorksContent.module.scss';
 import TabCategory from '@/components/atoms/buttons/TabCategory';
 import WorkList, { Portfolio } from './WorkList';
 import { fetchPortfolios } from '@/api/portfolio';
-import FadeIn from '@/components/atoms/animation/FadeIn';
 
 export default function WorksContent() {
   const [allPortfolios, setAllPortfolios] = useState<Portfolio[]>([]);
@@ -44,9 +43,7 @@ export default function WorksContent() {
 
       {/* 탭 네비게이션 아래에 여백을 주기 위해 감싸줍니다 */}
       <div id="work-list-section" className={s['works-list-container']}>
-        <FadeIn threshold={0.2}>
-          <WorkList portfolios={filteredPortfolios} />
-        </FadeIn>
+        <WorkList portfolios={filteredPortfolios} />
       </div>
     </>
   );

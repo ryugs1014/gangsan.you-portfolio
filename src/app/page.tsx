@@ -35,9 +35,7 @@ export default async function Home() {
         <Section_03 />
       </FadeIn>
 
-      <FadeIn threshold={0.2}>
-        <Section_04 />
-      </FadeIn>
+      <Section_04 />
 
       <FadeIn threshold={0.2}>
         <Section_05 />

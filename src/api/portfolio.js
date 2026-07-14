@@ -34,6 +34,8 @@ export const fetchPortfolioById = async (id) => {
         next: {
           id: nextData.id,
           title: nextData['work-title'],
+          color: nextData['main-color'],
+          theme: nextData['color-theme'],
         },
       });
     }, 300);

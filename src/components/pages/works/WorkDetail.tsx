@@ -38,6 +38,8 @@ export interface Portfolio {
   next?: {
     id: string;
     title: string;
+    color: string;
+    theme: string;
   };
   [key: string]: any;
 }
@@ -146,10 +148,12 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                 </div>
 
                 <div className={s['info-wrap']}>
-                  <div className={s['info-item']}>
-                    <span className={s['label']}>클라이언트</span>
-                    <span className={s['value']}>{data.client}</span>
-                  </div>
+                  {data.client && (
+                    <div className={s['info-item']}>
+                      <span className={s['label']}>클라이언트</span>
+                      <span className={s['value']}>{data.client}</span>
+                    </div>
+                  )}
 
                   <div className={s['info-item']}>
                     <span className={s['label']}>카테고리</span>
@@ -264,8 +268,8 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       {data.next && (
         <a
           href={`/works/${data.next.id}`}
-          className={`${s['footer-next-section']} ${data['color-theme'] == 'dark' ? s['dark'] : s['light']}`}
-          style={{ '--dynamic-bg': data['main-color'] } as React.CSSProperties}
+          className={`${s['footer-next-section']} ${data.next['theme'] == 'dark' ? s['dark'] : s['light']}`}
+          style={{ '--dynamic-bg': data.next['color'] } as React.CSSProperties}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >

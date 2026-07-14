@@ -6,9 +6,12 @@ import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import { fetchPortfolios } from '@/api/portfolio';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
+import Image from 'next/image';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 interface Portfolio {
   id: string;
+  'main-image': string;
   category: string;
   'work-title': string;
   'work-explan': string;
@@ -120,57 +123,72 @@ export default function Section_04() {
 
               <ul className={s['portfolio-list']}>
                 {items.map((work) => (
-                  <li key={work.id} className={s['portfolio-item']}>
-                    <div className={s['work-info']}>
-                      <h4 className={s['work-title']}>{work['work-title']}</h4>
+                  <FadeIn key={work.id} threshold={0.2}>
+                    <li className={s['portfolio-item']}>
+                      <div className={s['work-info']}>
+                        <h4 className={s['work-title']}>
+                          {work['work-title']}
+                        </h4>
 
-                      <p className={s['work-explan']}>{work['work-explan']}</p>
+                        <p className={s['work-explan']}>
+                          {work['work-explan']}
+                        </p>
 
-                      <div className={s['key-features']}>
-                        {work['key-features']
-                          ?.split(',')
-                          .map((feature, idx) => (
-                            <span key={idx} className={s['features-block']}>
-                              {feature.trim()}
-                            </span>
-                          ))}
-                      </div>
-                    </div>
-
-                    <div className={s['work-image']}></div>
-
-                    <div className={s['work-links']}>
-                      <div className={s['web-links']}>
-                        <Link
-                          href={work.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={s['out-link']}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          GitHub
-                        </Link>
-                        <Link
-                          href={work.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={s['site-link']}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          사이트 방문
-                        </Link>
+                        <div className={s['key-features']}>
+                          {work['key-features']
+                            ?.split(',')
+                            .map((feature, idx) => (
+                              <span key={idx} className={s['features-block']}>
+                                {feature.trim()}
+                              </span>
+                            ))}
+                        </div>
                       </div>
 
-                      <Link
-                        href={`/works/${work.id}`}
-                        className={s['detail-button']}
-                      >
-                        <span>상세보기</span>
+                      <div className={s['work-image']}>
+                        <Image
+                          src={work['main-image']}
+                          alt={`${work.id} icon`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          style={{ objectFit: 'contain' }}
+                          unoptimized={true}
+                        />
+                      </div>
 
-                        <RightArrowSVG responsivSize={true} />
-                      </Link>
-                    </div>
-                  </li>
+                      <div className={s['work-links']}>
+                        <div className={s['web-links']}>
+                          <Link
+                            href={work.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={s['out-link']}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            GitHub
+                          </Link>
+                          <Link
+                            href={work.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={s['site-link']}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            사이트 방문
+                          </Link>
+                        </div>
+
+                        <Link
+                          href={`/works/${work.id}`}
+                          className={s['detail-button']}
+                        >
+                          <span>상세보기</span>
+
+                          <RightArrowSVG responsivSize={true} />
+                        </Link>
+                      </div>
+                    </li>
+                  </FadeIn>
                 ))}
               </ul>
             </div>

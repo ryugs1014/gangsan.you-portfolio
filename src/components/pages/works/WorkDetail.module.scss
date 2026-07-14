@@ -209,6 +209,7 @@
     background-color: rgba(0, 0, 0, 0.15);
     user-select: none;
     pointer-events: none;
+    border-right: rem(1) solid rgba(0, 0, 0, 0.5);
   }
 
   @keyframes bg-shadow {
@@ -227,10 +228,12 @@
     .next-button {
       @include flex-box(center, center, row, rem(12));
       @include typo(20, 600, 1);
+      z-index: 2;
     }
 
     .next-title {
       @include typo(60, 700, 1.4);
+      z-index: 2;
     }
   }
 }
