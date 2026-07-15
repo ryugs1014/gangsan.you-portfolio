@@ -6,6 +6,7 @@ import Container from '@/components/layout/Container';
 import Spinner from '@/components/atoms/loading/Spinner';
 import RightArrow from '@public/svg/common/right-arrow.svg';
 import PixelSmile from '@public/svg/common/pixel-smile.svg';
+import FadeIn from '@/components/atoms/animation/FadeIn';
 
 interface FormDataType {
   name: string;
@@ -13,7 +14,6 @@ interface FormDataType {
   phone: string;
   email: string;
   message: string;
-  // agree: boolean;
 }
 
 interface ToastType {
@@ -30,13 +30,13 @@ export default function Section_Form() {
     phone: '',
     email: '',
     message: '',
-    // agree: false,
   });
   const [errors, setErrors] = useState<
     Partial<Record<keyof FormDataType, string>>
   >({});
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const addToast = (
     message: string,
@@ -65,16 +65,25 @@ export default function Section_Form() {
     setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
+  const handleFocus = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFocusedField(e.target.name);
+  };
+
+  // 블러(포커스 해제) 핸들러
+  const handleBlur = () => {
+    setFocusedField(null);
+  };
+
   const handleConfirmSubmit = () => {
     const newErrors: Partial<Record<keyof FormDataType, string>> = {};
 
     if (!form.name.trim()) newErrors.name = '- 이름을 입력해주세요.';
-    // if (!form.company.trim()) newErrors.company = '- 기업명을 입력해주세요.';
-    // if (!form.phone.trim()) newErrors.phone = '- 연락처를 입력해주세요.';
     if (!form.email.trim()) newErrors.email = '- 이메일을 입력해주세요.';
     if (!form.message.trim()) newErrors.message = '- 문의 내용을 입력해주세요.';
-    // if (!form.agree)
-    //   newErrors.agree = '- 개인정보 수집 및 이용에 동의해주세요.';
+    // if (!form.company.trim()) newErrors.company = '- 기업명을 입력해주세요.';
+    // if (!form.phone.trim()) newErrors.phone = '- 연락처를 입력해주세요.';
 
     setErrors(newErrors);
 
@@ -110,7 +119,6 @@ export default function Section_Form() {
           phone: '',
           email: '',
           message: '',
-          // agree: false,
         });
       } else {
         addToast(result.error || '전송 중 오류가 발생했습니다.', 'error');
@@ -125,120 +133,133 @@ export default function Section_Form() {
 
   return (
     <section className={s['section-wrap']}>
-      <form className={s['form-wrap']} onSubmit={(e) => e.preventDefault()}>
-        <Container>
-          <div className={s['input-group-wrap']}>
-            <div className={`${s['input-group']} ${s['forced']}`}>
-              {/*<label>이름</label>*/}
-              <input
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                className={s['text-input']}
-                placeholder="NAME (담당자명)"
-              />
-              {errors.name && <p className={s['error-text']}>{errors.name}</p>}
-            </div>
+      <FadeIn delay={0.3}>
+        <form className={s['form-wrap']} onSubmit={(e) => e.preventDefault()}>
+          <Container>
+            <div className={s['input-group-wrap']}>
+              <div
+                className={`${s['input-group']} ${s['forced']} ${focusedField === 'name' ? s['focused'] : ''} ${form.name ? s['has-value'] : ''}
+                ${errors.name ? s['has-error'] : ''}
+                `}
+              >
+                <span className={s['place-holder']}>
+                  <div className={s['en']}>Name</div>
+                  <div className={s['kr']}>(담당자명)</div>
+                  <div className={s['force']}>*</div>
+                </span>
 
-            <div className={s['input-group']}>
-              {/*<label>기업명</label>*/}
-              <input
-                name="company"
-                value={form.company}
-                onChange={handleChange}
-                className={s['text-input']}
-                placeholder="COMAPNY (회사명)"
-              />
-              {errors.company && (
-                <p className={s['error-text']}>{errors.company}</p>
-              )}
-            </div>
-          </div>
-
-          <div className={s['input-group-wrap']}>
-            <div className={`${s['input-group']} ${s['forced']}`}>
-              {/*<label>이메일</label>*/}
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                className={s['text-input']}
-                placeholder="EMAIL (이메일)"
-              />
-              {errors.email && (
-                <p className={s['error-text']}>{errors.email}</p>
-              )}
-            </div>
-
-            <div className={s['input-group']}>
-              {/*<label>연락처</label>*/}
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                className={s['text-input']}
-                placeholder="H.P (연락처)"
-              />
-              {errors.phone && (
-                <p className={s['error-text']}>{errors.phone}</p>
-              )}
-            </div>
-          </div>
-
-          <div
-            className={`${s['input-group']} ${s['forced']} ${s['input-textarea-group']}`}
-          >
-            {/*<label>문의 내용</label>*/}
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="MESSAGE (남기실 메시지)"
-            />
-            {errors.message && (
-              <p className={s['error-text']}>{errors.message}</p>
-            )}
-          </div>
-        </Container>
-
-        {/*<div className={s['input-group']}>*/}
-        {/*  <label className={s['checkbox-label']}>*/}
-        {/*    <input*/}
-        {/*      type="checkbox"*/}
-        {/*      name="agree"*/}
-        {/*      checked={form.agree}*/}
-        {/*      onChange={handleChange}*/}
-        {/*      className={s['custom-checkbox']}*/}
-        {/*    />*/}
-        {/*    <span className={s['checkmark']}>*/}
-        {/*      <div className={s['svg-box']}>*/}
-        {/*        <IconCheck />*/}
-        {/*      </div>*/}
-        {/*    </span>*/}
-        {/*    <p>(필수)</p>*/}
-        {/*    <div className={s['text-wrap']}>개인정보 수집 및 이용 동의</div>*/}
-        {/*  </label>*/}
-        {/*  {errors.agree && <p className={s['error-text']}>{errors.agree}</p>}*/}
-        {/*</div>*/}
-
-        <div className={s['button-wrap']}>
-          <button
-            className={s['submit-button']}
-            type="button"
-            onClick={handleConfirmSubmit}
-            disabled={loading}
-          >
-            <Container className={s['button-container']}>
-              <span>SEND</span>
-
-              <div className={s['svg-box']}>
-                <RightArrow width="36" height="36" viewBox="0 0 36 36" />
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className={s['text-input']}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
               </div>
-            </Container>
-          </button>
-        </div>
-      </form>
+
+              <div
+                className={`${s['input-group']} ${s['forced']} ${focusedField === 'company' ? s['focused'] : ''} ${form.company ? s['has-value'] : ''}
+                `}
+              >
+                <span className={s['place-holder']}>
+                  <div className={s['en']}>Company</div>
+                  <div className={s['kr']}>(기업명)</div>
+                </span>
+
+                <input
+                  name="company"
+                  value={form.company}
+                  onChange={handleChange}
+                  className={s['text-input']}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+
+            <div className={s['input-group-wrap']}>
+              <div
+                className={`${s['input-group']} ${s['forced']} ${focusedField === 'email' ? s['focused'] : ''} ${form.email ? s['has-value'] : ''}
+                ${errors.email ? s['has-error'] : ''}
+                `}
+              >
+                <span className={s['place-holder']}>
+                  <div className={s['en']}>Email</div>
+                  <div className={s['kr']}>(이메일)</div>
+                  <div className={s['force']}>*</div>
+                </span>
+
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className={s['text-input']}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+              </div>
+
+              <div
+                className={`${s['input-group']} ${s['forced']} ${focusedField === 'phone' ? s['focused'] : ''} ${form.phone ? s['has-value'] : ''}
+                `}
+              >
+                <span className={s['place-holder']}>
+                  <div className={s['en']}>H.P</div>
+                  <div className={s['kr']}>(연락처)</div>
+                </span>
+
+                <input
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className={s['text-input']}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+
+            <div
+              className={`${s['input-group']} ${s['input-textarea-group']} ${s['forced']} ${focusedField === 'message' ? s['focused'] : ''} ${form.message ? s['has-value'] : ''}
+                ${errors.message ? s['has-error'] : ''}
+                `}
+            >
+              <span className={s['place-holder']}>
+                <div className={s['en']}>Message</div>
+                <div className={s['kr']}>(남기실 메시지)</div>
+                <div className={s['force']}>*</div>
+              </span>
+
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+            </div>
+          </Container>
+
+          <div className={s['button-wrap']}>
+            <button
+              className={s['submit-button']}
+              type="button"
+              onClick={handleConfirmSubmit}
+              disabled={loading}
+            >
+              <Container className={s['button-container']}>
+                <span>Send</span>
+
+                <div className={s['svg-box']}>
+                  <RightArrow width="54" height="54" viewBox="0 0 36 36" />
+                </div>
+              </Container>
+            </button>
+          </div>
+        </form>
+      </FadeIn>
 
       <Container>
         <div className={s['message-wrap']}>

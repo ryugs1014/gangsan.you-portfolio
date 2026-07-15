@@ -7,6 +7,9 @@
   --color-line-noraml: #e1e2e3;
   --color-menu-noraml: rgba(255, 255, 255, 1);
   --color-bg-stacks: #f7f7f7;
+  --color-line-image: rgba(0, 0, 0, 0.015);
+  --color-bg-shadow-front: rgba(217, 217, 217, 0);
+  --color-bg-shadow-back: rgba(0, 0, 0, 0.05);
 
   /* Gray scale */
   --color-gray-1000: #000000;
@@ -34,7 +37,7 @@
   --color-lime: #75ce3c;
   --color-lime-bg: #d6f0c4;
   --color-red: #ff5247;
-  --color-red-bg: #ffcbc8;
+  --color-red-bg: #ff867e;
   --color-blue: #1b8cf8;
   --color-blue-bg: #bbddfd;
   --color-yellow: #ffde33;
@@ -53,6 +56,9 @@
   --color-line-noraml: #2f2f30;
   --color-menu-noraml: rgba(255, 255, 255, 0.1);
   --color-bg-stacks: rgb(0, 0, 0);
+  --color-line-image: #2f2f30;
+  --color-bg-shadow-front: rgba(255, 255, 255, 0);
+  --color-bg-shadow-back: rgba(255, 255, 255, 0.15);
 
   /* Gray scale */
   --color-gray-1000: #ffffff;

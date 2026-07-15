@@ -22,9 +22,9 @@ export default async function Contact() {
         </PageTitle>
       </FadeIn>
 
-      <FadeIn delay={0.3}>
-        <Section_Banner />
-      </FadeIn>
+      {/*<FadeIn delay={0.3}>*/}
+      {/*  <Section_Banner />*/}
+      {/*</FadeIn>*/}
 
       <Section_Form />
     </main>

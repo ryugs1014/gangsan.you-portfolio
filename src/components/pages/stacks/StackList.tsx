@@ -34,6 +34,11 @@ export default function StackList({ groupedStacks }: StackListProps) {
                 <div className={s['stack-grid']}>
                   {items.map((item, idx) => (
                     <div key={idx} className={s['stack-card']}>
+                      <div className={s['card-info']}>
+                        <h3 className={s['stack-name']}>{item.stack}</h3>
+                        <p className={s['stack-detail']}>{item.detail}</p>
+                      </div>
+
                       <div className={s['icon-box']}>
                         <Image
                           src={item['icon-image']}
@@ -42,10 +47,6 @@ export default function StackList({ groupedStacks }: StackListProps) {
                           sizes="(max-width: 768px) 20vw, 10vw"
                           style={{ objectFit: 'contain' }}
                         />
-                      </div>
-                      <div className={s['card-info']}>
-                        <h3 className={s['stack-name']}>{item.stack}</h3>
-                        <p className={s['stack-detail']}>{item.detail}</p>
                       </div>
                     </div>
                   ))}

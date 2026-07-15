@@ -139,7 +139,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       </section>
 
       <Container>
-        <FadeIn threshold={0.2}>
+        <FadeIn threshold={0.2} delay={0.3}>
           <section className={s['info-section']}>
             <div className={s['info-grid']}>
               <div className={s['grid-wrap']}>

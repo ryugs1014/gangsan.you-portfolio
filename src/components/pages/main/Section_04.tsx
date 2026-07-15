@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import s from './Section_04.module.scss';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
@@ -8,10 +9,13 @@ import { fetchPortfolios } from '@/api/portfolio';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import Image from 'next/image';
 import FadeIn from '@/components/atoms/animation/FadeIn';
+import BlackArrow from '@public/svg/common/black-arrow.svg';
 
 interface Portfolio {
   id: string;
   'main-image': string;
+  'sub-image': string;
+  'font-theme': string;
   category: string;
   'work-title': string;
   'work-explan': string;
@@ -22,12 +26,15 @@ interface Portfolio {
 }
 
 export default function Section_04() {
+  const router = useRouter();
+
   const [groupedPortfolios, setGroupedPortfolios] = useState<
     Record<string, Portfolio[]>
   >({});
   const [isUp, setIsUp] = useState(true);
   const lastScrollY = useRef(0);
   const isReady = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -83,6 +90,17 @@ export default function Section_04() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="section-04" className={s['section-container']}>
       <div className={s['section-wrap']}>
@@ -125,67 +143,90 @@ export default function Section_04() {
                 {items.map((work) => (
                   <FadeIn key={work.id} threshold={0.2}>
                     <li className={s['portfolio-item']}>
-                      <div className={s['work-info']}>
-                        <h4 className={s['work-title']}>
-                          {work['work-title']}
-                        </h4>
+                      <div
+                        className={s['item-button']}
 
-                        <p className={s['work-explan']}>
-                          {work['work-explan']}
-                        </p>
-
-                        <div className={s['key-features']}>
-                          {work['key-features']
-                            ?.split(',')
-                            .map((feature, idx) => (
-                              <span key={idx} className={s['features-block']}>
-                                {feature.trim()}
-                              </span>
-                            ))}
-                        </div>
-                      </div>
-
-                      <div className={s['work-image']}>
-                        <Image
-                          src={work['main-image']}
-                          alt={`${work.id} icon`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          style={{ objectFit: 'contain' }}
-                          unoptimized={true}
-                        />
-                      </div>
-
-                      <div className={s['work-links']}>
-                        <div className={s['web-links']}>
-                          <Link
-                            href={work.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={s['out-link']}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            GitHub
-                          </Link>
-                          <Link
-                            href={work.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={s['site-link']}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            사이트 방문
-                          </Link>
-                        </div>
-
-                        <Link
-                          href={`/works/${work.id}`}
-                          className={s['detail-button']}
+                        onClick={() => router.push(`/works/${work.id}`)}
+                      >
+                        <div
+                          className={`${s['work-info']} ${work['font-theme'] === 'dark' ? s['dark'] : ''}`}
                         >
-                          <span>상세보기</span>
+                          <div className={s['info-header']}>
+                            <h4 className={s['work-title']}>
+                              {work['work-title']}
+                            </h4>
 
-                          <RightArrowSVG responsivSize={true} />
-                        </Link>
+                            <p className={s['work-explan']}>
+                              {work['work-explan']}
+                            </p>
+                          </div>
+
+                          <div className={s['key-features']}>
+                            {work['key-features']
+                              ?.split(',')
+                              .map((feature, idx) => (
+                                <span key={idx} className={s['features-block']}>
+                                  {feature.trim()}
+                                </span>
+                              ))}
+                          </div>
+                        </div>
+
+                        <div className={s['work-image']}>
+                          <Image
+                            src={
+                              isMobile && work['sub-image']
+                                ? work['sub-image']
+                                : work['main-image']
+                            }
+                            alt={`${work.id} icon`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            style={{ objectFit: 'cover' }}
+                            unoptimized={true}
+                          />
+
+                          <div className={s['work-links']}>
+                            <div className={s['web-links']}>
+                              <Link
+                                href={work.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={s['site-link']}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                사이트 방문 ↗
+                              </Link>
+
+                              {/*{work.github && (*/}
+                              {/*  <Link*/}
+                              {/*    href={work.github}*/}
+                              {/*    target="_blank"*/}
+                              {/*    rel="noopener noreferrer"*/}
+                              {/*    className={s['out-link']}*/}
+                              {/*    onClick={(e) => e.stopPropagation()}*/}
+                              {/*  >*/}
+                              {/*    GitHub ↗*/}
+                              {/*  </Link>*/}
+                              {/*)}*/}
+                            </div>
+
+                            <Link
+                              href={`/works/${work.id}`}
+                              className={s['detail-button']}
+                            >
+                              <span>상세보기</span>
+
+                              <div className={`${s['svg-box']}`}>
+                                <BlackArrow
+                                  width="100%"
+                                  height="100%"
+                                  viewBox="0 0 36 36"
+                                />
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </li>
                   </FadeIn>

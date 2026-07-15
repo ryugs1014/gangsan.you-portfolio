@@ -113,12 +113,20 @@
 
 /* 개별 포트폴리오 아이템 스타일 */
 .portfolio-item {
-  @include grid-box(null, rem(40));
   padding: rem(80) rem(80) rem(80) rem(160);
   box-sizing: border-box;
 
+  .item-button {
+    @include grid-box(null, rem(40));
+    cursor: pointer;
+  }
+
   .work-info {
     @include grid-box(null, rem(16));
+  }
+
+  .info-header {
+    @include grid-box(null, rem(10));
   }
 
   .work-title {
@@ -145,7 +153,13 @@
   }
 
   .work-links {
-    @include flex-box(space-between, center, row, rem(10));
+    position: absolute;
+    bottom: rem(30);
+    width: 100%;
+    padding: 0 rem(30);
+    box-sizing: border-box;
+    @include flex-box(space-between, end, row, rem(10));
+    z-index: 2;
 
     .web-links {
       @include flex-box(start, center, row, rem(10));
@@ -157,20 +171,39 @@
       padding: rem(12) rem(17);
       border-radius: rem(100);
       box-sizing: border-box;
+      //border: rem(1) solid var(--color-line-noraml);
     }
 
     .out-link {
-      border: rem(1) solid var(--color-gray-1000);
+      background-color: var(--color-gray-0);
+      color: var(--color-gray-1000);
     }
 
     .site-link {
-      color: var(--color-gray-0);
-      background-color: var(--color-gray-1000);
+      color: var(--color-gray-1000);
+      background-color: var(--color-gray-0);
     }
 
     .detail-button {
       @include flex-box(end, center, row, rem(12));
       @include typo(16, 600, 1);
+      padding: rem(10) rem(10) rem(10) rem(24);
+      //border: rem(1) solid var(--color-line-noraml);
+      border-radius: rem(100);
+      box-sizing: border-box;
+      background-color: var(--color-gray-0);
+
+      .svg-box {
+        @include svg-box(rem(36));
+        min-width: rem(36);
+      }
+
+      rect {
+        fill: var(--color-gray-1000);
+      }
+      path {
+        stroke: var(--color-gray-0);
+      }
     }
   }
 
@@ -182,8 +215,23 @@
     @include flex-box(center, center);
     overflow: hidden;
     user-select: none;
-    pointer-events: none;
-    border: rem(1) solid var(--color-line-noraml);
+    border: rem(1) solid var(--color-line-image);
+    box-sizing: border-box;
+    border-radius: rem(20);
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(
+        180deg,
+        var(--color-bg-shadow-front) 0%,
+        var(--color-bg-shadow-back) 100%
+      );
+    }
   }
 }
 
@@ -275,19 +323,52 @@
   }
 
   .portfolio-item {
-    @include grid-box(null, rem(20));
-    padding: rem(80) rem(20);
+    padding: 0 rem(20);
+    margin: rem(80) 0;
+    position: relative;
+
+    .item-button {
+      @include grid-box(null, rem(20));
+    }
+
+    .work-info {
+      position: absolute;
+      bottom: rem(24);
+      left: 0;
+      padding: 0 rem(40);
+      z-index: 2;
+
+      .key-features {
+        display: none;
+      }
+
+      &.dark {
+        .work-title {
+          color: var(--color-black-fix);
+        }
+
+        .work-explan {
+          color: var(--color-black-fix);
+        }
+      }
+    }
 
     .work-title {
       @include typo(20, 700, 1.4);
+      color: var(--color-white-fix);
     }
 
     .work-explan {
-      @include typo(14, 400, 1.5);
+      @include typo(12, 400, 1.5);
+      @include text-ellipsis(2);
+      color: var(--color-white-fix);
     }
 
     .work-links {
-      @include flex-box(space-between, center, row, rem(10));
+      top: rem(20);
+      bottom: unset;
+      padding: 0 rem(16);
+      @include flex-box(space-between, start, row, rem(10));
 
       .web-links {
         @include flex-box(start, center, row, rem(10));
@@ -296,13 +377,37 @@
       .out-link,
       .site-link {
         @include typo(14, 600, 1);
-        padding: rem(12) rem(16);
+        padding: rem(15) rem(16);
+        border: rem(1) solid var(--color-line-noraml);
       }
 
       .detail-button {
         @include flex-box(end, center, row, rem(6));
         @include typo(14, 600, 1);
+        border: rem(1) solid var(--color-line-noraml);
+        padding: 0;
+
+        > span {
+          display: none;
+        }
+
+        .svg-box {
+          @include svg-box(rem(44));
+          min-width: rem(44);
+        }
+
+        rect {
+          fill: var(--color-gray-0);
+        }
+        path {
+          stroke: var(--color-gray-1000);
+        }
       }
+    }
+
+    .work-image {
+      aspect-ratio: 1080 / 1450;
+      border-radius: 2.5cqw;
     }
   }
 }

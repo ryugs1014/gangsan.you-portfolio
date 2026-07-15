@@ -47,9 +47,9 @@ export default async function Stacks() {
         </PageTitle>
       </FadeIn>
 
-      <FadeIn delay={0.3}>
-        <Section_Banner />
-      </FadeIn>
+      {/*<FadeIn delay={0.3}>*/}
+      {/*  <Section_Banner />*/}
+      {/*</FadeIn>*/}
 
       <TabNavigation tabs={tabs} />
 

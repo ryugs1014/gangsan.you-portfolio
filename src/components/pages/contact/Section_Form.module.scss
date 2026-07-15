@@ -8,7 +8,7 @@
   width: 100vw;
   height: 100dvh;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.6); // 필요 시 배경 투명도 조정
+  background-color: rgba(0, 0, 0, 0.6);
   @include flex-box(center, center);
 }
 
@@ -17,54 +17,13 @@
   padding-bottom: rem(240);
   box-sizing: border-box;
 
-  /* 에러 텍스트 */
-  .error-text {
-    @include typo(13, 400, 1.2);
-    color: var(--color-red);
-    margin-top: rem(12);
-
-    &.overflow-error {
-      position: absolute;
-      bottom: 0;
-      transform: translateY(100%) translateY(rem(12));
-    }
-  }
-
-  .file-warning {
-    @include typo(16, 400, 1.2);
-    margin-top: rem(12);
-    color: var(--color-gray-400);
-    word-break: keep-all;
-  }
-
   .form-wrap {
     @include flex-box(start, start, column, 0);
     width: 100%;
 
-    .title-wrap {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      padding: 0 0 rem(50);
-      box-sizing: border-box;
-      row-gap: rem(50);
-      column-gap: rem(50);
-      width: 100%;
-
-      .select-input-group {
-        @include flex-box(end, start, column, rem(12));
-        width: 100%;
-        position: relative;
-      }
-
-      .select-input-wrap {
-        width: 100%;
-        position: relative;
-      }
-    }
-
     .input-group-wrap {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       column-gap: rem(60);
       row-gap: 0;
       width: 100%;
@@ -73,57 +32,91 @@
     .input-group {
       width: 100%;
       position: relative;
+      padding: rem(20) 0;
 
-      &.forced {
+      &.has-value {
+        .place-holder {
+          display: none;
+        }
+
+        &.input-textarea-group {
+          .place-holder {
+            display: none;
+          }
+        }
+
         &:after {
-          content: '*';
-          @include typo(20, 700, 1);
-          position: absolute;
-          top: 0;
-          left: 0;
-          transform: translate(rem(-20), rem(40));
+          border-color: var(--color-gray-1000);
+        }
+      }
+
+      &.has-error {
+        .place-holder {
+          .en {
+            color: var(--color-red-bg);
+          }
+          .kr {
+            color: var(--color-red-bg);
+          }
+        }
+      }
+
+      .place-holder {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        @include flex-box(start, center, row, rem(4));
+        user-select: none;
+        pointer-events: none;
+
+        .en {
+          @include typo(54, 500, 1.4);
+          margin-right: rem(4);
+          color: var(--color-gray-200);
+        }
+        .kr {
+          @include typo(20, 500, 1.4);
+          transform: translateY(rem(6));
+          color: var(--color-gray-200);
+        }
+
+        .force {
+          @include typo(20, 500, 1.4);
+          transform: translateY(rem(-4));
           color: var(--color-red);
         }
       }
 
-      &.input-textar label {
-        height: rem(70);
-        @include flex-box(start, center, row, 2);
-        @include typo(24, 500, 1.2);
-        position: relative;
-        cursor: unset;
-
-        &.checkbox-label {
-          cursor: pointer;
-          column-gap: rem(4);
-          row-gap: rem(12);
-          flex-wrap: wrap;
-
-          &:after {
-            display: none;
-          }
-
-          .text-wrap {
-            display: inline-block;
-            position: relative;
-
-            &:after {
-              content: '*';
-              color: var(--color-red);
-              margin-left: rem(2);
-            }
-          }
+      &.input-textarea-group {
+        .place-holder {
+          position: absolute;
+          top: rem(20);
+          left: 0;
+          transform: unset;
+          @include flex-box(start, center, row, rem(4));
+          user-select: none;
+          pointer-events: none;
         }
+      }
 
-        &.not-forced {
-          &:after {
-            content: '';
-          }
-        }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100vw;
+        height: 100%;
+        transform: translateX(-50%);
+        border-bottom: rem(1) solid var(--color-line-noraml);
+        user-select: none;
+        pointer-events: none;
+        transition: border-color 0.25s ease;
+      }
 
+      &.focused {
         &:after {
-          content: '*';
-          color: var(--color-red);
+          border-color: var(--color-gray-1000);
         }
       }
 
@@ -135,202 +128,37 @@
           border-left: 0 !important;
           border-right: 0 !important;
           border-top: 0 !important;
-          border-bottom: rem(1) solid var(--color-line-noraml) !important;
+          border-bottom: 0 !important;
           padding: 0;
-          @include typo(24, 400, 1.4);
-
-          &::placeholder {
-            @include typo(24, 700, 1.4);
-            color: var(--color-gray-200);
-          }
+          @include typo(54, 500, 1.4);
 
           &:focus {
             border-left: 0 !important;
             border-right: 0 !important;
             border-top: 0 !important;
-            border-bottom: rem(1) solid var(--color-gray-1000) !important;
+            border-bottom: 0 !important;
           }
         }
       }
 
       textarea {
         width: 100%;
-        min-height: rem(300);
-        padding: rem(30) 0;
+        min-height: rem(450);
         box-sizing: border-box;
         overflow-y: auto;
-        @include typo(24, 400, 1.4);
+        @include typo(54, 500, 1.4);
         border-left: 0 !important;
         border-right: 0 !important;
         border-top: 0 !important;
-        border-bottom: rem(1) solid var(--color-line-noraml) !important;
+        border-bottom: 0 !important;
         color: var(--color-gray-1000);
 
         &:focus {
           border-left: 0 !important;
           border-right: 0 !important;
           border-top: 0 !important;
-          border-bottom: rem(1) solid var(--color-gray-1000) !important;
+          border-bottom: 0 !important;
         }
-
-        &::placeholder {
-          @include typo(24, 700, 1.4);
-          color: var(--color-gray-200);
-        }
-      }
-    }
-
-    /* ✅ 커스텀 셀렉트 */
-    .custom-select {
-      @include flex-box(space-between, center, row, 24);
-      @include typo(20, 400, 1.4);
-      width: 100%;
-      min-height: rem(70);
-      border-bottom: rem(2) solid var(--color-gray-1000);
-      cursor: pointer;
-      user-select: none;
-
-      .svg-box {
-        transition: transform 0.25s ease;
-
-        &.active {
-          transform: rotate(180deg);
-        }
-      }
-    }
-
-    .select-dropdown {
-      position: absolute;
-      bottom: 0;
-      transform: translateY(100%) translateY(rem(10));
-      width: 100%;
-      background-color: var(--color-gray-0);
-      border: rem(1) solid var(--color-line-noraml);
-      border-radius: rem(8);
-      z-index: 10;
-      overflow: hidden;
-      @include typo(16, 400, 1.4);
-      user-select: none;
-    }
-
-    .select-dropdown li {
-      padding: rem(16) rem(14);
-      cursor: pointer;
-    }
-    .select-dropdown li:hover {
-      background-color: var(--color-gray-50);
-    }
-    .arrow {
-      transition: transform 0.3s;
-    }
-    .arrow.open {
-      transform: rotate(180deg);
-    }
-
-    /* ✅ 파일 업로드 */
-    .file-upload {
-      display: flex;
-      flex-direction: column;
-      gap: rem(6);
-
-      input {
-        display: none;
-      }
-
-      .fake-file-input {
-        @include flex-box(space-between, center, row, 24);
-        @include typo(16, 500, 1.2);
-        min-height: rem(70);
-        padding: 0 rem(32);
-        border: rem(2) solid var(--color-line-noraml);
-        background-color: var(--color-gray-0);
-        box-sizing: border-box;
-        border-radius: rem(8);
-        transition: border-color 0.25s ease;
-
-        &:hover {
-          border-color: var(--color-line-noraml);
-        }
-      }
-    }
-
-    .file-info {
-      @include flex-box(space-between, center, row, 24);
-      min-height: rem(70);
-      padding: 0 rem(32);
-      border: rem(2) solid var(--color-gray-0);
-      box-sizing: border-box;
-      border-radius: rem(8);
-      background-color: var(--color-bg-normal);
-      color: var(--color-main);
-
-      > span {
-        display: flex;
-        color: var(--color-gray-0);
-      }
-
-      .file-name {
-        @include text-underline(1);
-        margin-right: rem(10);
-        color: var(--color-main);
-      }
-    }
-
-    .file-info button {
-      background: none;
-      border: none;
-      color: var(--color-gray-0);
-      cursor: pointer;
-      @include flex-box(start, center, row, 4);
-    }
-
-    /* ✅ 체크박스 */
-    .checkbox-label {
-      position: relative;
-      @include flex-box(start, center, row, 4);
-
-      input[type='checkbox'] {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-      }
-
-      p {
-        color: var(--normal-color-font);
-        margin-left: rem(4);
-      }
-
-      .checkmark {
-        position: relative;
-        width: rem(24);
-        height: rem(24);
-        border: rem(2) solid var(--color-line-noraml);
-        background-color: var(--color-gray-0);
-        border-radius: rem(4);
-        transition: all 0.2s ease;
-        flex-shrink: 0;
-
-        .svg-box {
-          @include flex-box(center, center);
-          color: var(--color-gray-0);
-          opacity: 0;
-          transition: opacity 0.25s ease;
-        }
-      }
-
-      input:checked ~ .checkmark {
-        background-color: var(--color-gray-1000);
-        border-color: var(--color-gray-1000);
-
-        .svg-box {
-          opacity: 1;
-        }
-      }
-
-      &:hover .checkmark {
-        border-color: var(--color-gray-400);
       }
     }
   }
@@ -348,15 +176,15 @@
 
     .submit-button {
       width: 100%;
-      height: rem(80);
+      height: rem(146);
       box-sizing: border-box;
       color: var(--color-gray-0);
       user-select: none;
-      @include typo(40, 700, 1.2);
+      @include typo(54, 500, 1.2);
       text-align: left;
 
       .button-container {
-        @include flex-box(start, center, row, rem(16));
+        @include flex-box(start, center, row, rem(24));
 
         .svg-box {
           rect,
@@ -389,7 +217,6 @@
   }
 }
 
-/* ✅ 모달 */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -400,6 +227,7 @@
   @include flex-box(center, center);
   z-index: 100;
 }
+
 .modal {
   background-color: var(--color-white-fix);
   color: var(--color-black-fix);
@@ -420,12 +248,14 @@
     margin-top: rem(16);
   }
 }
+
 .modal-buttons {
   margin-top: rem(40);
   display: flex;
   justify-content: center;
   gap: rem(10);
 }
+
 .modal-buttons button {
   padding: rem(16);
   border-radius: rem(100);
@@ -434,10 +264,12 @@
   @include typo(16, 700, 1);
   color: var(--color-black-fix);
 }
+
 .modal-buttons button:first-child {
   background-color: var(--color-black-fix);
   color: var(--color-white-fix);
 }
+
 .modal-buttons button:last-child {
   background-color: var(--color-bar-fix);
 }
@@ -500,23 +332,9 @@
   }
 }
 
-@media (max-width: rem(1000)) {
-  .section-wrap {
-    .form-wrap {
-      .title-wrap {
-        grid-template-columns: 1fr;
-      }
-    }
-  }
-}
-
 @media (max-width: rem(768)) {
   .section-wrap {
     padding-bottom: rem(160);
-
-    .file-warning {
-      @include typo(14, 400, 1.2);
-    }
 
     .form-wrap {
       .input-group-wrap {
@@ -524,31 +342,33 @@
       }
 
       .input-group {
-        &.forced {
-          &:after {
-            @include typo(16, 700, 1);
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translate(rem(-10), rem(20));
-            color: var(--color-red);
+        padding: rem(12) 0;
+
+        .place-holder {
+          .en {
+            @include typo(24, 500, 1.4);
+            margin-right: rem(2);
+          }
+          .kr {
+            @include typo(16, 500, 1.4);
+            transform: translateY(rem(4));
+          }
+
+          .force {
+            @include typo(16, 500, 1.4);
+            transform: translateY(rem(-4));
           }
         }
 
         &.input-textarea-group {
-          &.forced {
-            &:after {
-              transform: translate(rem(-10), rem(30));
-            }
-          }
-        }
-
-        label {
-          height: rem(50);
-          @include typo(20, 500, 1.2);
-
-          &.checkbox-label {
-            height: auto;
+          .place-holder {
+            position: absolute;
+            top: rem(20);
+            left: 0;
+            transform: unset;
+            @include flex-box(start, center, row, rem(4));
+            user-select: none;
+            pointer-events: none;
           }
         }
 
@@ -556,35 +376,14 @@
           height: rem(72);
 
           &.text-input {
-            @include typo(20, 400, 1.4);
-
-            &::placeholder {
-              @include typo(20, 700, 1.4);
-            }
+            @include typo(24, 400, 1.4);
           }
         }
 
         textarea {
-          @include typo(20, 400, 1.4);
+          @include typo(24, 400, 1.4);
           min-height: rem(340);
-
-          &::placeholder {
-            @include typo(20, 700, 1.4);
-          }
         }
-      }
-
-      /* ✅ 파일 업로드 */
-      .file-upload {
-        .fake-file-input {
-          min-height: rem(60);
-          padding: 0 rem(20);
-        }
-      }
-
-      .file-info {
-        min-height: rem(60);
-        padding: 0 rem(20);
       }
     }
 
@@ -593,8 +392,16 @@
 
       .submit-button {
         width: 100%;
-        height: rem(72);
-        @include typo(32, 700, 1.2);
+        height: rem(96);
+        @include typo(24, 700, 1.2);
+
+        .button-container {
+          @include flex-box(start, center, row, rem(16));
+        }
+
+        .svg-box {
+          @include svg-box(rem(36));
+        }
       }
     }
   }
@@ -612,6 +419,7 @@
       @include typo(14, 400, 1.4);
     }
   }
+
   .modal-buttons {
     margin-top: rem(24);
     gap: rem(10);

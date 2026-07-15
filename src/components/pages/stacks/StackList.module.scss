@@ -6,8 +6,7 @@
 }
 
 .stack-grid {
-  @include grid-box(repeat(2, 1fr), rem(20));
-  row-gap: rem(60);
+  @include grid-box(1fr, rem(20));
 }
 
 .category-group {
@@ -23,29 +22,30 @@
 
 .stack-card {
   //width: 25cqw;
-  @include flex-box(start, center, row, rem(40));
+  width: 100%;
+  @include flex-box(space-between, start, row, rem(40));
+  padding: rem(40);
+  border-radius: rem(20);
   box-sizing: border-box;
-  //@include grid-box(null, rem(20));
+  background-color: var(--color-bg-stacks);
 
   .stack-wrap {
     @include grid-box(null, rem(40));
   }
 
   .card-info {
-    @include grid-box(null, rem(20));
+    @include grid-box(null, rem(24));
   }
 
   .icon-box {
     position: relative;
-    width: rem(210);
+    width: rem(200);
     aspect-ratio: 1 / 1;
     cursor: pointer;
     @include flex-box(center, center);
     overflow: hidden;
-    background-color: rgb(255, 255, 255);
     user-select: none;
     pointer-events: none;
-    border: rem(1) solid var(--color-line-noraml);
     //border-radius: rem(20);
   }
 
@@ -55,14 +55,13 @@
   }
 
   .stack-detail {
-    @include typo(14, 400, 1.6);
-    color: var(--color-gray-400);
+    @include typo(16, 400, 1.6);
+    color: var(--color-gray-1000);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-right: rem(40);
-    max-width: rem(450);
   }
 }
 

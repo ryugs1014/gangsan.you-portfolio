@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
@@ -8,6 +8,7 @@ import s from './WorkList.module.scss';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import FadeIn from '@/components/atoms/animation/FadeIn';
 import Image from 'next/image';
+import BlackArrow from '@public/svg/common/black-arrow.svg';
 
 export interface Portfolio {
   id: string;
@@ -26,6 +27,18 @@ interface WorkListProps {
 
 export default function WorkList({ portfolios }: WorkListProps) {
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (!portfolios || portfolios.length === 0) {
     return (
@@ -50,7 +63,11 @@ export default function WorkList({ portfolios }: WorkListProps) {
                 <div className={s['portfolio-item']}>
                   <div className={s['work-image']}>
                     <Image
-                      src={work['main-image']}
+                      src={
+                        isMobile && work['sub-image']
+                          ? work['sub-image']
+                          : work['main-image']
+                      }
                       alt={`${work.id} icon`}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -58,33 +75,49 @@ export default function WorkList({ portfolios }: WorkListProps) {
                       unoptimized={true}
                     />
 
-                    <div className={s['web-links']}>
+                    <div className={s['work-links']}>
+                      <div className={s['web-links']}>
+                        <Link
+                          href={work.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={s['site-link']}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          사이트 방문 ↗
+                        </Link>
+
+                        {/*<Link*/}
+                        {/*  href={work.github}*/}
+                        {/*  target="_blank"*/}
+                        {/*  rel="noopener noreferrer"*/}
+                        {/*  className={s['out-link']}*/}
+                        {/*  onClick={(e) => e.stopPropagation()}*/}
+                        {/*>*/}
+                        {/*  GitHub ↗*/}
+                        {/*</Link>*/}
+                      </div>
+
                       <Link
-                        href={work.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={s['out-link']}
-                        onClick={(e) => e.stopPropagation()}
+                        href={`/works/${work.id}`}
+                        className={s['detail-button']}
                       >
-                        GitHub
-                      </Link>
-                      <Link
-                        href={work.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={s['site-link']}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        사이트 방문
+                        <span>상세보기</span>
+
+                        <div className={`${s['svg-box']}`}>
+                          <BlackArrow
+                            width="100%"
+                            height="100%"
+                            viewBox="0 0 36 36"
+                          />
+                        </div>
                       </Link>
                     </div>
                   </div>
 
                   <div className={s['work-info']}>
-                    <div className={s['title-container']}>
+                    <div className={s['title-wrap']}>
                       <h4 className={s['work-title']}>{work['work-title']}</h4>
-
-                      <RightArrowSVG responsivSize={true} />
                     </div>
 
                     <p className={s['work-explan']}>{work['work-explan']}</p>
