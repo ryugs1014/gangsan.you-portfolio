@@ -10,17 +10,17 @@ export default function Section_02() {
 
   return (
     <div className={s['section-container']}>
-      <Container className={s['title-container']}>
-        <div className={s['bar-wrapper']}>
-          {bars.map((_, i) => (
-            <div
-              key={i}
-              className={s['bar']}
-              style={{ '--i': i } as React.CSSProperties}
-            />
-          ))}
-        </div>
-      </Container>
+      {/*<Container className={s['title-container']}>*/}
+      <div className={s['bar-wrapper']}>
+        {bars.map((_, i) => (
+          <div
+            key={i}
+            className={s['bar']}
+            style={{ '--i': i } as React.CSSProperties}
+          />
+        ))}
+      </div>
+      {/*</Container>*/}
     </div>
   );
 }

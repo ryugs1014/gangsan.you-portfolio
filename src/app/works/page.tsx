@@ -3,7 +3,7 @@
 import type { Metadata } from 'next';
 import s from './page.module.scss';
 import PageTitle from '@/components/atoms/common/PageTitle';
-import Section_Banner from '@/components/pages/works/Section_Banner';
+import Section_Banner from '@/components/pages/contact/Section_Banner';
 import WorksContent from '@/components/pages/works/WorksContent';
 import FadeIn from '@/components/atoms/animation/FadeIn';
 

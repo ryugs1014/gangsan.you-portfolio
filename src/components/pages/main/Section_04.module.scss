@@ -90,7 +90,7 @@
     @include grid-box();
 
     > span {
-      @include typo(80, 700, 1.2);
+      @include typo(40, 700, 1.2);
       text-transform: uppercase;
     }
   }
@@ -130,11 +130,11 @@
   }
 
   .work-title {
-    @include typo(32, 700, 1.4);
+    @include typo(24, 700, 1.4);
   }
 
   .work-explan {
-    @include typo(16, 400, 1.5);
+    @include typo(15, 400, 1.5);
     color: var(--color-gray-700);
   }
 
@@ -324,19 +324,21 @@
 
   .portfolio-item {
     padding: 0 rem(20);
-    margin: rem(80) 0;
-    position: relative;
+    margin: rem(40) 0;
+    //position: relative;
 
     .item-button {
-      @include grid-box(null, rem(20));
+      @include grid-box(null, rem(16));
     }
 
     .work-info {
-      position: absolute;
-      bottom: rem(24);
-      left: 0;
-      padding: 0 rem(40);
-      z-index: 2;
+      //position: absolute;
+      //bottom: rem(24);
+      //left: 0;
+      //padding: 0 rem(40);
+      //z-index: 2;
+      order: 2;
+      padding: 0 rem(12);
 
       .key-features {
         display: none;
@@ -355,19 +357,19 @@
 
     .work-title {
       @include typo(20, 700, 1.4);
-      color: var(--color-white-fix);
+      //color: var(--color-white-fix);
     }
 
     .work-explan {
       @include typo(12, 400, 1.5);
       @include text-ellipsis(2);
-      color: var(--color-white-fix);
+      //color: var(--color-white-fix);
     }
 
     .work-links {
-      top: rem(20);
-      bottom: unset;
-      padding: 0 rem(16);
+      //top: rem(10);
+      bottom: rem(10);
+      padding: 0 rem(10);
       @include flex-box(space-between, start, row, rem(10));
 
       .web-links {
@@ -376,8 +378,8 @@
 
       .out-link,
       .site-link {
-        @include typo(14, 600, 1);
-        padding: rem(15) rem(16);
+        @include typo(12, 600, 1);
+        padding: rem(10) rem(12);
         border: rem(1) solid var(--color-line-noraml);
       }
 
@@ -392,8 +394,8 @@
         }
 
         .svg-box {
-          @include svg-box(rem(44));
-          min-width: rem(44);
+          @include svg-box(rem(32));
+          min-width: rem(32);
         }
 
         rect {
@@ -406,8 +408,8 @@
     }
 
     .work-image {
-      aspect-ratio: 1080 / 1450;
-      border-radius: 2.5cqw;
+      aspect-ratio: 4 / 3;
+      border-radius: rem(24);
     }
   }
 }

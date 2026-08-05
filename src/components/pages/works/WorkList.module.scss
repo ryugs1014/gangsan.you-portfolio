@@ -8,7 +8,7 @@
 }
 
 .portfolio-item {
-  @include grid-box(null, rem(20));
+  @include grid-box(null, rem(24));
   box-sizing: border-box;
   cursor: pointer;
 
@@ -32,7 +32,7 @@
   }
 
   .work-info {
-    @include grid-box(null, rem(10));
+    @include grid-box(null, rem(16));
     padding: 0 rem(16);
     box-sizing: border-box;
   }
@@ -46,19 +46,20 @@
   }
 
   .work-title {
-    @include typo(24, 700, 1.4);
+    @include typo(32, 700, 1.4);
     @include text-ellipsis(2);
+    word-break: keep-all;
   }
 
   .work-explan {
-    @include typo(14, 400, 1.5);
+    @include typo(16, 400, 1.5);
     color: var(--color-gray-700);
   }
 
   .work-image {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 2.5;
+    aspect-ratio: 700 / 470;
     background-color: var(--color-gray-100);
     @include flex-box(center, center);
     overflow: hidden;
@@ -79,6 +80,7 @@
         var(--color-bg-shadow-front) 0%,
         var(--color-bg-shadow-back) 100%
       );
+      opacity: 0.4;
     }
   }
 
@@ -101,7 +103,7 @@
       padding: rem(12) rem(17);
       border-radius: rem(100);
       box-sizing: border-box;
-      //border: rem(1) solid var(--color-line-noraml);
+      border: rem(1) solid var(--color-line-image);
     }
 
     .out-link {
@@ -119,6 +121,7 @@
       @include typo(16, 600, 1);
       padding: rem(10) rem(10) rem(10) rem(24);
       //border: rem(1) solid var(--color-line-noraml);
+      border: rem(1) solid var(--color-line-image);
       border-radius: rem(100);
       box-sizing: border-box;
       background-color: var(--color-gray-0);
@@ -203,8 +206,9 @@
     }
 
     .work-image {
-      aspect-ratio: 1080 / 1450;
-      border-radius: 2.5cqw;
+      aspect-ratio: 4 / 3;
+      //border-radius: 2.5cqw;
+      border-radius: rem(24);
     }
 
     .work-info {
@@ -212,9 +216,9 @@
     }
 
     .work-links {
-      top: rem(20);
-      bottom: unset;
-      padding: 0 rem(16);
+      //top: rem(20);
+      bottom: rem(10);
+      padding: 0 rem(10);
       @include flex-box(space-between, start, row, rem(10));
 
       .web-links {
@@ -223,8 +227,8 @@
 
       .out-link,
       .site-link {
-        @include typo(14, 600, 1);
-        padding: rem(15) rem(16);
+        @include typo(12, 600, 1);
+        padding: rem(10) rem(12);
         border: rem(1) solid var(--color-line-noraml);
       }
 
@@ -239,8 +243,8 @@
         }
 
         .svg-box {
-          @include svg-box(rem(44));
-          min-width: rem(44);
+          @include svg-box(rem(32));
+          min-width: rem(32);
         }
 
         rect {

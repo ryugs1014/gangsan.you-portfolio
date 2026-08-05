@@ -20,6 +20,7 @@
 
 .text-section {
   @include grid-box(null, rem(10));
+  color: var(--color-black-fix);
 
   .section-title {
     @include typo(20, 700, 1.4);
@@ -135,12 +136,12 @@
   }
 
   .stack-name {
-    @include typo(32, 700, 1.2);
-    color: var(--color-gray-1000);
+    @include typo(24, 700, 1.2);
+    color: var(--color-black-fix);
   }
 
   .stack-detail {
-    @include typo(16, 400, 1.6);
+    @include typo(13, 400, 1.6);
     color: var(--color-gray-400);
     display: -webkit-box;
     -webkit-line-clamp: 4;

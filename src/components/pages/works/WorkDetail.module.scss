@@ -20,7 +20,7 @@
 }
 
 .header-title {
-  @include typo(60, 700, 1.4);
+  @include typo(54, 700, 1.4);
 }
 
 .action-links {
@@ -29,8 +29,8 @@
 
 .back-button,
 .link-btn {
-  @include typo(16, 700, 1);
-  padding: rem(16) rem(24);
+  @include typo(14, 700, 1);
+  padding: rem(14) rem(20);
   border-radius: rem(100);
   box-sizing: border-box;
 }
@@ -59,12 +59,12 @@
     @include grid-box(null, rem(40));
 
     .explan {
-      @include typo(16, 400, 1.5);
+      @include typo(15, 400, 1.5);
       word-break: keep-all;
     }
 
     .info-title {
-      @include typo(40, 700, 1.2);
+      @include typo(32, 700, 1.4);
       word-break: keep-all;
       margin-top: rem(-5);
     }
@@ -74,6 +74,7 @@
 
       .info-item {
         @include grid-box(rem(100) 1fr, rem(60));
+        @include typo(15, 400, 1.5);
 
         .label {
           color: var(--color-gray-400);
@@ -85,7 +86,7 @@
 
           .tag {
             @include flex-box(center, center);
-            @include typo(16, 400, 1);
+            @include typo(13, 400, 1);
             padding: rem(4) rem(4);
             box-sizing: border-box;
             border-radius: rem(4);
@@ -104,10 +105,13 @@
 
 .out-link,
 .site-link {
-  @include typo(16, 700, 1);
-  padding: rem(16) rem(24);
+  @include typo(14, 700, 1);
+  padding: rem(14) rem(12);
   border-radius: rem(100);
   box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  max-width: rem(132);
 }
 
 .out-link {
@@ -134,10 +138,10 @@
     @include grid-box(null, rem(16));
 
     .detail-title {
-      @include typo(40, 700, 1.4);
+      @include typo(32, 700, 1.4);
     }
     .detail-explan {
-      @include typo(16, 400, 1.5);
+      @include typo(15, 400, 1.5);
       word-break: keep-all;
     }
   }
@@ -150,7 +154,7 @@
 .footer-back-button {
   @include flex-box(end, center, row, rem(12));
   @include typo(16, 700, 1);
-  padding: rem(24) rem(36) rem(24) rem(24);
+  padding: rem(20) rem(36) rem(20) rem(24);
   border-radius: rem(100);
   box-sizing: border-box;
   color: var(--color-gray-0);
@@ -232,7 +236,7 @@
     }
 
     .next-title {
-      @include typo(60, 700, 1.4);
+      @include typo(54, 700, 1.4);
       z-index: 2;
     }
   }
@@ -347,7 +351,7 @@
 
           .tags {
             .tag {
-              @include typo(14, 400, 1);
+              @include typo(13, 400, 1);
             }
           }
         }
@@ -370,6 +374,15 @@
 @media (max-width: rem(768)) {
   .hero-section {
     padding: 0 calc(var(--layout-padding-mobile) / 2);
+  }
+
+  .header-title {
+    @include typo(24, 700, 1.4);
+  }
+
+  .back-button,
+  .link-btn {
+    @include typo(12, 700, 1);
   }
 
   .footer-next-section {
@@ -399,7 +412,7 @@
   .info-grid {
     .grid-wrap {
       .info-title {
-        @include typo(24, 700, 1.2);
+        @include typo(20, 700, 1.2);
         margin-top: unset;
       }
 
@@ -408,13 +421,27 @@
 
         .info-item {
           @include grid-box(1fr, rem(10));
+          @include typo(12, 400, 1.5);
+
+          .tags {
+            .tag {
+              @include typo(12, 400, 1);
+            }
+          }
         }
       }
 
       .explan {
-        @include typo(14, 400, 1.5);
+        @include typo(13, 400, 1.5);
       }
     }
+  }
+
+  .out-link,
+  .site-link {
+    @include typo(13, 700, 1);
+    padding: rem(16) 0;
+    max-width: 100%;
   }
 
   .main-image-box {
@@ -423,6 +450,49 @@
 
   .detail-image-box {
     border-radius: rem(10);
+  }
+
+  .detail-list-section {
+    .text-area {
+      @include grid-box(null, rem(12));
+
+      .detail-title {
+        @include typo(20, 700, 1.4);
+      }
+      .detail-explan {
+        @include typo(13, 400, 1.5);
+      }
+    }
+  }
+
+  .footer-back-button {
+    @include flex-box(end, center, row, rem(12));
+    @include typo(14, 700, 1);
+    padding: rem(12) rem(32) rem(12) rem(20);
+    border-radius: rem(100);
+    box-sizing: border-box;
+    color: var(--color-gray-0);
+    background-color: var(--color-gray-1000);
+  }
+
+  .footer-next-section {
+    padding: rem(120) calc(var(--layout-padding) / 2);
+
+    &:after {
+      display: none;
+    }
+
+    .next-button-section {
+      @include flex-box(center, center, column, rem(16));
+
+      .next-button {
+        @include typo(13, 600, 1);
+      }
+
+      .next-title {
+        @include typo(24, 700, 1.4);
+      }
+    }
   }
 }
 

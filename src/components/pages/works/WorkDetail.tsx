@@ -205,7 +205,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                   rel="noopener noreferrer"
                   className={s['out-link']}
                 >
-                  GitHub
+                  GitHub ↗
                 </a>
                 <a
                   href={data.link}
@@ -213,7 +213,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                   rel="noopener noreferrer"
                   className={s['site-link']}
                 >
-                  사이트 방문
+                  사이트 방문 ↗
                 </a>
               </div>
             </div>

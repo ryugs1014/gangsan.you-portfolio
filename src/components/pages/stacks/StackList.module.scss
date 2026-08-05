@@ -35,6 +35,7 @@
 
   .card-info {
     @include grid-box(null, rem(24));
+    flex: 1;
   }
 
   .icon-box {
@@ -51,12 +52,12 @@
 
   .stack-name {
     @include typo(32, 700, 1.2);
-    color: var(--color-gray-1000);
+    color: var(--color-black-fix);
   }
 
   .stack-detail {
     @include typo(16, 400, 1.6);
-    color: var(--color-gray-1000);
+    color: var(--color-black-fix);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -117,6 +118,7 @@
 
   .stack-card {
     @include flex-box(start, start, column, rem(20));
+    padding: rem(24);
 
     .icon-box {
       width: rem(100);

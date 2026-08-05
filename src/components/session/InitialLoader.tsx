@@ -11,6 +11,7 @@ export default function InitialLoader() {
   const [progress, setProgress] = useState(0);
 
   const hasRunRef = useRef(false);
+  const isVideoLoadedRef = useRef(false);
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
@@ -40,6 +41,24 @@ export default function InitialLoader() {
   }, [isLoading]);
 
   useEffect(() => {
+    const handleVideoLoaded = () => {
+      isVideoLoadedRef.current = true;
+    };
+    window.addEventListener('video-loaded', handleVideoLoaded);
+
+    // 안전장치(Fallback): 네트워크 문제로 비디오 로드가 실패하더라도
+    // 8초 뒤에는 강제로 로더가 닫히도록 설정 (무한 로딩 방지)
+    const fallbackTimer = setTimeout(() => {
+      isVideoLoadedRef.current = true;
+    }, 8000);
+
+    return () => {
+      window.removeEventListener('video-loaded', handleVideoLoaded);
+      clearTimeout(fallbackTimer);
+    };
+  }, []);
+
+  useEffect(() => {
     if (hasRunRef.current || pathname !== '/') {
       setIsLoading(false);
       hasRunRef.current = true;
@@ -48,7 +67,14 @@ export default function InitialLoader() {
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const nextProgress = prev + 1;
+        // 비디오가 아직 로드되지 않았다면 99%에서 대기
+        if (prev >= 99 && !isVideoLoadedRef.current) {
+          return 99;
+        }
+
+        // 비디오가 로드되었다면 가속해서 100%로 도달
+        const increment = isVideoLoadedRef.current ? 3 : 1;
+        const nextProgress = Math.min(prev + increment, 100);
 
         if (nextProgress >= 100) {
           clearInterval(interval);

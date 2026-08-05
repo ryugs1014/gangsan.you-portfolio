@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import '@/styles/globals.scss';
-
-import InitialLoader from '@/components/session/InitialLoader';
+import localFont from 'next/font/local';
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/atoms/buttons/ScrollToTop';
+import InitialLoader from '@/components/session/InitialLoader';
 
 const themeScript = `
   (function() {

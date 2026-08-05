@@ -9,6 +9,7 @@
   width: 100%;
   aspect-ratio: 1920 / 700;
   overflow: hidden;
+  clip-path: inset(rem(2));
 }
 
 .video-element {

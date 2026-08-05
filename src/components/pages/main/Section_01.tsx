@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import s from './Section_01.module.scss';
 import Container from '@/components/layout/Container';
 
@@ -66,6 +66,10 @@ export default function Section_01() {
   const titleOpacity = 1 - progress * 2.5;
   const titleTranslateY = `-${progress * 50}px`;
 
+  const handleVideoLoaded = () => {
+    window.dispatchEvent(new CustomEvent('video-loaded'));
+  };
+
   return (
     <div ref={sectionRef} className={s['section-container']}>
       <div className={s['sticky-wrap']}>
@@ -99,6 +103,7 @@ export default function Section_01() {
             loop
             playsInline
             className={s['video-element']}
+            onCanPlayThrough={handleVideoLoaded}
           />
 
           <div
