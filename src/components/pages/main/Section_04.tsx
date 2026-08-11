@@ -107,7 +107,7 @@ export default function Section_04() {
         <Container>
           <div className={s['title-section']}>
             <div className={s['text-section']}>
-              <div className={s['section-title']}>Works</div>
+              <div className={s['section-title']}>프로젝트</div>
               <div className={s['section-text']}>
                 고객의 이야기를 가장 가까이에서 듣고,
                 <br />
@@ -134,7 +134,7 @@ export default function Section_04() {
                 <div className={s['category-wrap']}>
                   <div className={s['category-content']}>
                     <span>{category}</span>
-                    <span>Category</span>
+                    <span>Service</span>
                   </div>
                 </div>
               </div>
@@ -148,30 +148,6 @@ export default function Section_04() {
 
                         onClick={() => router.push(`/works/${work.id}`)}
                       >
-                        <div
-                          className={`${s['work-info']} ${work['font-theme'] === 'dark' ? s['dark'] : ''}`}
-                        >
-                          <div className={s['info-header']}>
-                            <h4 className={s['work-title']}>
-                              {work['work-title']}
-                            </h4>
-
-                            <p className={s['work-explan']}>
-                              {work['work-explan']}
-                            </p>
-                          </div>
-
-                          <div className={s['key-features']}>
-                            {work['key-features']
-                              ?.split(',')
-                              .map((feature, idx) => (
-                                <span key={idx} className={s['features-block']}>
-                                  {feature.trim()}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-
                         <div className={s['work-image']}>
                           <Image
                             src={
@@ -225,6 +201,30 @@ export default function Section_04() {
                                 />
                               </div>
                             </Link>
+                          </div>
+                        </div>
+
+                        <div
+                          className={`${s['work-info']} ${work['font-theme'] === 'dark' ? s['dark'] : ''}`}
+                        >
+                          <div className={s['info-header']}>
+                            <h4 className={s['work-title']}>
+                              {work['work-title']}
+                            </h4>
+
+                            <p className={s['work-explan']}>
+                              {work['work-explan']}
+                            </p>
+                          </div>
+
+                          <div className={s['key-features']}>
+                            {work['key-features']
+                              ?.split(',')
+                              .map((feature, idx) => (
+                                <span key={idx} className={s['features-block']}>
+                                  {feature.trim()}
+                                </span>
+                              ))}
                           </div>
                         </div>
                       </div>

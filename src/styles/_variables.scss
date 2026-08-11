@@ -6,10 +6,12 @@
   --color-font-noraml: #171718;
   --color-line-noraml: #e1e2e3;
   --color-menu-noraml: rgba(255, 255, 255, 1);
-  --color-bg-stacks: #f7f7f7;
+  --color-bg-stacks: #f5f7f9;
   --color-line-image: rgba(0, 0, 0, 0.01);
   --color-bg-shadow-front: rgba(217, 217, 217, 0);
   --color-bg-shadow-back: rgba(0, 0, 0, 0.05);
+  --color-stack-icon: rgba(255, 255, 255, 1);
+  --color-stack-icon-reverse: rgba(0, 0, 0, 0.015);
 
   /* Gray scale */
   --color-gray-1000: #000000;
@@ -59,6 +61,8 @@
   --color-line-image: #2f2f30;
   --color-bg-shadow-front: rgba(255, 255, 255, 0);
   --color-bg-shadow-back: rgba(255, 255, 255, 0.15);
+  --color-stack-icon: rgba(0, 0, 0, 0.015);
+  --color-stack-icon-reverse: rgba(255, 255, 255, 1);
 
   /* Gray scale */
   --color-gray-1000: #ffffff;

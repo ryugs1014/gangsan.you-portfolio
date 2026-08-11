@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import s from './Section_06.module.scss';
 import Link from 'next/link';
@@ -15,7 +17,7 @@ export default function Section_06() {
         <div className={s['section-wrap']}>
           <div className={s['title-section']}>
             <div className={s['text-section']}>
-              <div className={s['section-title']}>Contact</div>
+              <div className={s['section-title']}>문의하기</div>
               <div className={s['section-text']}>
                 함께 일할 사람을 찾고 계신가요?
               </div>

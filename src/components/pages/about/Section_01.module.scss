@@ -48,7 +48,7 @@
         .list-title {
           @include flex-box(start, start, row, rem(10));
           row-gap: 0;
-          @include typo(32, 700, 1.5);
+          @include typo(24, 700, 1.5);
           color: var(--color-gray-1000);
           flex-wrap: wrap;
         }

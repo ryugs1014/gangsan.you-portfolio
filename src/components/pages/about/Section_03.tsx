@@ -14,11 +14,21 @@ export default function Section_03() {
               <ol className={s['about-content-list']}>
                 <li>
                   <div className={s['flex-box']}>
-                    <div className={s['list-title']}>국립창원대학교(4년제)</div>
-                    <div className={s['list-sub']}>일어일문학과</div>
+                    <div className={s['list-title']}>
+                      컴퓨터그래픽스운용기능사
+                    </div>
+                    <div className={s['list-sub']}>최종합격</div>
                   </div>
 
-                  <div className={s['list-time']}>2010.03 - 2018.02</div>
+                  <div className={s['list-time']}>2009.07</div>
+                </li>
+                <li>
+                  <div className={s['flex-box']}>
+                    <div className={s['list-title']}>JLPT 일본어능력시험</div>
+                    <div className={s['list-sub']}>N1 PASS</div>
+                  </div>
+
+                  <div className={s['list-time']}>2017.01</div>
                 </li>
               </ol>
             </li>

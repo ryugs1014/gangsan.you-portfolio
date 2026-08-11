@@ -42,7 +42,7 @@ export default async function Stacks() {
     <main className={s['main']}>
       <FadeIn>
         <PageTitle>
-          기술을 유연하게 받아들이고, <br />
+          트렌드를 유연하게 받아들이고, <br />
           완성도 높은 결과물로 다듬어냅니다.
         </PageTitle>
       </FadeIn>
@@ -53,7 +53,7 @@ export default async function Stacks() {
 
       <TabNavigation tabs={tabs} />
 
-      <FadeIn threshold={0.2}>
+      <FadeIn delay={0.3} threshold={0}>
         <StackList groupedStacks={groupedStacks} />
       </FadeIn>
     </main>

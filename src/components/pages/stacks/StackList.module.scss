@@ -118,10 +118,11 @@
 
   .stack-card {
     @include flex-box(start, start, column, rem(20));
-    padding: rem(24);
+    padding: rem(24) rem(16) rem(16) rem(24);
 
     .icon-box {
       width: rem(100);
+      align-self: flex-end;
     }
 
     .stack-name {

@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 };
 
 const HOME_TABS = [
-  { name: 'About', id: 'section-03' },
-  { name: 'Works', id: 'section-04' },
-  { name: 'Stacks', id: 'section-05' },
-  { name: 'Contact', id: 'section-06' },
+  { name: '소개', id: 'section-03' },
+  { name: '프로젝트', id: 'section-04' },
+  { name: '기술 · 스택', id: 'section-05' },
+  { name: '문의하기', id: 'section-06' },
 ];
 
 export default async function Home() {

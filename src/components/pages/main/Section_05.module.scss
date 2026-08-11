@@ -27,7 +27,7 @@
   }
 
   .section-text {
-    @include typo(40, 700, 1.4);
+    @include typo(48, 700, 1.2);
   }
 }
 
@@ -130,9 +130,10 @@
     cursor: pointer;
     @include flex-box(center, center);
     overflow: hidden;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-stack-icon);
     user-select: none;
     pointer-events: none;
+    border-radius: rem(20);
   }
 
   .stack-name {
@@ -141,7 +142,7 @@
   }
 
   .stack-detail {
-    @include typo(13, 400, 1.6);
+    @include typo(15, 400, 1.6);
     color: var(--color-gray-400);
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -263,6 +264,7 @@
 
     .icon-box {
       width: rem(60);
+      border-radius: rem(8);
     }
 
     .stack-name {

@@ -175,9 +175,9 @@ export default function Section_05() {
         <div className={s['section-wrap']}>
           <div className={s['title-section']}>
             <div className={s['text-section']}>
-              <div className={s['section-title']}>Stacks</div>
+              <div className={s['section-title']}>기술 · 스택</div>
               <div className={s['section-text']}>
-                기술을 유연하게 받아들이고,
+                트렌드를 유연하게 받아들이고,
                 <br />
                 완성도 높은 결과물로 다듬어냅니다.
               </div>

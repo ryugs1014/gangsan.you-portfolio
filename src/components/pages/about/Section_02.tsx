@@ -20,6 +20,25 @@ export default function Section_02() {
 
                   <div className={s['list-time']}>2010.03 - 2018.02</div>
                 </li>
+                <li>
+                  <div className={s['flex-box']}>
+                    <div className={s['list-title']}>
+                      {' '}
+                      규슈대학(九州大学) 교환학생
+                    </div>
+                    <div className={s['list-sub']}>윤리학부</div>
+                  </div>
+
+                  <div className={s['list-time']}>2016.04 - 2017.02</div>
+                </li>
+                <li>
+                  <div className={s['flex-box']}>
+                    <div className={s['list-title']}>더조은컴퓨터학원</div>
+                    <div className={s['list-sub']}>프론트엔드 실무자 양성</div>
+                  </div>
+
+                  <div className={s['list-time']}>2021.03 - 2021.07</div>
+                </li>
               </ol>
             </li>
           </ul>
