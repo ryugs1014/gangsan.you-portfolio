@@ -11,6 +11,8 @@
 
 .title-section {
   @include flex-box(space-between, end, row, rem(10));
+  padding: 0 rem(40);
+  box-sizing: border-box;
 }
 
 .text-section {
@@ -39,73 +41,19 @@
 
 .category-group {
   @include flex-box(start, start);
-  position: relative;
-
-  &:first-child {
-    .category-name {
-      background-color: #daff52;
-      background-image: url('/image/page/main/web_section.png');
-      background-position: center center;
-      background-size: cover;
-      color: var(--color-black-fix);
-    }
-  }
-
-  &:nth-child(2) {
-    .category-name {
-      background-image: url('/image/page/main/mobile_section.png');
-      background-position: center center;
-      background-size: cover;
-      color: var(--color-white-fix);
-    }
-  }
-}
-
-.category-name {
-  width: calc(#{rem(845)} + 50vw - rem(1920) / 2);
-  flex-shrink: 0;
-  position: sticky;
-  top: rem(64);
-  transition: top 0.5s ease;
-
-  &.up {
-    top: rem(126);
-
-    .category-wrap {
-      height: calc(100dvh - #{rem(126)});
-    }
-  }
-
-  .category-wrap {
-    height: calc(100dvh - #{rem(64)});
-    transition: height 0.5s ease;
-    @include flex-box(end, start);
-  }
-
-  .category-content {
-    padding: rem(80) rem(40) rem(40);
-    width: 100%;
-    max-width: rem(662);
-    box-sizing: border-box;
-    @include grid-box();
-
-    > span {
-      @include typo(54, 700, 1.2);
-      text-transform: uppercase;
-    }
-  }
 }
 
 /* 오른쪽: 포트폴리오 리스트 */
 .portfolio-list {
   @include grid-box(); // 각 포트폴리오 아이템 간의 간격
   width: 100%; // 오른쪽 영역 너비
-  padding-bottom: rem(160);
+  padding: 0 rem(40);
   > div {
     &:last-child {
       .portfolio-item {
         border-bottom: none;
         padding-bottom: 0;
+        margin-bottom: rem(240);
       }
     }
   }
@@ -113,25 +61,144 @@
 
 /* 개별 포트폴리오 아이템 스타일 */
 .portfolio-item {
-  padding: rem(80) rem(160) rem(80) rem(160);
-  box-sizing: border-box;
-
   .item-button {
-    @include grid-box(null, rem(24));
+    @include grid-box(1fr 1fr, rem(40));
     cursor: pointer;
+    border-bottom: rem(1) solid var(--color-line-block);
+    padding: rem(80) 0;
+    box-sizing: border-box;
   }
 
   .work-info {
-    @include grid-box(null, rem(16));
+    @include flex-box(space-between, start, column, rem(16));
     padding: 0 rem(16);
+  }
+
+  .info-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: rem(20);
+
+    [data-color-scheme='dark'] & {
+      > img {
+        color: var(--color-white-fix) !important;
+      }
+    }
+
+    &.logo-dongle-diary {
+      max-width: rem(160);
+    }
+    &.logo-hey-dealer {
+      max-width: rem(180);
+    }
+    &.logo-narajangteo {
+      max-width: rem(240);
+    }
+    &.logo-glitchor-partners {
+      max-width: rem(240);
+    }
+    &.logo-moogm {
+      max-width: rem(160);
+    }
+    &.logo-glitchor-rental {
+      max-width: rem(200);
+    }
+    &.logo-wkbc {
+      max-width: rem(200);
+    }
+    &.logo-stage-cloud {
+      max-width: rem(280);
+    }
+    &.logo-kb {
+      max-width: rem(180);
+    }
+    &.logo-starcorn {
+      max-width: rem(200);
+    }
+    &.logo-samsung {
+      max-width: rem(160);
+    }
+    &.logo-asiaplat {
+      max-width: rem(180);
+    }
+    &.logo-nh {
+      max-width: rem(200);
+    }
+    &.logo-hirekorea {
+      max-width: rem(200);
+    }
+    &.logo-biventures {
+      max-width: rem(160);
+    }
+    &.logo-barfdog {
+      max-width: rem(200);
+    }
+  }
+
+  .default-logo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .light-logo {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+  }
+
+  .dark-logo {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  [data-color-scheme='dark'] & {
+    .light-logo {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .dark-logo {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   .info-header {
     @include grid-box(null, rem(10));
   }
 
+  .text-info {
+    @include typo(16, 400, 1.4);
+    color: var(--color-gray-500);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
+
+    .work-title-text {
+      display: inline-block;
+    }
+
+    > p {
+      @include typo(16, 100, 1.4);
+      display: inline-block;
+      padding: 0 rem(4);
+    }
+
+    > span {
+      display: inline-block;
+      //text-transform: uppercase;
+    }
+  }
+
   .work-title {
-    @include typo(24, 700, 1.4);
+    @include typo(60, 700, 1.4);
   }
 
   .work-explan {
@@ -160,7 +227,7 @@
     width: 100%;
     padding: 0 rem(30);
     box-sizing: border-box;
-    @include flex-box(space-between, end, row, rem(10));
+    @include flex-box(end, end, row, rem(10));
     z-index: 2;
 
     .web-links {
@@ -191,8 +258,10 @@
 
     .detail-button {
       @include flex-box(end, center, row, rem(12));
-      @include typo(16, 600, 1);
-      padding: rem(10) rem(10) rem(10) rem(24);
+      @include typo(14, 600, 1);
+
+      //padding: rem(10) rem(10) rem(10) rem(24);
+      padding: rem(12) rem(17);
       //border: rem(1) solid var(--color-line-noraml);
       border-radius: rem(100);
       box-sizing: border-box;
@@ -213,31 +282,81 @@
     }
   }
 
+  //.work-image {
+  //  position: relative;
+  //  width: 100%;
+  //  aspect-ratio: 1920 / 980;
+  //  background-color: var(--color-gray-100);
+  //  @include flex-box(center, center);
+  //  overflow: hidden;
+  //  user-select: none;
+  //  border: rem(1) solid var(--color-line-image);
+  //  box-sizing: border-box;
+  //  border-radius: rem(20);
+  //}
+
   .work-image {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1920 / 980;
     background-color: var(--color-gray-100);
     @include flex-box(center, center);
     overflow: hidden;
     user-select: none;
     border: rem(1) solid var(--color-line-image);
     box-sizing: border-box;
-    border-radius: rem(20);
+    //border-radius: rem(20);
 
-    //&:after {
-    //  content: '';
-    //  position: absolute;
-    //  bottom: 0;
-    //  left: 0;
-    //  width: 100%;
-    //  height: 40%;
-    //  background: linear-gradient(
-    //    180deg,
-    //    var(--color-bg-shadow-front) 0%,
-    //    var(--color-bg-shadow-back) 100%
-    //  );
-    //}
+    // --- 👇 여기서부터 추가 👇 ---
+
+    /* 1. 기본 이미지 페이드 아웃 */
+    .default-image {
+      transition: opacity 0.4s ease;
+      z-index: 1;
+
+      &.hidden {
+        opacity: 0;
+      }
+    }
+
+    /* 비디오를 감싸는 래퍼 */
+    .hover-content {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+      z-index: 2;
+      background-color: var(--color-bg-normal);
+
+      &.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .hover-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    /* 💡 단독으로 쓰이는 스크롤 이미지 (가장 완벽한 애니메이션) */
+    .hover-image {
+      z-index: 1;
+      object-position: top !important;
+
+      /* 고급스러운 커스텀 베지어 커브 적용 (묵직하게 출발 -> 스르륵 안착) */
+      transition: object-position 8s linear !important;
+
+      &.scrolling {
+        object-position: bottom !important;
+        transition: object-position 8s ease-in-out !important;
+        //transition: object-position 8s cubic-bezier(0.65, 0, 0.35, 1) !important;
+      }
+    }
   }
 }
 
@@ -251,7 +370,51 @@
   }
 
   .portfolio-item {
-    padding: rem(80) rem(40);
+    .item-button {
+      @include grid-box(0.8fr 1fr, rem(24));
+    }
+
+    .work-title {
+      @include typo(42, 700, 1.4);
+    }
+
+    .work-links {
+      bottom: rem(10);
+      padding: 0 rem(10);
+    }
+
+    .work-image {
+      //border-radius: rem(28);
+    }
+  }
+}
+
+@media (max-width: rem(1200)) {
+  .portfolio-item {
+    .work-info {
+      padding: 0;
+    }
+
+    .text-info {
+      @include grid-box(null, rem(4));
+      @include typo(14, 400, 1.4);
+
+      .work-title-text {
+        order: 1;
+      }
+
+      > p {
+        display: none;
+      }
+
+      > span {
+        order: 0;
+      }
+    }
+
+    .work-title {
+      @include typo(32, 700, 1.4);
+    }
   }
 }
 
@@ -313,11 +476,25 @@
   }
 
   .portfolio-item {
-    padding: rem(80) rem(30);
+    .item-button {
+      @include grid-box(1fr, rem(24));
+    }
+
+    .work-title {
+      @include typo(54, 700, 1.4);
+    }
   }
 }
 
 @media (max-width: rem(768)) {
+  .section-wrap {
+    @include grid-box(null, rem(40));
+  }
+
+  .title-section {
+    padding: 0 rem(20);
+  }
+
   .category-name {
     .category-content {
       padding: rem(160) rem(20) rem(40);
@@ -328,13 +505,23 @@
     }
   }
 
-  .portfolio-item {
+  .portfolio-list {
     padding: 0 rem(20);
-    margin: rem(40) 0;
+    > div {
+      &:last-child {
+        .portfolio-item {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .portfolio-item {
     //position: relative;
 
     .item-button {
       @include grid-box(null, rem(16));
+      padding: rem(40) 0;
     }
 
     .work-info {
@@ -343,8 +530,6 @@
       //left: 0;
       //padding: 0 rem(40);
       //z-index: 2;
-      order: 2;
-      padding: 0 rem(12);
 
       .key-features {
         display: none;
@@ -362,7 +547,7 @@
     }
 
     .work-title {
-      @include typo(20, 700, 1.4);
+      @include typo(24, 700, 1.4);
       //color: var(--color-white-fix);
     }
 
@@ -413,9 +598,64 @@
       }
     }
 
+    .info-logo {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: rem(20);
+
+      &.logo-dongle-diary {
+        max-width: rem(100);
+      }
+      &.logo-hey-dealer {
+        max-width: rem(120);
+      }
+      &.logo-narajangteo {
+        max-width: rem(160);
+      }
+      &.logo-glitchor-partners {
+        max-width: rem(160);
+      }
+      &.logo-moogm {
+        max-width: rem(120);
+      }
+      &.logo-glitchor-rental {
+        max-width: rem(140);
+      }
+      &.logo-wkbc {
+        max-width: rem(120);
+      }
+      &.logo-stage-cloud {
+        max-width: rem(160);
+      }
+      &.logo-kb {
+        max-width: rem(120);
+      }
+      &.logo-starcorn {
+        max-width: rem(120);
+      }
+      &.logo-samsung {
+        max-width: rem(100);
+      }
+      &.logo-asiaplat {
+        max-width: rem(100);
+      }
+      &.logo-nh {
+        max-width: rem(120);
+      }
+      &.logo-hirekorea {
+        max-width: rem(140);
+      }
+      &.logo-biventures {
+        max-width: rem(100);
+      }
+      &.logo-barfdog {
+        max-width: rem(120);
+      }
+    }
+
     .work-image {
-      aspect-ratio: 4 / 3;
-      border-radius: rem(24);
+      border-radius: rem(0);
     }
   }
 }

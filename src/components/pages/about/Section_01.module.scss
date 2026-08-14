@@ -29,6 +29,10 @@
 
   .about-content {
     @include typo(16, 400, 1.5);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
   }
 
   .about-content-list {
@@ -44,6 +48,10 @@
 
       .flex-box {
         @include grid-box(null, rem(16));
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
 
         .list-title {
           @include flex-box(start, start, row, rem(10));
@@ -76,6 +84,10 @@
       box-sizing: border-box;
       border-radius: rem(4);
       background-color: var(--color-gray-100);
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
+      }
     }
   }
 }
@@ -92,6 +104,10 @@
 
     .about-content {
       @include typo(14, 400, 1.5);
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
+      }
     }
 
     .about-content-list {
@@ -101,6 +117,10 @@
       > li {
         @include grid-box(null, rem(8));
         @include typo(14, 400, 1.4);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
 
         .flex-box {
           @include grid-box(null, rem(8));
@@ -124,6 +144,10 @@
       .about-block {
         @include typo(14, 400, 1);
         padding: rem(4) rem(4);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
       }
     }
   }

@@ -17,8 +17,12 @@ export default function TabCategory({
   onCategoryChange,
 }: TabCategoryProps) {
   const [isUp, setIsUp] = useState(true);
+
   const lastScrollY = useRef(0);
   const isReady = useRef(false);
+
+  // 💡 [추가] 탭 버튼들을 감싸고 있는 래퍼에 ref 달기
+  const tabWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -47,24 +51,60 @@ export default function TabCategory({
     };
   }, []);
 
-  // ✅ 추가: 카테고리 변경 및 스크롤 이동 로직
+  // =========================================================================
+  // 💡 [추가] 선택된 카테고리 탭이 모바일/가로 스크롤 환경에서 화면 중앙에 오도록 이동
+  // =========================================================================
+  useEffect(() => {
+    if (!tabWrapRef.current || !activeCategory) return;
+
+    // 실제 가로 스크롤바가 생기는 부모 요소(Container)를 타겟으로 잡습니다.
+    const scrollContainer = tabWrapRef.current.parentElement;
+    if (!scrollContainer) return;
+
+    // data-id 속성으로 현재 활성화된 버튼 요소를 찾습니다.
+    const activeBtn = tabWrapRef.current.querySelector(
+      `button[data-id="${activeCategory}"]`,
+    ) as HTMLButtonElement;
+
+    if (activeBtn) {
+      const btnRect = activeBtn.getBoundingClientRect();
+      const containerRect = scrollContainer.getBoundingClientRect();
+
+      // 버튼과 스크롤 컨테이너의 화면상 중앙 좌표 계산
+      const btnCenter = btnRect.left + btnRect.width / 2;
+      const containerCenter = containerRect.left + containerRect.width / 2;
+
+      // 차이만큼만 이동
+      const scrollAmount = btnCenter - containerCenter;
+
+      scrollContainer.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  }, [activeCategory]);
+  // =========================================================================
+
   const handleTabClick = (category: string) => {
-    // 1. 카테고리 상태 변경
+    if (activeCategory === category) return; // 이미 같은 카테고리면 무시
+
+    // 1. 상태 업데이트
     onCategoryChange(category);
 
-    // 2. WorkList 최상단으로 스크롤 이동
+    // 2. 포트폴리오 리스트 최상단으로 스크롤 이동
     const element = document.getElementById('work-list-section');
     if (element) {
       const elementTop = element.getBoundingClientRect().top;
       const absolutePosition = elementTop + window.scrollY;
 
-      // 상단에 고정되는 헤더(GNB)나 탭 네비게이션 높이를 고려한 여백(offset) 값 설정
-      // 화면이 가려진다면 이 숫자를 더 크게 조절해 보세요. (예: 100 -> 150)
-      const offset = 100;
+      // 스크롤 올릴 때/내릴 때 offset 조절 (상단 헤더 여백 확보)
+      const isScrollingUp = absolutePosition < window.scrollY;
+      const offset = isScrollingUp ? 100 : 50;
+      const offsetPosition = absolutePosition - offset;
 
       window.scrollTo({
-        top: absolutePosition - offset,
-        behavior: 'smooth', // 부드럽게 이동
+        top: offsetPosition,
+        behavior: 'smooth',
       });
     }
   };
@@ -73,15 +113,16 @@ export default function TabCategory({
     <div className={`${s['tab-wrapper']} ${isUp ? s['up'] : ''}`}>
       <FadeIn threshold={0.2}>
         <Container className={s['tab-container']}>
-          <div className={s['tab-wrap']}>
+          {/* 💡 ref 속성 추가 */}
+          <div className={s['tab-wrap']} ref={tabWrapRef}>
             {categories.map((category) => (
               <button
                 key={category}
+                data-id={category} // 💡 DOM에서 요소를 찾기 위해 data-id 주입
                 className={`${s['tab-button']} ${activeCategory === category ? s['active'] : ''}`}
-                // ✅ onClick 이벤트에 handleTabClick 함수 연결
                 onClick={() => handleTabClick(category)}
               >
-                {category.toUpperCase()}
+                {category}
               </button>
             ))}
           </div>

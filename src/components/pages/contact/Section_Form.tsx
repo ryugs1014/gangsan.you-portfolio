@@ -133,7 +133,7 @@ export default function Section_Form() {
 
   return (
     <section className={s['section-wrap']}>
-      <FadeIn delay={0.3}>
+      <FadeIn>
         <form className={s['form-wrap']} onSubmit={(e) => e.preventDefault()}>
           <Container>
             <div className={s['input-group-wrap']}>

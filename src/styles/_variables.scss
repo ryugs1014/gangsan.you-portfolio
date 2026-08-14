@@ -6,12 +6,15 @@
   --color-font-noraml: #171718;
   --color-line-noraml: #e1e2e3;
   --color-menu-noraml: rgba(255, 255, 255, 1);
-  --color-bg-stacks: #f5f7f9;
+  --color-bg-stacks: rgba(0, 0, 0, 0.01);
+  --color-bg-button: rgba(0, 0, 0, 1);
   --color-line-image: rgba(0, 0, 0, 0.01);
-  --color-bg-shadow-front: rgba(217, 217, 217, 0);
-  --color-bg-shadow-back: rgba(0, 0, 0, 0.05);
+  --color-line-block: rgba(0, 0, 0, 0.05);
+  --color-stack-bg: rgba(255, 255, 255, 1);
   --color-stack-icon: rgba(255, 255, 255, 1);
   --color-stack-icon-reverse: rgba(0, 0, 0, 0.015);
+  --color-bar: #eceff4;
+  --color-placeholder: #d4d7db;
 
   /* Gray scale */
   --color-gray-1000: #000000;
@@ -31,7 +34,9 @@
   --color-white-fix: rgb(255, 255, 255);
   --color-black-fix: rgb(0, 0, 0);
   --color-warning: #ff4d52;
-  --color-bar-fix: #eceff4;
+  --color-line-fix: rgba(0, 0, 0, 0.05);
+  --color-bg-shadow-front: rgba(217, 217, 217, 0);
+  --color-bg-shadow-back: rgba(0, 0, 0, 0.05);
 
   /* Colorful color */
   --color-green: #00bd79;
@@ -57,12 +62,15 @@
   --color-font-noraml: rgb(255, 255, 255);
   --color-line-noraml: #2f2f30;
   --color-menu-noraml: rgba(255, 255, 255, 0.1);
-  --color-bg-stacks: rgb(255, 255, 255);
+  --color-bg-stacks: rgba(25, 25, 25, 1);
+  --color-bg-button: rgba(25, 25, 25, 1);
   --color-line-image: #2f2f30;
-  --color-bg-shadow-front: rgba(255, 255, 255, 0);
-  --color-bg-shadow-back: rgba(255, 255, 255, 0.15);
-  --color-stack-icon: rgba(0, 0, 0, 0.015);
+  --color-line-block: rgba(255, 255, 255, 0.03);
+  --color-stack-bg: rgba(25, 25, 25, 1);
+  --color-stack-icon: rgba(255, 255, 255, 1);
   --color-stack-icon-reverse: rgba(255, 255, 255, 1);
+  --color-bar: rgba(25, 25, 25, 1);
+  --color-placeholder: rgba(50, 50, 50, 1);
 
   /* Gray scale */
   --color-gray-1000: #ffffff;

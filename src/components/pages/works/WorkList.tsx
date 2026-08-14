@@ -40,6 +40,38 @@ export default function WorkList({ portfolios }: WorkListProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (portfolios && portfolios.length > 0) {
+      const timer = setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const lenis = (window as any).lenisInstance;
+          if (lenis) lenis.resize();
+
+          // 💡 [추가] 저장된 스크롤 위치가 있다면 복구
+          const savedY = sessionStorage.getItem('worksScrollY');
+          if (savedY) {
+            const targetY = parseInt(savedY, 10);
+            window.scrollTo(0, targetY);
+            if (lenis) lenis.scrollTo(targetY, { immediate: true });
+            sessionStorage.removeItem('worksScrollY'); // 복구 후 삭제
+          }
+        }
+      }, 100); // DOM이 그려질 시간 확보
+      return () => clearTimeout(timer);
+    }
+  }, [portfolios]);
+
+  const handleGoDetail = (id: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    sessionStorage.setItem('worksScrollY', window.scrollY.toString());
+
+    window.dispatchEvent(new Event('trigger-page-exit'));
+
+    setTimeout(() => {
+      router.push(`/works/${id}?from=works`);
+    }, 600);
+  };
+
   if (!portfolios || portfolios.length === 0) {
     return (
       <Container>
@@ -58,7 +90,7 @@ export default function WorkList({ portfolios }: WorkListProps) {
             <li className={s['portfolio-item-wrap']}>
               <div
                 className={s['detail-button']}
-                onClick={() => router.push(`/works/${work.id}`)}
+                onClick={(e) => handleGoDetail(work.id, e)}
               >
                 <div className={s['portfolio-item']}>
                   <div className={s['work-image']}>
@@ -84,7 +116,7 @@ export default function WorkList({ portfolios }: WorkListProps) {
                           className={s['site-link']}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          사이트 방문 ↗
+                          사이트 방문
                         </Link>
 
                         {/*<Link*/}
@@ -97,21 +129,6 @@ export default function WorkList({ portfolios }: WorkListProps) {
                         {/*  GitHub ↗*/}
                         {/*</Link>*/}
                       </div>
-
-                      <Link
-                        href={`/works/${work.id}`}
-                        className={s['detail-button']}
-                      >
-                        <span>상세보기</span>
-
-                        <div className={`${s['svg-box']}`}>
-                          <BlackArrow
-                            width="100%"
-                            height="100%"
-                            viewBox="0 0 36 36"
-                          />
-                        </div>
-                      </Link>
                     </div>
                   </div>
 

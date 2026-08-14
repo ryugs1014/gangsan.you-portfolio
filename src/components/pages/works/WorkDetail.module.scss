@@ -37,6 +37,14 @@
 
 .back-button {
   @include flex-box(center, center, row, rem(12));
+
+  .svg-box {
+    @include svg-box(rem(36));
+  }
+
+  > span {
+    color: var(--color-gray-1000);
+  }
 }
 
 .link-btn {
@@ -50,17 +58,23 @@
   box-sizing: border-box;
   border-top: rem(1) solid var(--color-line-noraml);
   border-bottom: rem(1) solid var(--color-line-noraml);
+  margin-bottom: rem(100);
 }
 
 .info-grid {
-  @include grid-box(repeat(2, 1fr), rem(60));
+  @include grid-box(1fr, rem(60));
 
   .grid-wrap {
     @include grid-box(null, rem(40));
 
     .explan {
-      @include typo(15, 400, 1.5);
+      @include typo(16, 400, 1.5);
       word-break: keep-all;
+      color: var(--color-gray-500);
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
+      }
     }
 
     .info-title {
@@ -75,6 +89,10 @@
       .info-item {
         @include grid-box(rem(100) 1fr, rem(60));
         @include typo(15, 400, 1.5);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
 
         .label {
           color: var(--color-gray-400);
@@ -91,6 +109,10 @@
             box-sizing: border-box;
             border-radius: rem(4);
             background-color: var(--color-gray-100);
+
+            [data-color-scheme='dark'] & {
+              font-weight: 500;
+            }
           }
         }
       }
@@ -159,6 +181,10 @@
   box-sizing: border-box;
   color: var(--color-gray-0);
   background-color: var(--color-gray-1000);
+
+  .svg-box {
+    @include svg-box(rem(36));
+  }
 }
 
 .footer-next-section {
@@ -233,6 +259,10 @@
       @include flex-box(center, center, row, rem(12));
       @include typo(20, 600, 1);
       z-index: 2;
+
+      .svg-box {
+        @include svg-box(rem(36));
+      }
     }
 
     .next-title {
@@ -266,13 +296,347 @@
   padding: 0;
 }
 
+/* ============================
+   공통 타이틀 (수정)
+============================ */
+.section-main-title {
+  @include typo(32, 700, 1.4);
+  padding-bottom: rem(24);
+  border-bottom: rem(1) solid var(--color-line-noraml);
+  margin-bottom: rem(24);
+}
+
+.feature-list-wrapper {
+  @include grid-box(null, rem(160));
+}
+
+/* [주요 기능] 블록 내부 */
+.feature-block {
+  @include grid-box(null, rem(24));
+
+  .text-area {
+    @include grid-box(null, rem(16));
+  }
+
+  .feature-title {
+    @include typo(24, 700, 1.4);
+    padding-top: rem(16);
+  }
+
+  /* 설명 문단들을 감싸는 그룹 */
+  .feature-explan-group {
+    @include grid-box(null, rem(16));
+  }
+
+  .feature-explan {
+    @include typo(16, 400, 1.5);
+    white-space: pre-wrap;
+    color: var(--color-gray-500);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
+  }
+}
+
+/* ============================
+   사이드바 레이아웃 (Grid)
+============================ */
+.content-with-sidebar {
+  @include grid-box(rem(260) 1fr, rem(120));
+  align-items: start;
+}
+
+/* 좌측 Sticky 영역 */
+.sidebar {
+  position: sticky;
+  top: rem(62); /* 상단 GNB 높이에 맞게 띄워주세요 */
+  max-height: calc(100vh - #{rem(140)});
+  overflow-y: auto;
+  transition: top 0.5s ease;
+
+  /* 스크롤바 숨기기 (Mac/Window 모두 깔끔하게) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
+  &.up {
+    top: rem(120);
+  }
+}
+
+/* 우측 콘텐츠 영역 */
+.main-content {
+  @include flex-box(start, stretch, column, rem(160));
+  min-width: 0; /* 내부 슬라이더 튀어나감 방지 */
+}
+
+/* 네비게이션 메뉴 스타일 */
+.sticky-nav {
+  @include flex-box(start, stretch, column, rem(60));
+
+  .nav-back-btn {
+    @include flex-box(start, center, row, rem(8));
+    @include typo(15, 400, 1);
+    color: var(--color-gray-500);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
+
+    .svg-box {
+      @include svg-box(rem(16));
+      min-width: rem(16);
+      path {
+        stroke: var(--color-gray-500);
+        transition: stroke 0.2s ease;
+      }
+    }
+
+    &:hover {
+      color: var(--color-gray-1000);
+      .svg-box path {
+        stroke: var(--color-gray-1000);
+      }
+    }
+  }
+
+  .nav-list {
+    @include flex-box(start, stretch, column, rem(16));
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-item button {
+    @include typo(15, 600, 1.4);
+    color: var(--color-gray-1000);
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .nav-group {
+    @include flex-box(start, stretch, column, rem(8));
+
+    .nav-group-title {
+      @include typo(15, 600, 1.4);
+      color: var(--color-gray-1000);
+    }
+
+    .nav-sub-list {
+      @include flex-box(start, stretch, column, rem(8));
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-sub-item button {
+      @include typo(15, 400, 1.4);
+      color: var(--color-gray-500);
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      /* 제목이 길 경우 두 줄에서 자르기 */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
+      }
+
+      &:hover {
+        color: var(--color-gray-1000);
+      }
+    }
+  }
+}
+
+/* --- 커스텀 이미지 슬라이더 --- */
+.image-slider-container {
+  position: relative;
+  width: 100%;
+
+  .slider-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    padding: rem(24) rem(24) rem(24) rem(32);
+    box-sizing: border-box;
+    pointer-events: none;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+
+    .slide-counter {
+      margin-right: auto; /* 좌측 끝에 넘버링 배치 */
+      @include typo(14, 600, 1.5);
+      color: var(--color-gray-500);
+    }
+
+    .arrow-btn {
+      background: none;
+      border: 1px solid #ddd;
+      background-color: var(--color-white-fix);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      pointer-events: visible;
+
+      &:hover:not(.disabled) {
+        background: #f5f5f5;
+      }
+      &.disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  /* 바깥을 감싸는 박스 (넘치는 부분 숨김) */
+  .slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: rem(12);
+    user-select: none;
+    border: rem(1) solid var(--color-line-block);
+
+    /* 가로로 길게 배치되는 트랙 */
+    .slider-track {
+      display: flex;
+      width: 100%;
+      cursor: grab;
+      /* JS에서 transition과 transform을 직접 제어합니다. */
+
+      &.dragging {
+        cursor: grabbing;
+      }
+
+      /* 개별 이미지 아이템 */
+      .slide-image-item {
+        flex: 0 0 100%; /* 부모 너비의 정확히 100%씩 차지하게 설정 */
+        width: 100%;
+
+        .image-ratio-box {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%; /* 16:9 비율 유지 (필요에 따라 조절) */
+          pointer-events: none; /* 이미지가 드래그 이벤트를 방해하지 않게 처리 */
+        }
+      }
+    }
+  }
+}
+
+/* ============================
+   [주요 이슈]
+============================ */
+
+.issue-list-section {
+  @include grid-box(null, rem(16));
+}
+
+.issue-list-wrapper {
+  @include grid-box(null, rem(160));
+}
+
+.issue-block {
+  //padding: rem(32) rem(24);
+  //background-color: var(--color-bg-stacks);
+  //border: rem(1) solid var(--color-line-block);
+  //border-radius: rem(12);
+  @include grid-box(null, rem(40));
+  padding-bottom: rem(160);
+  border-bottom: rem(1) solid var(--color-line-noraml);
+
+  .issue-row {
+    @include grid-box(null, rem(8));
+  }
+
+  .issue-title {
+    @include typo(24, 700, 1.4);
+  }
+
+  .issue-content {
+    @include typo(16, 400, 1.5);
+    white-space: pre-wrap;
+    color: var(--color-gray-500);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
+  }
+
+  .issue-details-box {
+    @include grid-box(null, rem(40));
+
+    .issue-row {
+      @include grid-box(null, rem(8));
+
+      .issue-label {
+        @include typo(18, 700, 1.4);
+      }
+      .issue-desc {
+        @include typo(16, 400, 1.5);
+        white-space: pre-wrap;
+        color: var(--color-gray-500);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  /* 순차적 이미지 배치 */
+  .issue-sequential-images {
+    @include grid-box(null, rem(24));
+    margin-top: rem(16);
+
+    .sequential-image-box {
+      width: 100%;
+      overflow: hidden;
+      border-radius: rem(12);
+      border: rem(1) solid var(--color-line-block);
+    }
+  }
+}
+
 @media (max-width: rem(1600)) {
   .header-title {
     @include typo(42, 700, 1.4);
   }
 
   .info-grid {
-    @include grid-box(repeat(2, 1fr), rem(40));
+    @include grid-box(1fr, rem(40));
 
     .grid-wrap {
       @include grid-box(null, rem(40));
@@ -288,7 +652,7 @@
 
   .detail-list-section {
     .text-area {
-      @include grid-box(null, rem(10));
+      @include grid-box(null, rem(24));
 
       .detail-title {
         @include typo(32, 700, 1.4);
@@ -314,6 +678,14 @@
 }
 
 @media (max-width: rem(1000)) {
+  .content-with-sidebar {
+    @include grid-box(1fr, rem(60));
+    padding-top: rem(40);
+  }
+  .sidebar {
+    display: none;
+  }
+
   .detail-container {
     padding-top: rem(135);
     @include grid-box(null, rem(160));
@@ -349,9 +721,17 @@
         .info-item {
           @include typo(14, 400, 1.4);
 
+          [data-color-scheme='dark'] & {
+            font-weight: 500;
+          }
+
           .tags {
             .tag {
               @include typo(13, 400, 1);
+
+              [data-color-scheme='dark'] & {
+                font-weight: 500;
+              }
             }
           }
         }
@@ -426,6 +806,10 @@
           .tags {
             .tag {
               @include typo(12, 400, 1);
+
+              [data-color-scheme='dark'] & {
+                font-weight: 500;
+              }
             }
           }
         }
@@ -433,6 +817,10 @@
 
       .explan {
         @include typo(13, 400, 1.5);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
       }
     }
   }
@@ -461,6 +849,10 @@
       }
       .detail-explan {
         @include typo(13, 400, 1.5);
+
+        [data-color-scheme='dark'] & {
+          font-weight: 500;
+        }
       }
     }
   }

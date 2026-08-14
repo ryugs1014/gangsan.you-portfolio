@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { NAV_LINKS } from './Header';
 import ThemeToggle from '@/components/atoms/buttons/ThemeToggle';
 
-import LangIcon from '@public/svg/layout/header/lang.svg';
+import GithubIcon from '@public/svg/layout/header/github.svg';
 import MenuIcon from '@public/svg/layout/header/menu.svg';
 import CloseIcon from '@public/svg/layout/header/close.svg';
 import RightArrow from '@public/svg/layout/header/right-menu-arrow.svg';
@@ -30,6 +30,12 @@ export default function MobileMenu() {
     };
   }, [isOpen]);
 
+  const handleMenuClick = () => {
+    sessionStorage.removeItem('mainScrollY');
+    sessionStorage.removeItem('worksScrollY');
+    closeMenu();
+  };
+
   return (
     <>
       <div className={s['mobile-menu-wrapper']}>
@@ -47,15 +53,21 @@ export default function MobileMenu() {
           <div className={s['mobile-header']}>
             <div className={s['mobile-actions']}>
               <div className={s['button-wrap']}>
-                <div className={s['lang-wrap']}>
-                  <LangIcon width="32" height="32" viewBox="0 0 32 32" />
+                <div className={s['theme-wrap']}>
+                  <ThemeToggle />
                 </div>
               </div>
 
               <div className={s['button-wrap']}>
-                <div className={s['theme-wrap']}>
-                  <ThemeToggle />
-                </div>
+                <Link
+                  href={'https://github.com/ryugs1014?tab=repositories'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className={s['lang-wrap']}>
+                    <GithubIcon width="32" height="32" viewBox="0 0 32 32" />
+                  </div>
+                </Link>
               </div>
             </div>
 
@@ -76,7 +88,7 @@ export default function MobileMenu() {
                 key={link.name}
                 href={link.path}
                 className={s['mobile-nav-link']}
-                onClick={closeMenu}
+                onClick={handleMenuClick}
               >
                 <span> {link.name}</span>
 

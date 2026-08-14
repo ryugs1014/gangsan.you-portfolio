@@ -2,13 +2,14 @@
 @use '@/styles/rem' as *;
 
 .portfolio-list {
-  @include grid-box(repeat(2, 1fr), rem(60));
+  @include grid-box(repeat(3, 1fr), rem(32));
   row-gap: rem(120);
   width: 100%;
+  min-height: 50dvh;
 }
 
 .portfolio-item {
-  @include grid-box(null, rem(24));
+  @include grid-box(null, rem(16));
   box-sizing: border-box;
   cursor: pointer;
 
@@ -24,6 +25,10 @@
     .web-links {
       opacity: 1;
     }
+
+    .work-image {
+      transform: translateY(rem(-10));
+    }
   }
 
   &:last-child {
@@ -32,8 +37,8 @@
   }
 
   .work-info {
-    @include grid-box(null, rem(16));
-    padding: 0 rem(16);
+    @include grid-box(null, rem(8));
+    //padding: 0 rem(16);
     box-sizing: border-box;
   }
 
@@ -46,15 +51,19 @@
   }
 
   .work-title {
-    @include typo(32, 700, 1.4);
+    @include typo(20, 700, 1.4);
     @include text-ellipsis(2);
     word-break: keep-all;
   }
 
   .work-explan {
-    @include typo(16, 400, 1.5);
-    color: var(--color-gray-700);
+    @include typo(14, 400, 1.5);
+    color: var(--color-gray-500);
     @include text-ellipsis(2);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
   }
 
   .work-image {
@@ -67,7 +76,7 @@
     user-select: none;
     //pointer-events: none;
     border: rem(1) solid var(--color-line-image);
-    border-radius: rem(20);
+    transition: transform 0.25s ease;
 
     &:after {
       content: '';
@@ -91,7 +100,7 @@
     width: 100%;
     padding: 0 rem(20);
     box-sizing: border-box;
-    @include flex-box(space-between, end, row, rem(10));
+    @include flex-box(end, end, row, rem(10));
     z-index: 2;
 
     .web-links {
@@ -104,17 +113,17 @@
       padding: rem(12) rem(17);
       border-radius: rem(100);
       box-sizing: border-box;
-      border: rem(1) solid var(--color-line-image);
+      border: rem(1) solid var(--color-line-fix);
     }
 
     .out-link {
-      background-color: var(--color-gray-0);
-      color: var(--color-gray-1000);
+      background-color: var(--color-white-fix);
+      color: var(--color-black-fix);
     }
 
     .site-link {
-      color: var(--color-gray-1000);
-      background-color: var(--color-gray-0);
+      background-color: var(--color-white-fix);
+      color: var(--color-black-fix);
     }
 
     .detail-button {
@@ -144,7 +153,7 @@
 
 @media (max-width: rem(1600)) {
   .portfolio-list {
-    @include grid-box(repeat(2, 1fr), rem(40));
+    @include grid-box(repeat(3, 1fr), rem(32));
     row-gap: rem(80);
     width: 100%;
   }
@@ -154,6 +163,14 @@
       bottom: rem(20);
       right: rem(20);
     }
+  }
+}
+
+@media (max-width: rem(1200)) {
+  .portfolio-list {
+    @include grid-box(repeat(2, 1fr), rem(32));
+    row-gap: rem(80);
+    width: 100%;
   }
 }
 
@@ -207,20 +224,20 @@
     }
 
     .work-image {
-      aspect-ratio: 4 / 3;
+      //aspect-ratio: 4 / 3;
       //border-radius: 2.5cqw;
-      border-radius: rem(24);
+      //border-radius: rem(24);
     }
 
     .work-info {
-      padding: 0 rem(10);
+      //padding: 0 rem(10);
     }
 
     .work-links {
       //top: rem(20);
       bottom: rem(10);
       padding: 0 rem(10);
-      @include flex-box(space-between, start, row, rem(10));
+      @include flex-box(end, start, row, rem(10));
 
       .web-links {
         @include flex-box(start, center, row, rem(10));

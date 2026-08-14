@@ -6,6 +6,7 @@ import PageTitle from '@/components/atoms/common/PageTitle';
 import Section_Banner from '@/components/pages/contact/Section_Banner';
 import Section_Form from '@/components/pages/contact/Section_Form';
 import FadeIn from '@/components/atoms/animation/FadeIn';
+import Section_02 from '@/components/pages/main/Section_02';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,11 +21,9 @@ export default async function Contact() {
           함께 작업하기를 희망 하시거나, <br />
           다른 문의가 있으신가요?
         </PageTitle>
-      </FadeIn>
 
-      {/*<FadeIn delay={0.3}>*/}
-      {/*  <Section_Banner />*/}
-      {/*</FadeIn>*/}
+        <Section_02 />
+      </FadeIn>
 
       <Section_Form />
     </main>

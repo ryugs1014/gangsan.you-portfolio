@@ -137,10 +137,11 @@
     cursor: pointer;
     @include flex-box(center, center);
     overflow: hidden;
-    background-color: var(--color-stack-icon-reverse);
+    background-color: var(--color-white-fix);
     user-select: none;
     pointer-events: none;
-    border-radius: rem(20);
+    border: rem(1) solid var(--color-line-block);
+    //border-radius: rem(20);
   }
 
   .stack-name {
@@ -156,6 +157,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-right: rem(40);
+
+    [data-color-scheme='dark'] & {
+      font-weight: 500;
+    }
   }
 }
 

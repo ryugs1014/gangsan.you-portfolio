@@ -1,23 +1,27 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import s from './Section_04.module.scss';
 import Link from 'next/link';
-import Container from '@/components/layout/Container';
 import { fetchPortfolios } from '@/api/portfolio';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import Image from 'next/image';
-import FadeIn from '@/components/atoms/animation/FadeIn';
+import FadeInPortfolio from '@/components/atoms/animation/FadeInPortfolio';
 import BlackArrow from '@public/svg/common/black-arrow.svg';
+import FadeInMain from '@/components/atoms/animation/FadeInMain';
 
 interface Portfolio {
   id: string;
+  'logo-icons': string;
+  'logo-icons-dark': string;
   'main-image': string;
   'sub-image': string;
+  'main-contents'?: string;
   'font-theme': string;
   category: string;
   'work-title': string;
+  'work-title-eng': string;
   'work-explan': string;
   'key-features': string;
   github: string;
@@ -25,86 +29,298 @@ interface Portfolio {
   [key: string]: any;
 }
 
-export default function Section_04() {
+// =========================================================================
+// 💡 [추가] 개별 포트폴리오 아이템 컴포넌트 (상태 및 비디오 독립적 관리)
+// =========================================================================
+const PortfolioItemCard = memo(function PortfolioItemCard({
+  work,
+  isMobile,
+}: {
+  work: Portfolio;
+  isMobile: boolean;
+}) {
   const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLLIElement>(null);
 
-  const [groupedPortfolios, setGroupedPortfolios] = useState<
-    Record<string, Portfolio[]>
-  >({});
-  const [isUp, setIsUp] = useState(true);
-  const lastScrollY = useRef(0);
-  const isReady = useRef(false);
+  const hasHoverContent = Boolean(work['main-contents']);
+  // 💡 비디오인지, 스크롤 이미지인지 명확하게 구분합니다.
+  const isVideo = hasHoverContent && work['main-contents']?.includes('/video/');
+  const isScrollImage = hasHoverContent && !isVideo;
+
+  // 💡 [모바일 전용] 스크롤 시 화면 중앙 감지 로직
+  useEffect(() => {
+    // 데스크탑이거나 감지할 요소가 없으면 종료
+    if (!isMobile || !cardRef.current) {
+      if (!isMobile) setIsHovered(false); // 데스크탑 전환 시 상태 초기화
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // entry.isIntersecting: 화면 정중앙 영역에 들어왔는지 여부
+          if (entry.isIntersecting) {
+            setIsHovered(true);
+          } else {
+            setIsHovered(false);
+          }
+        });
+      },
+      {
+        // 💡 핵심: 화면 위쪽 40%, 아래쪽 40%를 제외한 "가운데 20%" 영역에 닿았을 때만 작동!
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0,
+      },
+    );
+
+    observer.observe(cardRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobile]);
+
+  // 💡 비디오 재생/일시정지 로직을 상태(isHovered)에 동기화
+  useEffect(() => {
+    if (isVideo && videoRef.current) {
+      if (isHovered) {
+        // 비디오 플레이 (에러 방지를 위해 catch 처리)
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isHovered, isVideo]);
+
+  // 💡 데스크탑용 마우스 이벤트 (모바일에서는 무시)
+  const handleMouseEnter = () => {
+    if (isMobile) return;
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (isMobile) return;
+    setIsHovered(false);
+  };
+
+  const handleGoDetail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    sessionStorage.setItem('mainScrollY', window.scrollY.toString());
+
+    window.dispatchEvent(new Event('trigger-page-exit'));
+
+    setTimeout(() => {
+      router.push(`/works/${work.id}?from=main`);
+    }, 600);
+  };
+
+  return (
+    <FadeInPortfolio>
+      <li className={s['portfolio-item']} ref={cardRef}>
+        <div
+          className={s['item-button']}
+          onClick={handleGoDetail}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div
+            className={`${s['work-info']} ${work['font-theme'] === 'dark' ? s['dark'] : ''}`}
+          >
+            <div className={`${s['info-logo']} ${s[`logo-${work.id}`] || ''}`}>
+              {work['logo-icon'] ? (
+                <>
+                  {/* 1. 라이트모드용 로고 */}
+                  <Image
+                    src={work['logo-icon']}
+                    alt={`${work.id} logo`}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className={`${s['default-logo']} ${s['light-logo']}`}
+                    unoptimized={true}
+                  />
+
+                  {/* 2. 다크모드용 로고 (다크모드 전용 경로가 있으면 그걸 쓰고, 없으면 기존 아이콘 재사용) */}
+                  <Image
+                    src={work['logo-icon-dark'] || work['logo-icon']}
+                    alt={`${work.id} dark logo`}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className={`${s['default-logo']} ${s['dark-logo']}`}
+                    unoptimized={true}
+                  />
+                </>
+              ) : (
+                <span></span>
+              )}
+            </div>
+
+            <div className={s['info-header']}>
+              <div className={s['text-info']}>
+                <div className={s['work-title-text']}>{work['work-title']}</div>{' '}
+                <p>|</p> <span>{work.category}</span>
+              </div>
+              <div className={s['work-title']}>{work['work-title-eng']}</div>
+            </div>
+          </div>
+
+          <div className={s['work-image']}>
+            {/* 💡 케이스 1: 비디오인 경우 (기존 방식: 썸네일 위에 비디오 띄우기) */}
+            {isVideo && (
+              <>
+                <Image
+                  src={
+                    isMobile && work['sub-image']
+                      ? work['sub-image']
+                      : work['main-image']
+                  }
+                  alt={`${work.id} icon`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: 'cover' }}
+                  className={`${s['default-image']} ${isHovered ? s['hidden'] : ''}`}
+                  unoptimized={true}
+                />
+                <div
+                  className={`${s['hover-content']} ${isHovered ? s['show'] : ''}`}
+                >
+                  <video
+                    ref={videoRef}
+                    src={work['main-contents']}
+                    preload="none"
+                    muted
+                    loop
+                    playsInline
+                    className={s['hover-video']}
+                  />
+                </div>
+              </>
+            )}
+
+            {/* 💡 케이스 2: 스크롤 이미지인 경우 (썸네일 없이 원본 이미지만 사용) */}
+            {isScrollImage && (
+              <Image
+                src={work['main-contents']!}
+                alt={`${work.id} preview`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+                // 호버 상태에 따라 스크롤 클래스만 뗐다 붙였다 합니다
+                className={`${s['hover-image']} ${isHovered ? s['scrolling'] : ''}`}
+                unoptimized={true}
+              />
+            )}
+
+            {/* 💡 케이스 3: 특별한 컨텐츠가 없는 일반 포트폴리오인 경우 */}
+            {!hasHoverContent && (
+              <Image
+                src={
+                  isMobile && work['sub-image']
+                    ? work['sub-image']
+                    : work['main-image']
+                }
+                alt={`${work.id} icon`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+                unoptimized={true}
+              />
+            )}
+
+            <div className={s['work-links']}>
+              {/* 링크 컴포넌트 생략 (기존과 동일) */}
+              <div className={s['web-links']}>
+                <Link
+                  href={work.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s['site-link']}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  사이트 방문
+                </Link>
+              </div>
+
+              <Link
+                href={`/works/${work.id}?from=main`}
+                className={s['detail-button']}
+                onClick={handleGoDetail}
+              >
+                <span>자세히 보기</span>
+                {/*<div className={`${s['svg-box']}`}>*/}
+                {/*  <BlackArrow width="100%" height="100%" viewBox="0 0 36 36" />*/}
+                {/*</div>*/}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </li>
+    </FadeInPortfolio>
+  );
+});
+
+// =========================================================================
+// 메인 컴포넌트 (기존 로직 유지)
+// =========================================================================
+export default function Section_04() {
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
       const data = (await fetchPortfolios()) as Portfolio[];
-
-      const grouped = data.reduce(
-        (acc: Record<string, Portfolio[]>, work: Portfolio) => {
-          const cat = work.category;
-          if (!acc[cat]) {
-            acc[cat] = [];
-          }
-          acc[cat].push(work);
-          return acc;
-        },
-        {} as Record<string, Portfolio[]>,
-      );
-
-      setGroupedPortfolios(grouped);
+      setPortfolios(data);
     };
-
     loadData();
   }, []);
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
-
-    const timer = setTimeout(() => {
-      isReady.current = true;
-    }, 0);
-
-    const handleDirection = () => {
-      if (!isReady.current) {
-        lastScrollY.current = window.scrollY;
-        return;
-      }
-
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        setIsUp(false);
-      } else if (currentScrollY < lastScrollY.current) {
-        setIsUp(true);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleDirection, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleDirection);
-    };
-  }, []);
+    if (portfolios.length > 0) {
+      const timer = setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const lenis = (window as any).lenisInstance;
+          if (lenis) lenis.resize();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [portfolios]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (portfolios.length > 0) {
+      const timer = setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const lenis = (window as any).lenisInstance;
+          if (lenis) lenis.resize();
+
+          // 💡 [추가] 저장된 스크롤 위치가 있다면 복구
+          const savedY = sessionStorage.getItem('mainScrollY');
+          if (savedY) {
+            const targetY = parseInt(savedY, 10);
+            window.scrollTo(0, targetY);
+            if (lenis) lenis.scrollTo(targetY, { immediate: true });
+            sessionStorage.removeItem('mainScrollY'); // 복구 후 삭제
+          }
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [portfolios]);
+
   return (
     <section id="section-04" className={s['section-container']}>
       <div className={s['section-wrap']}>
-        <Container>
+        <FadeInMain>
           <div className={s['title-section']}>
             <div className={s['text-section']}>
               <div className={s['section-title']}>프로젝트</div>
@@ -119,121 +335,26 @@ export default function Section_04() {
               <Link href={'/works'} className={s['site-link']}>
                 <button className={s['more-button']}>
                   <span>자세히 보러가기</span>
-
                   <RightArrowSVG />
                 </button>
               </Link>
             </div>
           </div>
-        </Container>
+        </FadeInMain>
 
         <div className={s['works-wrap']}>
-          {Object.entries(groupedPortfolios).map(([category, items]) => (
-            <div key={category} className={s['category-group']}>
-              <div className={`${s['category-name']} ${isUp ? s['up'] : ''}`}>
-                <div className={s['category-wrap']}>
-                  <div className={s['category-content']}>
-                    <span>{category}</span>
-                    <span>Service</span>
-                  </div>
-                </div>
-              </div>
-
-              <ul className={s['portfolio-list']}>
-                {items.map((work) => (
-                  <FadeIn key={work.id} threshold={0.2}>
-                    <li className={s['portfolio-item']}>
-                      <div
-                        className={s['item-button']}
-
-                        onClick={() => router.push(`/works/${work.id}`)}
-                      >
-                        <div className={s['work-image']}>
-                          <Image
-                            src={
-                              isMobile && work['sub-image']
-                                ? work['sub-image']
-                                : work['main-image']
-                            }
-                            alt={`${work.id} icon`}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            style={{ objectFit: 'cover' }}
-                            unoptimized={true}
-                          />
-
-                          <div className={s['work-links']}>
-                            <div className={s['web-links']}>
-                              <Link
-                                href={work.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={s['site-link']}
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                사이트 방문 ↗
-                              </Link>
-
-                              {/*{work.github && (*/}
-                              {/*  <Link*/}
-                              {/*    href={work.github}*/}
-                              {/*    target="_blank"*/}
-                              {/*    rel="noopener noreferrer"*/}
-                              {/*    className={s['out-link']}*/}
-                              {/*    onClick={(e) => e.stopPropagation()}*/}
-                              {/*  >*/}
-                              {/*    GitHub ↗*/}
-                              {/*  </Link>*/}
-                              {/*)}*/}
-                            </div>
-
-                            <Link
-                              href={`/works/${work.id}`}
-                              className={s['detail-button']}
-                            >
-                              <span>상세보기</span>
-
-                              <div className={`${s['svg-box']}`}>
-                                <BlackArrow
-                                  width="100%"
-                                  height="100%"
-                                  viewBox="0 0 36 36"
-                                />
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`${s['work-info']} ${work['font-theme'] === 'dark' ? s['dark'] : ''}`}
-                        >
-                          <div className={s['info-header']}>
-                            <h4 className={s['work-title']}>
-                              {work['work-title']}
-                            </h4>
-
-                            <p className={s['work-explan']}>
-                              {work['work-explan']}
-                            </p>
-                          </div>
-
-                          <div className={s['key-features']}>
-                            {work['key-features']
-                              ?.split(',')
-                              .map((feature, idx) => (
-                                <span key={idx} className={s['features-block']}>
-                                  {feature.trim()}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </FadeIn>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className={s['category-group']}>
+            <ul className={s['portfolio-list']}>
+              {/* 💡 분리한 컴포넌트로 맵핑 */}
+              {portfolios.map((work) => (
+                <PortfolioItemCard
+                  key={work.id}
+                  work={work}
+                  isMobile={isMobile}
+                />
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

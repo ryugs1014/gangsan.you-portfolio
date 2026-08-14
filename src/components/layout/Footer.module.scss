@@ -10,7 +10,7 @@
 }
 
 .footer-container {
-  background-color: var(--color-gray-1000);
+  background-color: var(--color-bg-button);
   padding: rem(10) calc(var(--layout-padding) / 2);
   box-sizing: border-box;
   width: 100%;
@@ -18,7 +18,7 @@
 
 .footer-wrap {
   @include grid-box(repeat(4, 1fr));
-  color: var(--color-gray-0);
+  color: var(--color-white-fix);
   height: rem(36);
 
   > li {

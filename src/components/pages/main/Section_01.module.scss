@@ -2,7 +2,7 @@
 @use '@/styles/rem' as *;
 
 .section-container {
-  height: 500svh;
+  height: 1500svh;
   position: relative;
   user-select: none;
   pointer-events: none;
@@ -61,18 +61,46 @@
   z-index: -1;
 }
 
-.overlay-text {
-  color: var(--color-white-fix);
+.text-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 텍스트 덩어리(문단)를 감싸는 래퍼 (이 녀석의 투명도가 0이 되면 제자리에서 사라짐) */
+.overlay-text-wrapper {
+  position: absolute;
   text-align: center;
-  font-size: rem(48);
-  font-weight: 700;
-  line-height: 1.4;
+  color: #fff;
+  will-change: opacity;
+}
+
+/* 글자가 밑에서 올라오는 것처럼 보이게 만드는 마스킹 박스 */
+.reveal-box {
+  overflow: hidden; /* 영역 밖(아래쪽)에 있는 글자를 숨김 */
+  display: flex;
+  justify-content: center;
+
+  /* 여러 줄의 텍스트가 붙어있을 때 간격 유지 */
+  margin-bottom: rem(4);
 
   p {
     margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.4;
+    will-change: transform; /* 부드러운 Y축 이동 보장 */
+    /* 아래쪽으로 밀려난 상태에서 시작함 */
+
+    @media (max-width: 768px) {
+      font-size: 1.8rem;
+    }
   }
 }
-
 @media (max-width: rem(1000)) {
   .title {
     font-size: 8cqw;

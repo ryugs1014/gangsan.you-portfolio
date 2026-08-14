@@ -27,23 +27,17 @@ export default async function Home() {
   return (
     <main className={s['main']}>
       <Section_01 />
-      <Section_02 />
+      {/*<Section_02 />*/}
 
       <TabNavigation tabs={HOME_TABS} />
 
-      <FadeIn threshold={0.2}>
-        <Section_03 />
-      </FadeIn>
+      <Section_03 />
 
       <Section_04 />
 
-      <FadeIn threshold={0.2}>
-        <Section_05 />
-      </FadeIn>
+      <Section_05 />
 
-      <FadeIn threshold={0.2}>
-        <Section_06 />
-      </FadeIn>
+      <Section_06 />
     </main>
   );
 }

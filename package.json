@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@splinetool/react-spline": "^4.1.0",
+    "@studio-freight/lenis": "^1.0.42",
     "@tabler/icons-react": "^3.44.0",
     "framer-motion": "^12.38.0",
     "next": "16.2.9",

@@ -8,7 +8,7 @@ import Container from '@/components/layout/Container';
 import ThemeToggle from '@/components/atoms/buttons/ThemeToggle';
 import MobileMenu from './MobileMenu';
 
-import LangIcon from '@public/svg/layout/header/lang.svg';
+import GithubIcon from '@public/svg/layout/header/github.svg';
 
 export const NAV_LINKS = [
   { name: 'ABOUT', path: '/about' },
@@ -85,6 +85,11 @@ export default function Header() {
     };
   }, []);
 
+  const clearScrollMemory = () => {
+    sessionStorage.removeItem('mainScrollY');
+    sessionStorage.removeItem('worksScrollY');
+  };
+
   return (
     <header
       className={`${s['header']} ${scrollDirection === 'down' ? s['down'] : ''} ${isActive ? s['active'] : ''}`}
@@ -92,7 +97,11 @@ export default function Header() {
       <div className={s['header-wrap']}>
         <Container className={s['header-container']}>
           <div className={s['logo-wrap']}>
-            <Link href="/" className={s['logo-link']}>
+            <Link
+              href="/"
+              className={s['logo-link']}
+              onClick={clearScrollMemory}
+            >
               <div className={s['logo']}>
                 <div className={s['logo-main']}>GANGSAN.YOU</div>
                 <span className={s['logo-sub']}>FE DEV</span>
@@ -102,7 +111,12 @@ export default function Header() {
 
           <nav className={s['nav-wrap']}>
             {NAV_LINKS.map((link) => (
-              <Link key={link.name} href={link.path} className={s['nav-link']}>
+              <Link
+                key={link.name}
+                href={link.path}
+                className={s['nav-link']}
+                onClick={clearScrollMemory}
+              >
                 <button className={s['nav-button']}>{link.name}</button>
               </Link>
             ))}
@@ -110,13 +124,19 @@ export default function Header() {
 
           <div className={s['function-wrap']}>
             <div className={s['pc-function-wrap']}>
-              <div className={s['lang-wrap']}>
-                <LangIcon width="32" height="32" viewBox="0 0 32 32" />
-              </div>
-
               <div className={s['theme-wrap']}>
                 <ThemeToggle />
               </div>
+
+              <Link
+                href={'https://github.com/ryugs1014?tab=repositories'}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className={s['lang-wrap']}>
+                  <GithubIcon width="32" height="32" viewBox="0 0 32 32" />
+                </div>
+              </Link>
             </div>
 
             <MobileMenu />

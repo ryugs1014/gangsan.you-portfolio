@@ -13,6 +13,7 @@ export default function InitialLoader() {
   const hasRunRef = useRef(false);
   const isVideoLoadedRef = useRef(false);
 
+  // 1. 스크롤 방지 로직 (기존과 동일)
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
@@ -40,17 +41,17 @@ export default function InitialLoader() {
     };
   }, [isLoading]);
 
+  // 2. 비디오 로드 감지 및 5초 강제 통과
   useEffect(() => {
     const handleVideoLoaded = () => {
       isVideoLoadedRef.current = true;
     };
     window.addEventListener('video-loaded', handleVideoLoaded);
 
-    // 안전장치(Fallback): 네트워크 문제로 비디오 로드가 실패하더라도
-    // 8초 뒤에는 강제로 로더가 닫히도록 설정 (무한 로딩 방지)
+    // 💡 수정됨: 무한 로딩 방지용 안전장치를 8초에서 5초로 단축 (5000ms)
     const fallbackTimer = setTimeout(() => {
       isVideoLoadedRef.current = true;
-    }, 8000);
+    }, 5000);
 
     return () => {
       window.removeEventListener('video-loaded', handleVideoLoaded);
@@ -58,6 +59,7 @@ export default function InitialLoader() {
     };
   }, []);
 
+  // 3. 숫자 카운팅 로직 (98, 99에서 속도 늦추기)
   useEffect(() => {
     if (hasRunRef.current || pathname !== '/') {
       setIsLoading(false);
@@ -65,34 +67,42 @@ export default function InitialLoader() {
       return;
     }
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        // 비디오가 아직 로드되지 않았다면 99%에서 대기
-        if (prev >= 99 && !isVideoLoadedRef.current) {
-          return 99;
-        }
+    // 이미 100에 도달했으면 더 이상 타이머를 돌리지 않음
+    if (progress >= 100) return;
 
-        // 비디오가 로드되었다면 가속해서 100%로 도달
-        const increment = isVideoLoadedRef.current ? 3 : 1;
-        const nextProgress = Math.min(prev + increment, 100);
+    let timer: NodeJS.Timeout;
 
-        if (nextProgress >= 100) {
-          clearInterval(interval);
+    const tick = () => {
+      // 98에 도달했는데 아직 비디오가 안 불러와졌다면 50ms마다 다시 체크(대기)
+      if (progress >= 98 && !isVideoLoadedRef.current) {
+        timer = setTimeout(tick, 50);
+        return;
+      }
 
-          setTimeout(() => {
-            setIsLoading(false);
-            hasRunRef.current = true;
-          }, 500);
+      // 💡 핵심: 98 이전에는 3씩 빠르게 증가시키고, 98부터는 1씩 증가
+      // Math.min을 통해 96 -> 99로 건너뛰지 않고 무조건 98에 딱 멈추도록 보정
+      const nextProgress =
+        progress < 98
+          ? Math.min(progress + 3, 98)
+          : Math.min(progress + 1, 100);
 
-          return 100;
-        }
+      if (nextProgress === 100) {
+        setProgress(100);
+        setTimeout(() => {
+          setIsLoading(false);
+          hasRunRef.current = true;
+        }, 500); // 100이 된 후 0.5초 대기하고 페이드아웃
+      } else {
+        setProgress(nextProgress);
+      }
+    };
 
-        return nextProgress;
-      });
-    }, 30);
+    // 💡 수정됨: 98, 99 구간일 때는 타이머 딜레이를 400ms로 길게 늘려서 숫자가 머무는 시간을 확보
+    const delay = progress >= 98 ? 400 : 30;
+    timer = setTimeout(tick, delay);
 
-    return () => clearInterval(interval);
-  }, [pathname]);
+    return () => clearTimeout(timer);
+  }, [progress, pathname]); // progress가 바뀔 때마다 useEffect가 다시 실행되며 유동적인 속도 적용
 
   return (
     <AnimatePresence>

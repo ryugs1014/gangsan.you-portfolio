@@ -6,7 +6,7 @@
 }
 
 .stack-grid {
-  @include grid-box(1fr, rem(20));
+  @include grid-box(1fr, 0);
 }
 
 .category-group {
@@ -25,9 +25,16 @@
   width: 100%;
   @include flex-box(space-between, start, row, rem(40));
   padding: rem(40);
-  border-radius: rem(20);
   box-sizing: border-box;
-  background-color: var(--color-bg-stacks);
+  background-color: var(--color-stack-bg);
+  border-top: rem(1) solid;
+  border-right: rem(1) solid;
+  border-left: rem(1) solid;
+  border-color: var(--color-line-noraml);
+
+  &:last-child {
+    border-bottom: rem(1) solid var(--color-line-noraml);
+  }
 
   .stack-wrap {
     @include grid-box(null, rem(40));
@@ -48,16 +55,34 @@
     user-select: none;
     pointer-events: none;
     //border-radius: rem(20);
+
+    /* 기본 상태 (라이트 모드) */
+    .light-icon {
+      display: block;
+    }
+    .dark-icon {
+      display: none;
+    }
+
+    /* 다크 모드 상태 (최상단 html이나 body에 data-color-scheme가 들어갈 경우) */
+    [data-color-scheme='dark'] & {
+      .light-icon {
+        display: none !important;
+      }
+      .dark-icon {
+        display: block !important;
+      }
+    }
   }
 
   .stack-name {
     @include typo(32, 700, 1.2);
-    color: var(--color-black-fix);
+    color: var(--color-gray-1000);
   }
 
   .stack-detail {
     @include typo(16, 400, 1.6);
-    color: var(--color-black-fix);
+    color: var(--color-gray-1000);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -119,6 +144,7 @@
   .stack-card {
     @include flex-box(start, start, column, rem(20));
     padding: rem(24) rem(16) rem(16) rem(24);
+    border-bottom: rem(1) solid var(--color-line-noraml);
 
     .icon-box {
       width: rem(100);
@@ -127,6 +153,10 @@
 
     .stack-name {
       @include typo(20, 700, 1.2);
+    }
+
+    .stack-detail {
+      @include typo(14, 400, 1.6);
     }
   }
 }

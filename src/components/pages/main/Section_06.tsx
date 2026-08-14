@@ -5,6 +5,8 @@ import s from './Section_06.module.scss';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
+import FadeInPortfolio from '@/components/atoms/animation/FadeInPortfolio';
+import FadeInMain from '@/components/atoms/animation/FadeInMain';
 
 export default function Section_06() {
   const getEmail = () => {
@@ -13,56 +15,59 @@ export default function Section_06() {
 
   return (
     <section id="section-06" className={s['section-container']}>
-      <Container>
-        <div className={s['section-wrap']}>
-          <div className={s['title-section']}>
-            <div className={s['text-section']}>
-              <div className={s['section-title']}>문의하기</div>
-              <div className={s['section-text']}>
-                함께 일할 사람을 찾고 계신가요?
+      <FadeInMain>
+        <Container>
+          <div className={s['section-wrap']}>
+            <div className={s['title-section']}>
+              <div className={s['text-section']}>
+                <div className={s['section-title']}>문의하기</div>
+                <div className={s['section-text']}>
+                  함께 일할 사람을 찾고 계신가요?
+                </div>
               </div>
-            </div>
 
-            <div className={s['button-section']}>
-              <Link href={'/contact'} className={s['site-link']}>
-                <button className={s['more-button']}>
-                  <span>자세히 보러가기</span>
-
-                  <RightArrowSVG />
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          <ul className={s['content-section']}>
-            <li>
-              <div className={s['contact-mail']}>{getEmail()}</div>
-            </li>
-            <li>
-              <div className={s['contact-buttons']}>
-                <button className={s['link-button']}>
-                  <span>GitHub</span>
-
-                  <RightArrowSVG responsivSize={true} />
-                </button>
-                <button className={s['link-button']}>
-                  <span>이력서</span>
-
-                  <RightArrowSVG responsivSize={true} />
-                </button>
-
+              <div className={s['button-section']}>
                 <Link href={'/contact'} className={s['site-link']}>
-                  <button className={s['link-button']}>
-                    <span>메일 작성</span>
+                  <button className={s['more-button']}>
+                    <span>자세히 보러가기</span>
 
-                    <RightArrowSVG responsivSize={true} />
+                    <RightArrowSVG />
                   </button>
                 </Link>
               </div>
-            </li>
-          </ul>
-        </div>
-      </Container>
+            </div>
+
+            <ul className={s['content-section']}>
+              <li>
+                <div className={s['contact-mail']}>{getEmail()}</div>
+              </li>
+              <li className={s['button-list-section']}>
+                <div className={s['contact-buttons']}>
+                  <button className={s['link-button']}>
+                    <span>GitHub</span>
+
+                    <RightArrowSVG responsivSize={true} />
+                  </button>
+
+                  <button className={s['link-button']}>
+                    <span>이력서</span>
+
+                    <RightArrowSVG responsivSize={true} />
+                  </button>
+
+                  <Link href={'/contact'} className={s['site-link']}>
+                    <button className={s['link-button']}>
+                      <span>메일 작성</span>
+
+                      <RightArrowSVG responsivSize={true} />
+                    </button>
+                  </Link>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </Container>
+      </FadeInMain>
     </section>
   );
 }

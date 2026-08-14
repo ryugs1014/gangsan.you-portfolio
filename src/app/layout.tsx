@@ -6,6 +6,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/atoms/buttons/ScrollToTop';
 import InitialLoader from '@/components/session/InitialLoader';
+import SmoothScroll from '@/components/atoms/animation/SmoothScroll';
+import PageExitEffect from '@/components/atoms/animation/PageExitEffect';
 
 const themeScript = `
   (function() {
@@ -44,7 +46,9 @@ export default function RootLayout({
       </head>
 
       <body>
+        <SmoothScroll />
         <InitialLoader />
+        <PageExitEffect />
 
         <div className="app-wrapper">
           <Header />

@@ -44,7 +44,7 @@
     .pc-function-wrap {
       .lang-wrap {
         path {
-          fill: var(--color-white-fix);
+          stroke: var(--color-white-fix);
         }
       }
 
@@ -121,7 +121,7 @@
     @include svg-box(rem(32));
 
     path {
-      fill: var(--color-gray-1000);
+      stroke: var(--color-gray-1000);
     }
   }
 
@@ -228,7 +228,7 @@
     height: rem(24);
 
     path {
-      fill: var(--color-gray-1000);
+      stroke: var(--color-gray-1000);
     }
   }
 

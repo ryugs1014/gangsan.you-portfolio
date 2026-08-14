@@ -7,6 +7,8 @@ import Container from '@/components/layout/Container';
 import { fetchStacks } from '@/api/stack';
 import LeftArrow from '@public/svg/common/slide-left-arrow.svg';
 import RightArrow from '@public/svg/common/slide-right-arrow.svg';
+import FadeInPortfolio from '@/components/atoms/animation/FadeInPortfolio';
+import FadeInMain from '@/components/atoms/animation/FadeInMain';
 
 interface Stack {
   stack: string;
@@ -171,84 +173,86 @@ export default function Section_05() {
 
   return (
     <section id="section-05" className={s['section-container']}>
-      <Container>
-        <div className={s['section-wrap']}>
-          <div className={s['title-section']}>
-            <div className={s['text-section']}>
-              <div className={s['section-title']}>기술 · 스택</div>
-              <div className={s['section-text']}>
-                트렌드를 유연하게 받아들이고,
-                <br />
-                완성도 높은 결과물로 다듬어냅니다.
+      <FadeInMain>
+        <Container>
+          <div className={s['section-wrap']}>
+            <div className={s['title-section']}>
+              <div className={s['text-section']}>
+                <div className={s['section-title']}>기술 · 스택</div>
+                <div className={s['section-text']}>
+                  트렌드를 유연하게 받아들이고,
+                  <br />
+                  완성도 높은 결과물로 다듬어냅니다.
+                </div>
+              </div>
+
+              <div className={s['button-section']}>
+                <button
+                  className={`${s['arrow-btn']} ${s['prev']} ${isAtStart ? s['disabled'] : ''}`}
+                  onClick={handlePrev}
+                  aria-label="이전 스택"
+                  disabled={isAtStart}
+                >
+                  <div className={s['svg-box']}>
+                    <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
+                  </div>
+                </button>
+                <button
+                  className={`${s['arrow-btn']} ${s['next']} ${isAtEnd ? s['disabled'] : ''}`}
+                  onClick={handleNext}
+                  aria-label="다음 스택"
+                  disabled={isAtEnd}
+                >
+                  <div className={s['svg-box']}>
+                    <RightArrow width="20" height="20" viewBox="0 0 20 20" />
+                  </div>
+                </button>
               </div>
             </div>
 
-            <div className={s['button-section']}>
-              <button
-                className={`${s['arrow-btn']} ${s['prev']} ${isAtStart ? s['disabled'] : ''}`}
-                onClick={handlePrev}
-                aria-label="이전 스택"
-                disabled={isAtStart}
+            <div className={s['slider-wrapper']} ref={wrapperRef}>
+              <div
+                ref={sliderRef}
+                className={`${s['slider-track']} ${isGrabbing ? s['grabbing'] : ''}`}
+                // 마우스 이벤트
+                onMouseDown={onMouseDown}
+                onMouseLeave={onMouseLeave}
+                onMouseUp={onMouseUp}
+                onMouseMove={onMouseMove}
+                // 터치 이벤트
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+                onTouchCancel={onTouchCancel}
+                onScroll={handleScroll}
               >
-                <div className={s['svg-box']}>
-                  <LeftArrow width="20" height="20" viewBox="0 0 20 20" />
-                </div>
-              </button>
-              <button
-                className={`${s['arrow-btn']} ${s['next']} ${isAtEnd ? s['disabled'] : ''}`}
-                onClick={handleNext}
-                aria-label="다음 스택"
-                disabled={isAtEnd}
-              >
-                <div className={s['svg-box']}>
-                  <RightArrow width="20" height="20" viewBox="0 0 20 20" />
-                </div>
-              </button>
-            </div>
-          </div>
+                {stacks.map((item, idx) => (
+                  <div key={idx} className={s['stack-card']}>
+                    <div className={s['stack-wrap']}>
+                      <div className={s['icon-box']}>
+                        <Image
+                          src={item['icon-image']}
+                          alt={`total`}
+                          fill
+                          sizes="10vw"
+                          style={{
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </div>
 
-          <div className={s['slider-wrapper']} ref={wrapperRef}>
-            <div
-              ref={sliderRef}
-              className={`${s['slider-track']} ${isGrabbing ? s['grabbing'] : ''}`}
-              // 마우스 이벤트
-              onMouseDown={onMouseDown}
-              onMouseLeave={onMouseLeave}
-              onMouseUp={onMouseUp}
-              onMouseMove={onMouseMove}
-              // 터치 이벤트
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-              onTouchCancel={onTouchCancel}
-              onScroll={handleScroll}
-            >
-              {stacks.map((item, idx) => (
-                <div key={idx} className={s['stack-card']}>
-                  <div className={s['stack-wrap']}>
-                    <div className={s['icon-box']}>
-                      <Image
-                        src={item['icon-image']}
-                        alt={`total`}
-                        fill
-                        sizes="10vw"
-                        style={{
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </div>
-
-                    <div className={s['card-info']}>
-                      <h3 className={s['stack-name']}>{item.stack}</h3>
-                      <p className={s['stack-detail']}>{item.detail}</p>
+                      <div className={s['card-info']}>
+                        <h3 className={s['stack-name']}>{item.stack}</h3>
+                        <p className={s['stack-detail']}>{item.detail}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </FadeInMain>
     </section>
   );
 }

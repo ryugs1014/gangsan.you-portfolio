@@ -73,12 +73,12 @@
         .en {
           @include typo(54, 500, 1.4);
           margin-right: rem(4);
-          color: var(--color-gray-200);
+          color: var(--color-placeholder);
         }
         .kr {
           @include typo(20, 500, 1.4);
           transform: translateY(rem(6));
-          color: var(--color-gray-200);
+          color: var(--color-placeholder);
         }
 
         .force {
@@ -167,18 +167,18 @@
     @include flex-box(center, center);
     width: 100%;
     margin-top: rem(80);
-    background-color: var(--color-gray-1000);
-    transition: background-color 0.25s ease;
+    background-color: var(--color-bg-button);
+    transition: opacity 0.25s ease;
 
     &:hover {
-      background-color: var(--color-gray-900);
+      opacity: 0.8;
     }
 
     .submit-button {
       width: 100%;
       height: rem(146);
       box-sizing: border-box;
-      color: var(--color-gray-0);
+      color: var(--color-white-fix);
       user-select: none;
       @include typo(54, 500, 1.2);
       text-align: left;
@@ -189,7 +189,7 @@
         .svg-box {
           rect,
           path {
-            stroke: var(--color-gray-0);
+            stroke: var(--color-white-fix);
           }
         }
       }
@@ -276,7 +276,7 @@
 
 .toast-container {
   position: fixed;
-  top: rem(20);
+  bottom: rem(100);
   left: 50%;
   transform: translateX(-50%);
   z-index: 999999;

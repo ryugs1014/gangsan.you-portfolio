@@ -4,7 +4,6 @@
 .section-container {
   width: 100%;
   position: relative;
-  padding: rem(80) 0;
   overflow: hidden;
 }
 
@@ -22,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 0;
-  background-color: var(--color-bar-fix);
+  background-color: var(--color-bar);
   transform-origin: center;
   animation: flowDown 15s cubic-bezier(0.15, 0.46, 0.45, 0.94) infinite;
   animation-delay: calc(-15s / 14 * var(--i));

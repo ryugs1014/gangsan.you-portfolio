@@ -104,8 +104,12 @@
   .content-section {
     > li {
       &:first-child {
-        padding: rem(40) rem(10) 12cqw;
+        padding: rem(40) 0 12cqw;
       }
+    }
+
+    .button-list-section {
+      padding: rem(40) 0;
     }
 
     .contact-mail {
@@ -114,7 +118,7 @@
 
     .contact-buttons {
       width: 100%;
-      @include typo(16, 600, 1);
+      @include typo(14, 600, 1);
 
       .link-button {
         @include flex-box(end, center, row, rem(6));

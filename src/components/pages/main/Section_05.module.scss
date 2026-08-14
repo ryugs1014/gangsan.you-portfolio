@@ -20,7 +20,7 @@
 
 .text-section {
   @include grid-box(null, rem(10));
-  color: var(--color-black-fix);
+  //color: var(--color-black-fix);
 
   .section-title {
     @include typo(20, 700, 1.4);
@@ -74,7 +74,7 @@
   &:hover {
     background-color: var(--color-gray-1000);
     color: var(--color-gray-0);
-    border-color: var(--color-gray-1000);
+    //border-color: var(--color-gray-1000);
 
     path {
       stroke: var(--color-gray-0);
@@ -133,12 +133,12 @@
     background-color: var(--color-stack-icon);
     user-select: none;
     pointer-events: none;
-    border-radius: rem(20);
+    //border-radius: rem(20);
   }
 
   .stack-name {
     @include typo(24, 700, 1.2);
-    color: var(--color-black-fix);
+    //color: var(--color-black-fix);
   }
 
   .stack-detail {
