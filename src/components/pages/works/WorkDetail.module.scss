@@ -236,10 +236,16 @@
     left: 0;
     width: 0;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.15);
+    //background-color: rgba(0, 0, 0, 0.15);
+
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
     user-select: none;
     pointer-events: none;
-    border-right: rem(1) solid rgba(0, 0, 0, 0.5);
   }
 
   @keyframes bg-shadow {
@@ -282,6 +288,43 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: pointer;
+}
+
+.control-button {
+  position: absolute;
+  top: rem(20);
+  right: rem(20);
+  z-index: 10;
+
+  .svg-box {
+    @include svg-box(rem(54));
+  }
+}
+
+.hover-image {
+  object-position: top center; /* 💡 !important 제거 */
+
+  /* 중앙 영역에 닿았을 때 (isActive === true) */
+  &.scrolling {
+    /* 5초 동안 끝까지 가고, alternate 옵션으로 다시 부드럽게 올라옵니다 */
+    animation: autoScroll 20s linear infinite alternate;
+  }
+
+  /* 멈춤 상태일 때 애니메이션 일시 정지 */
+  &.paused {
+    animation-play-state: paused; /* 💡 !important 제거 */
+  }
+}
+
+/* 위아래 움직임 정의 */
+@keyframes autoScroll {
+  0% {
+    object-position: top center; /* 💡 !important 제거 */
+  }
+  100% {
+    object-position: bottom center; /* 💡 !important 제거 */
+  }
 }
 
 .detail-image-box {
@@ -840,6 +883,15 @@
     border-radius: rem(10);
   }
 
+  .control-button {
+    top: rem(10);
+    right: rem(10);
+
+    .svg-box {
+      @include svg-box(rem(36));
+    }
+  }
+
   .detail-list-section {
     .text-area {
       @include grid-box(null, rem(12));
@@ -883,6 +935,59 @@
 
       .next-title {
         @include typo(24, 700, 1.4);
+      }
+    }
+  }
+
+  .section-main-title {
+    @include typo(24, 700, 1.4);
+  }
+
+  .issue-block {
+    .issue-title {
+      @include typo(20, 700, 1.4);
+    }
+
+    .issue-content {
+      @include typo(14, 400, 1.5);
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
+      }
+    }
+
+    .issue-details-box {
+      .issue-row {
+        .issue-label {
+          @include typo(16, 700, 1.4);
+        }
+        .issue-desc {
+          @include typo(14, 400, 1.5);
+
+          [data-color-scheme='dark'] & {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .feature-block {
+    @include grid-box(null, rem(24));
+
+    .text-area {
+      @include grid-box(null, rem(16));
+    }
+
+    .feature-title {
+      @include typo(18, 700, 1.4);
+    }
+
+    .feature-explan {
+      @include typo(14, 400, 1.5);
+
+      [data-color-scheme='dark'] & {
+        font-weight: 500;
       }
     }
   }

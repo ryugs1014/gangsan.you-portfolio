@@ -561,7 +561,7 @@
       //top: rem(10);
       bottom: rem(10);
       padding: 0 rem(10);
-      @include flex-box(space-between, start, row, rem(10));
+      @include flex-box(end, start, row, rem(10));
 
       .web-links {
         @include flex-box(start, center, row, rem(10));

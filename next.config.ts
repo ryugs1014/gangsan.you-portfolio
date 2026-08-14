@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'https', hostname: 'vercel.app' },
-      // { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
       // { protocol: 'https', hostname: 'drive.google.com' },
       // {
       //   protocol: 'https',

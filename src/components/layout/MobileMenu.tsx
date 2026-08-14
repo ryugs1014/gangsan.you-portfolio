@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import s from './Header.module.scss';
 import Link from 'next/link';
 import { NAV_LINKS } from './Header';
@@ -14,6 +15,8 @@ import RotateArrow from '@public/svg/layout/header/rotate-arrow.svg';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
@@ -30,10 +33,24 @@ export default function MobileMenu() {
     };
   }, [isOpen]);
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+
+    // 메뉴는 무조건 즉시 닫기
+    closeMenu();
+
+    // 💡 3. [핵심] 현재 페이지와 이동할 페이지가 같다면 여기서 함수 종료! (애니메이션 x)
+    if (pathname === path) return;
+
+    // 다른 페이지로 이동할 때만 아래 로직(페이드아웃 및 이동) 실행
     sessionStorage.removeItem('mainScrollY');
     sessionStorage.removeItem('worksScrollY');
-    closeMenu();
+
+    window.dispatchEvent(new Event('trigger-page-exit'));
+
+    setTimeout(() => {
+      router.push(path);
+    }, 600);
   };
 
   return (
@@ -88,7 +105,8 @@ export default function MobileMenu() {
                 key={link.name}
                 href={link.path}
                 className={s['mobile-nav-link']}
-                onClick={handleMenuClick}
+                onClick={(e) => handleMenuClick(e, link.path)}
+                data-manual-routing="true"
               >
                 <span> {link.name}</span>
 

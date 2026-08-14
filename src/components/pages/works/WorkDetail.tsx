@@ -10,6 +10,8 @@ import LeftArrow from '@public/svg/common/left-arrow.svg';
 import RightArrow from '@public/svg/common/right-arrow.svg';
 import SlideLeftArrow from '@public/svg/common/slide-left-arrow.svg';
 import SlideRightArrow from '@public/svg/common/slide-right-arrow.svg';
+import PlayIcon from '@public/svg/common/play.svg';
+import PauseIcon from '@public/svg/common/pause.svg';
 
 // 타입 정의
 export interface FeatureItem {
@@ -49,8 +51,8 @@ export interface Portfolio {
   'key-techs': string;
   github: string;
   link: string;
-  features?: FeatureItem[]; // 변경된 구조
-  issues?: IssueItem[]; // 변경된 구조
+  features?: FeatureItem[];
+  issues?: IssueItem[];
   next?: {
     id: string;
     title: string;
@@ -71,59 +73,52 @@ const ImageSlider = ({ images }: { images: string[] }) => {
 
   if (!images || images.length === 0) return null;
 
-  // 버튼 이동 로직
   const handlePrev = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
   const handleNext = () =>
     setCurrentIndex((prev) => Math.min(images.length - 1, prev + 1));
 
-  // --- 드래그(스와이프) 시작 ---
   const handleDragStart = (clientX: number) => {
     startX.current = clientX;
     setIsDragging(true);
   };
 
-  // --- 드래그(스와이프) 중 ---
   const handleDragMove = (clientX: number) => {
     if (!isDragging) return;
     const delta = clientX - startX.current;
 
-    // 첫 이미지나 끝 이미지에서 바깥으로 드래그할 때 저항감(텐션) 주기
     if (
       (currentIndex === 0 && delta > 0) ||
       (currentIndex === images.length - 1 && delta < 0)
     ) {
-      setDragOffset(delta * 0.3); // 저항감 적용
+      setDragOffset(delta * 0.3);
     } else {
       setDragOffset(delta);
     }
   };
 
-  // --- 드래그(스와이프) 종료 ---
   const handleDragEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
 
-    const threshold = 50; // 이 픽셀(px) 이상 넘겨야 다음 이미지로 이동
+    const threshold = 50;
 
     if (dragOffset > threshold && currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1); // 왼쪽으로 넘김
+      setCurrentIndex((prev) => prev - 1);
     } else if (dragOffset < -threshold && currentIndex < images.length - 1) {
-      setCurrentIndex((prev) => prev + 1); // 오른쪽으로 넘김
+      setCurrentIndex((prev) => prev + 1);
     }
 
-    setDragOffset(0); // 드래그 잔여물 초기화
+    setDragOffset(0);
   };
 
-  // 마우스 이벤트 (PC)
   const onMouseDown = (e: React.MouseEvent) => handleDragStart(e.pageX);
   const onMouseMove = (e: React.MouseEvent) => {
-    e.preventDefault(); // 이미지 드래그 고스트 현상 방지
+    e.preventDefault();
     handleDragMove(e.pageX);
   };
   const onMouseUp = handleDragEnd;
   const onMouseLeave = handleDragEnd;
 
-  // 터치 이벤트 (Mobile)
   const onTouchStart = (e: React.TouchEvent) =>
     handleDragStart(e.touches[0].pageX);
   const onTouchMove = (e: React.TouchEvent) =>
@@ -135,7 +130,6 @@ const ImageSlider = ({ images }: { images: string[] }) => {
 
   return (
     <div className={s['image-slider-container']}>
-      {/* 컨트롤 버튼 */}
       {images.length > 1 && (
         <div className={s['slider-controls']}>
           <span className={s['slide-counter']}>
@@ -158,11 +152,9 @@ const ImageSlider = ({ images }: { images: string[] }) => {
         </div>
       )}
 
-      {/* 슬라이드 영역 */}
       <div className={s['slider-wrapper']}>
         <div
           className={`${s['slider-track']} ${isDragging ? s['dragging'] : ''}`}
-          // 드래그 중에는 애니메이션(transition)을 끄고 마우스를 즉각 따라가게 함
           style={{
             transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
             transition: isDragging ? 'none' : 'transform 0.3s ease-out',
@@ -206,14 +198,26 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [isUp, setIsUp] = useState(true);
 
+  // 💡 [추가] 미디어 렌더링 상태 관리를 위한 State와 Ref
+  const mediaBoxRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isActive, setIsActive] = useState(false);
+  const [isMediaLoaded, setIsMediaLoaded] = useState(false);
+  const [isPaused, setIsPaused] = useState(false); // 💡 일시정지 상태 추가
+
+  // 💡 [추가] 데이터 유형 판별 로직
+  const hasHoverContent = Boolean(data?.['main-contents']);
+  const isVideo = hasHoverContent && data['main-contents']?.includes('/video/');
+  const isScrollImage = hasHoverContent && !isVideo;
+
   const lastScrollY = useRef(0);
   const isReady = useRef(false);
   const searchParams = useSearchParams();
   const from = searchParams.get('from');
 
+  // 스크롤 방향 감지 로직
   useEffect(() => {
     lastScrollY.current = window.scrollY;
-
     const timer = setTimeout(() => {
       isReady.current = true;
     }, 0);
@@ -223,7 +227,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         lastScrollY.current = window.scrollY;
         return;
       }
-
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
@@ -231,17 +234,51 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       } else if (currentScrollY < lastScrollY.current) {
         setIsUp(true);
       }
-
       lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleDirection, { passive: true });
-
     return () => {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleDirection);
     };
   }, []);
+
+  // 💡 [추가] 화면 중앙 감지 (Intersection Observer)
+  useEffect(() => {
+    if (!mediaBoxRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // 화면의 가상 선(위아래 20%를 제외한 중간 60%) 영역에 닿으면 true
+          if (entry.isIntersecting) {
+            setIsActive(true);
+          } else {
+            setIsActive(false);
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -20% 0px', // 화면 위아래 20%를 트리거 라인으로 설정
+        threshold: 0,
+      },
+    );
+
+    observer.observe(mediaBoxRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // 💡 [추가] 비디오 재생/정지 제어
+  useEffect(() => {
+    if (isVideo && videoRef.current) {
+      if (isActive && !isPaused) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isActive, isVideo, isPaused]);
 
   useEffect(() => {
     return () => {
@@ -269,23 +306,18 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   const scrollToTarget = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 120; // 고정 헤더(GNB) 높이 여백
-
-      // 💡 Lenis 인스턴스를 가져옵니다.
+      const headerOffset = 120;
       const lenis = (window as any).lenisInstance;
 
       if (lenis) {
-        // Lenis가 존재할 경우: Lenis 전용 scrollTo 사용 (가장 부드럽고 충돌 없음)
         lenis.scrollTo(element, {
-          offset: -headerOffset, // 헤더 높이만큼 뺌
-          duration: 1.2, // 이동 시간 (초)
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // 부드러운 이징
+          offset: -headerOffset,
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
       } else {
-        // Fallback (Lenis가 없을 경우 기본 브라우저 방식)
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth',
@@ -296,11 +328,11 @@ export default function WorkDetail({ data }: WorkDetailProps) {
 
   const handleGoBack = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.dispatchEvent(new Event('trigger-page-exit')); // 페이드아웃 켜기
+    window.dispatchEvent(new Event('trigger-page-exit'));
 
     setTimeout(() => {
       if (from === 'main' || from === 'works') {
-        router.back(); // 스크롤 기억 복구
+        router.back();
       } else {
         router.push('/works');
       }
@@ -324,7 +356,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
     <article className={s['detail-container']}>
       {/* --- HERO SECTION --- */}
       <section className={s['hero-section']}>
-        {/* 기존 Hero 컴포넌트 유지... */}
         <div className={s['hero-header']}>
           <FadeIn>
             <h1 className={s['header-title']}>{data['work-title']}</h1>
@@ -354,45 +385,146 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         </div>
 
         <FadeIn delay={0.6}>
-          <div className={s['main-image-box']}>
+          {/* ==========================================
+              💡 [수정됨] 메인 미디어 렌더링 컨테이너
+          ========================================== */}
+          <div
+            className={s['main-image-box']}
+            ref={mediaBoxRef}
+            style={{ position: 'relative', overflow: 'hidden' }}
+            onClick={() => {
+              if (hasHoverContent) setIsPaused(!isPaused);
+            }}
+          >
+            {hasHoverContent && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation(); // 부모(화면) 클릭 이벤트와 겹치지 않게 방지
+                  setIsPaused(!isPaused);
+                }}
+                className={s['control-button']}
+                // style={{
+                //   position: 'absolute',
+                //   top: '20px',
+                //   right: '20px',
+                //   zIndex: 10,
+                //   padding: '8px 16px',
+                //   backgroundColor: 'rgba(0,0,0,0.6)',
+                //   color: '#fff',
+                //   border: 'none',
+                //   borderRadius: '8px',
+                //   cursor: 'pointer',
+                // }}
+              >
+                {isPaused ? (
+                  <div className={s['svg-box']}>
+                    <PlayIcon width="100%" height="100%" viewBox="0 0 36 36" />
+                  </div>
+                ) : (
+                  <div className={s['svg-box']}>
+                    <PauseIcon width="100%" height="100%" viewBox="0 0 36 36" />
+                  </div>
+                )}
+              </button>
+            )}
+
+            {/* 1. 레이아웃 지지대 역할을 하는 썸네일 (비율 유지용, 투명 처리) */}
             <Image
               src={data['main-image']}
-              alt={data['work-title']}
+              alt="layout-placeholder"
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: '100%', height: 'auto', display: 'block' }}
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                opacity: 0,
+              }}
             />
+
+            {/* 2. 스켈레톤 UI (미디어가 로드되기 전까지 덮어둠) */}
+            {!isMediaLoaded && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'var(--color-bg-normal)', // 또는 #e0e0e0
+                  zIndex: 2,
+                }}
+              />
+            )}
+
+            {/* 3-1. 비디오 케이스 */}
+            {isVideo && (
+              <video
+                ref={videoRef}
+                src={data['main-contents']}
+                muted
+                loop
+                playsInline
+                onLoadedData={() => setIsMediaLoaded(true)}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  zIndex: 1,
+                }}
+              />
+            )}
+
+            {/* 3-2. 이미지 스크롤 케이스 */}
+            {isScrollImage && (
+              <Image
+                src={data['main-contents']!}
+                alt={`${data['work-title']} preview`}
+                fill
+                sizes="100vw"
+                style={{ objectFit: 'cover', zIndex: 1 }}
+                // 💡 [수정] isPaused 상태일 때 paused 클래스가 추가됨
+                className={`${s['hover-image']} ${isActive ? s['scrolling'] : ''} ${isPaused ? s['paused'] : ''}`}
+                onLoad={() => setIsMediaLoaded(true)}
+                unoptimized={true}
+              />
+            )}
+
+            {/* 3-3. 일반 이미지 케이스 (특수 컨텐츠가 없는 경우 원본 출력) */}
+            {!hasHoverContent && (
+              <Image
+                src={data['main-image']}
+                alt={data['work-title']}
+                fill
+                sizes="100vw"
+                style={{ objectFit: 'cover', zIndex: 1 }}
+                onLoad={() => setIsMediaLoaded(true)}
+                unoptimized={true}
+              />
+            )}
           </div>
         </FadeIn>
       </section>
 
       {/* ==========================================
-          [사이드바 + 주요기능 + 주요이슈 컨테이너]
+          [사이드바 + 주요기능 + 주요이슈 컨테이너] (이하 기존 코드 유지)
       ========================================== */}
       {data.features?.length || data.issues?.length ? (
         <Container>
+          {/* ... 사이드바 및 본문 영역 동일 ... */}
           <div className={s['content-with-sidebar']}>
-            {/* 좌측 Sticky 네비게이션 */}
             <aside className={`${s['sidebar']} ${isUp ? s['up'] : ''}`}>
               <nav className={s['sticky-nav']}>
-                {/* 1. 뒤로가기 */}
                 <button onClick={handleGoBack} className={s['nav-back-btn']}>
-                  {/*<div className={s['svg-box']}>*/}
-                  {/*  <LeftArrow width="100%" height="100%" viewBox="0 0 36 36" />*/}
-                  {/*</div>*/}
                   <span>← 돌아가기</span>
                 </button>
-
                 <ul className={s['nav-list']}>
-                  {/* 2. 개요 (Info) */}
                   <li className={s['nav-item']}>
                     <button onClick={() => scrollToTarget('info-section')}>
                       프로젝트 개요
                     </button>
                   </li>
-
-                  {/* 3. 주요 기능 */}
                   {data.features && data.features.length > 0 && (
                     <li className={s['nav-group']}>
                       <span className={s['nav-group-title']}>주요 기능</span>
@@ -412,8 +544,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                       </ul>
                     </li>
                   )}
-
-                  {/* 4. 주요 이슈 */}
                   {data.issues && data.issues.length > 0 && (
                     <li className={s['nav-group']}>
                       <span className={s['nav-group-title']}>주요 이슈</span>
@@ -436,11 +566,8 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                 </ul>
               </nav>
             </aside>
-
-            {/* 우측 메인 콘텐츠 (기능 & 이슈) */}
             <div className={s['main-content']}>
               <section id="info-section" className={s['info-section']}>
-                {/* 기존 info-grid 유지... */}
                 <div className={s['info-grid']}>
                   <div className={s['grid-wrap']}>
                     <div className={s['info-title']}>
@@ -513,17 +640,14 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                 </div>
               </section>
 
-              {/* [주요 기능] SECTION */}
               {data.features && data.features.length > 0 && (
                 <section className={s['feature-list-section']}>
                   <FadeIn threshold={0}>
                     <h2 className={s['section-main-title']}>주요 기능</h2>
                   </FadeIn>
-
                   <div className={s['feature-list-wrapper']}>
                     {data.features.map((feature, idx) => (
                       <FadeIn key={idx} threshold={0}>
-                        {/* ✅ 타겟 ID 부여 */}
                         <div
                           id={`feature-${idx}`}
                           className={s['feature-block']}
@@ -553,17 +677,14 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                 </section>
               )}
 
-              {/* [주요 이슈] SECTION */}
               {data.issues && data.issues.length > 0 && (
                 <section className={s['issue-list-section']}>
                   <FadeIn threshold={0}>
                     <h2 className={s['section-main-title']}>주요 이슈</h2>
                   </FadeIn>
-
                   <div className={s['issue-list-wrapper']}>
                     {data.issues.map((issue, idx) => (
                       <FadeIn key={idx} threshold={0}>
-                        {/* ✅ 타겟 ID 부여 */}
                         <div id={`issue-${idx}`} className={s['issue-block']}>
                           <div className={s['issue-row']}>
                             <h3 className={s['issue-title']}>{issue.title}</h3>
@@ -595,7 +716,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                 </div>
                               )}
                           </div>
-
                           <div className={s['issue-details-box']}>
                             <div className={s['issue-row']}>
                               <h4 className={s['issue-label']}>이슈 원인</h4>
@@ -626,7 +746,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                   </div>
                                 )}
                             </div>
-
                             <div className={s['issue-row']}>
                               <h4 className={s['issue-label']}>해결 과정</h4>
                               <p className={s['issue-desc']}>
@@ -658,7 +777,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                   </div>
                                 )}
                             </div>
-
                             <div className={s['issue-row']}>
                               <h4 className={s['issue-label']}>결과</h4>
                               <p className={s['issue-desc']}>{issue.result}</p>
@@ -700,7 +818,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         </Container>
       ) : null}
 
-      {/* --- FOOTER BUTTON --- */}
       <Container>
         <FadeIn threshold={0}>
           <div className={s['footer-button-section']}>
@@ -717,7 +834,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         </FadeIn>
       </Container>
 
-      {/* --- NEXT PROJECT --- */}
       {data.next && (
         <a
           href={`/works/${data.next.id}`}

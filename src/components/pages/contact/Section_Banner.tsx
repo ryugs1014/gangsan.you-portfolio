@@ -26,7 +26,7 @@ export default function Section_Banner() {
       <div className={s['fake-image']}>
         <video
           ref={videoRef} // 비디오 ref 연결
-          src="/video/contact_banner.mp4"
+          src="https://res.cloudinary.com/o2ldruee/video/upload/v1786740161/contact_banner.mp4"
           autoPlay
           muted
           loop
