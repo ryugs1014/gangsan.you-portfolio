@@ -211,7 +211,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드, DB",
     "key-features": "구글 인증 로그인, 대시보드, 공공데이터 저장 DB 구축, Cron-Job 스케쥴링, 공고 검색 필터, 공고 목록, 구글 스프레드시트 DB 구축, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), NextAuth, Upstash, GitHub, GitHub Action, Vercel, Vercel KV, Cron-Job, 공공데이터포털 Open API, Google-Spreadsheet",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://partners.glitchor.com/login",
 
     "features": [
@@ -293,7 +293,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "다국어 번역, 메인 랜딩 페이지, 인터랙션, 스크롤 이벤트, 문의하기 폼, 게시판, 구글 스프레드시트 DB 구축, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), styled-components, GitHub, Vercel, GSAP, Framer-motion, AOS, Swiper, i18next, Figma, Svgator, papaparse, Google-Spreadsheet",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://partners.glitchor.com/",
 
     "features": [
@@ -379,7 +379,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "다국어 번역, 메인 랜딩 페이지, 예약 엔진 임베드, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), GitHub, Vercel, Supabase, Swiper, i18next, Figma, Google-Spreadsheet",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://moogm-frontend-main.vercel.app",
 
     "features": [
@@ -443,7 +443,7 @@
     "work-contribution": "퍼블리싱, 프론트엔드, SEO",
     "key-features": "메인 랜딩 페이지, 전체 퍼블리싱, 모바일 반응형",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, GitHub, Vercel, GSAP, AOS, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://glitchor-rental.vercel.app",
 
     "features": [
@@ -494,7 +494,7 @@
     "work-contribution": "UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "다국어 번역, 메인 랜딩 페이지, 사용자 대시보드, 사용자 계정 관리, 게시판, 페이팔 결제, 어드민 페이지, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), styled-components, Axios, Redux, React-Quill, Java, PayPal, GitHub, Vercel, AOS, Swiper, i18next, Kakao Postcode API, Figma, Google-Spreadsheet",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://wkbc.us/ko-KR",
 
     "features": [
@@ -587,7 +587,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱",
     "key-features": "모듈화 퍼블리싱, 메인 랜딩 페이지, 사용자 대시보드, 인터랙션, 스크롤 이벤트, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), pnpm, GitHub, GSAP, Swiper, Recharts, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://muta-stage-cloude-main.vercel.app",
 
     "features": [
@@ -651,7 +651,7 @@
     "work-contribution": "퍼블리싱, 프론트엔드",
     "key-features": "메인 랜딩 페이지, 인터랙션, 스크롤 이벤트, 전체 퍼블리싱, 모바일 반응형",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, GitHub, Vercel, GSAP, AOS, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://kb-future9.vercel.app",
 
     "features": [
@@ -702,7 +702,7 @@
     "work-contribution": "퍼블리싱, 프론트엔드, SEO",
     "key-features": "메인 랜딩 페이지, 인터랙션, 스크롤 이벤트, 전체 퍼블리싱, 모바일 반응형",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, GitHub, Vercel, GSAP, AOS, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://2024-starcorn.vercel.app",
 
     "features": [
@@ -753,7 +753,7 @@
     "work-contribution": "UX · UI, 퍼블리싱, 프론트엔드, SEO",
     "key-features": "메인 랜딩 페이지, 인터랙션, 스크롤 이벤트, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, GitHub, Vercel, GSAP, AOS, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://samsung-futurescape.vercel.app",
 
     "features": [
@@ -804,7 +804,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드, SEO",
     "key-features": "메인 랜딩 페이지, 뉴스레터 게시글, json 기사 작성, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, Express, GitHub, Vercel, GSAP, AOS, Figma, Lottie",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://asiaplat.vercel.app",
 
     "features": [
@@ -868,7 +868,7 @@
     "work-contribution": "UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "메인 랜딩 페이지, 기업 목록 페이지, 프로그램 신청 페이지, 사용자 대시보드, 사용자 계정 관리, 어드민 페이지, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), styled-components, Tailwind CSS, Axios, Redux, jQuery, React Quill, React Form Builder, Java, Docker, GitHub, Vercel, AOS, Swiper, Google-Maps API, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://nhdic.com",
 
     "features": [
@@ -961,7 +961,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "다국어 번역, 메인 랜딩 페이지, 사용자 대시보드, 사용자 계정 관리, 공고 목록 페이지, 공고 필터, 게시판, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), styled-components, Axios, Redux, Java, Docker, Cron-Job, GitHub, Vercel, i18next, Figma, Google-Spreadsheet",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://hirekorea-frontend.vercel.app/ko-KR",
 
     "features": [
@@ -1012,7 +1012,7 @@
     "work-contribution": "기획, UX · UI, 퍼블리싱, 프론트엔드, SEO",
     "key-features": "메인 랜딩 페이지, 인터랙션, 스크롤 이벤트, 문의하기 폼, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, Sass(SCSS), styled-components, EmailJS, Kakao Maps API, GitHub, Vercel, GSAP, AOS, React Animated Cursor, Figma, Lottie",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://www.biventures.kr",
 
     "features": [
@@ -1076,7 +1076,7 @@
     "work-contribution": "UX · UI, 퍼블리싱, 프론트엔드",
     "key-features": "메인 랜딩 페이지, 사용자 대시보드, 사용자 계정 관리, 맞춤형 폼, 커머스, 게시판, 어드민 페이지, 전체 퍼블리싱, 모바일 반응형, UXUI 디자인",
     "key-techs": "React, Next.js, TypeScript, Sass(SCSS), styled-components, Tailwind CSS, Axios, Redux, Java, GitLab, GitHub, Vercel, GSAP, AOS, Recharts, Swiper, Figma",
-    "github": "https://github.com/ryugs1014/gangsan.you-portfolio",
+    "github": "",
     "link": "https://barfdog.co.kr",
 
     "features": [

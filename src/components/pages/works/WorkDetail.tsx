@@ -48,7 +48,7 @@ export interface Portfolio {
   'work-contribution': string;
   'key-features': string;
   'key-techs': string;
-  github: string;
+  github?: string;
   link: string;
   features?: FeatureItem[];
   issues?: IssueItem[];
@@ -595,14 +595,19 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                     <p className={s['explan']}>{data['work-explan']}</p>
                   </div>
                   <div className={s['button-wrap']}>
-                    <a
-                      href={data.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={s['out-link']}
-                    >
-                      GitHub ↗
-                    </a>
+                    {data.github ? (
+                      <a
+                        href={data.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={s['out-link']}
+                      >
+                        GitHub ↗
+                      </a>
+                    ) : (
+                      ''
+                    )}
+
                     <a
                       href={data.link}
                       target="_blank"
