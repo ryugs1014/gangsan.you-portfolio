@@ -37,7 +37,6 @@ export default function StackSlide() {
     loadData();
   }, []);
 
-  // --- 스크롤 위치에 따라 버튼 상태 업데이트 ---
   const handleScroll = () => {
     if (!sliderRef.current) return;
 
@@ -53,7 +52,7 @@ export default function StackSlide() {
   // --- 실제 카드의 너비를 동적으로 계산하는 헬퍼 함수 ---
   const getCardWidth = () => {
     if (!sliderRef.current || !sliderRef.current.firstElementChild) return 0;
-    // box-sizing: border-box와 padding이 포함된 요소의 전체 너비를 반환합니다.
+    // box-sizing: border-box와 padding이 포함된 요소의 전체 너비를 반환
     return (sliderRef.current.firstElementChild as HTMLElement).offsetWidth;
   };
 

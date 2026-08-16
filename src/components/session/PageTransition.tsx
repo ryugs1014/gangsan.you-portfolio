@@ -14,7 +14,7 @@ export default function PageTransition({
   const pathname = usePathname();
   const isBackRef = useRef(false);
 
-  // 💡 현재 애니메이션이 실행 중인 상태를 나타내는 플래그
+  // 현재 애니메이션이 실행 중인 상태를 나타내는 플래그
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {

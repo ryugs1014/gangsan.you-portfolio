@@ -14,7 +14,7 @@ export default function PageExitEffect() {
     setIsExiting(false);
   }, [pathname]);
 
-  // 💡 [추가] 2. 커스텀 함수(뒤로가기 등)에서 수동으로 애니메이션을 켤 수 있도록 이벤트 수신
+  // 2. 커스텀 함수(뒤로가기 등)에서 수동으로 애니메이션을 켤 수 있도록 이벤트 수신
   useEffect(() => {
     const handleExit = () => setIsExiting(true);
     window.addEventListener('trigger-page-exit', handleExit);
@@ -27,8 +27,8 @@ export default function PageExitEffect() {
       const target = (e.target as Element).closest('a');
       if (!target) return;
 
-      // 💡 [핵심] 만약 'data-manual-routing' 속성이 있는 링크라면,
-      // 이 전역 함수가 가로채지 않고 무시합니다! (커스텀 함수가 처리하도록 둠)
+      // 만약 'data-manual-routing' 속성이 있는 링크라면,
+      // 이 전역 함수가 가로채지 않고 무시 (커스텀 함수가 처리하도록 둠)
       if (target.hasAttribute('data-manual-routing')) return;
 
       const href = target.getAttribute('href');

@@ -5,10 +5,8 @@ import s from './Section_Banner.module.scss';
 import Spline from '@splinetool/react-spline';
 
 export default function Section_Banner() {
-  // ✅ Spline 로딩 상태 관리
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // ✅ 로딩이 완료되면 실행되는 함수
   const handleLoad = () => {
     setIsLoaded(true);
   };

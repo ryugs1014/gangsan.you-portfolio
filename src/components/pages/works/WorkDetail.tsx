@@ -13,7 +13,6 @@ import SlideRightArrow from '@public/svg/common/slide-right-arrow.svg';
 import PlayIcon from '@public/svg/common/play.svg';
 import PauseIcon from '@public/svg/common/pause.svg';
 
-// 타입 정의
 export interface FeatureItem {
   title: string;
   description: string[];
@@ -62,9 +61,6 @@ export interface Portfolio {
   [key: string]: any;
 }
 
-// ==========================================
-// 가볍고 부드러운 드래그 & 슬라이드 컴포넌트
-// ==========================================
 const ImageSlider = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
@@ -186,9 +182,6 @@ const ImageSlider = ({ images }: { images: string[] }) => {
   );
 };
 
-// ==========================================
-// 메인 상세 페이지 컴포넌트
-// ==========================================
 interface WorkDetailProps {
   data: Portfolio;
 }
@@ -198,14 +191,14 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [isUp, setIsUp] = useState(true);
 
-  // 💡 [추가] 미디어 렌더링 상태 관리를 위한 State와 Ref
+  // 미디어 렌더링 상태 관리를 위한 State와 Ref
   const mediaBoxRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [isMediaLoaded, setIsMediaLoaded] = useState(false);
   const [isPaused, setIsPaused] = useState(false); // 💡 일시정지 상태 추가
 
-  // 💡 [추가] 데이터 유형 판별 로직
+  // 데이터 유형 판별 로직
   const hasHoverContent = Boolean(data?.['main-contents']);
   const isVideo = hasHoverContent && data['main-contents']?.includes('/video/');
   const isScrollImage = hasHoverContent && !isVideo;
@@ -244,7 +237,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
     };
   }, []);
 
-  // 💡 [추가] 화면 중앙 감지 (Intersection Observer)
+  // 화면 중앙 감지 (Intersection Observer)
   useEffect(() => {
     if (!mediaBoxRef.current) return;
 
@@ -269,17 +262,16 @@ export default function WorkDetail({ data }: WorkDetailProps) {
     return () => observer.disconnect();
   }, []);
 
-  // 💡 [추가] 비디오 재생/정지 제어
-  // 💡 [수정] 비디오 재생/정지 제어 (새로고침 시 재생 안되는 이슈 해결)
+  // 비디오 재생/정지 제어 (새로고침 시 재생 안되는 이슈 해결)
   useEffect(() => {
     if (isVideo && videoRef.current) {
-      // 1. 브라우저 정책(새로고침 시 자동재생 차단)을 우회하기 위해
+      //    브라우저 정책(새로고침 시 자동재생 차단)을 우회하기 위해
       //    DOM 요소에 직접 음소거 상태임을 한 번 더 강력하게 못 박아줍니다.
       videoRef.current.muted = true;
       videoRef.current.defaultMuted = true;
 
       if (isActive && !isPaused) {
-        // 2. 비디오 재생 시도 (비동기 처리)
+        // 비디오 재생 시도 (비동기 처리)
         const playPromise = videoRef.current.play();
 
         if (playPromise !== undefined) {
@@ -292,7 +284,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         videoRef.current.pause();
       }
     }
-  }, [isActive, isVideo, isPaused, isMediaLoaded]); // 💡 [핵심] isMediaLoaded를 추가하여 영상이 준비된 순간 다시 실행되게 함
+  }, [isActive, isVideo, isPaused, isMediaLoaded]); // isMediaLoaded를 추가하여 영상이 준비된 순간 다시 실행되게 함
 
   const handleMouseEnter = () => {
     if (!data.next) return;
@@ -362,7 +354,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
 
   return (
     <article className={s['detail-container']}>
-      {/* --- HERO SECTION --- */}
       <section className={s['hero-section']}>
         <div className={s['hero-header']}>
           <FadeIn>
@@ -393,9 +384,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         </div>
 
         <FadeIn delay={0.6}>
-          {/* ==========================================
-              💡 [수정됨] 메인 미디어 렌더링 컨테이너
-          ========================================== */}
           <div
             className={s['main-image-box']}
             ref={mediaBoxRef}
@@ -411,18 +399,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                   setIsPaused(!isPaused);
                 }}
                 className={s['control-button']}
-                // style={{
-                //   position: 'absolute',
-                //   top: '20px',
-                //   right: '20px',
-                //   zIndex: 10,
-                //   padding: '8px 16px',
-                //   backgroundColor: 'rgba(0,0,0,0.6)',
-                //   color: '#fff',
-                //   border: 'none',
-                //   borderRadius: '8px',
-                //   cursor: 'pointer',
-                // }}
               >
                 {isPaused ? (
                   <div className={s['svg-box']}>
@@ -436,7 +412,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
               </button>
             )}
 
-            {/* 1. 레이아웃 지지대 역할을 하는 썸네일 (비율 유지용, 투명 처리) */}
             <Image
               src={data['main-image']}
               alt="layout-placeholder"
@@ -451,19 +426,17 @@ export default function WorkDetail({ data }: WorkDetailProps) {
               }}
             />
 
-            {/* 2. 스켈레톤 UI (미디어가 로드되기 전까지 덮어둠) */}
             {!isMediaLoaded && (
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  backgroundColor: 'var(--color-bg-normal)', // 또는 #e0e0e0
+                  backgroundColor: 'var(--color-bg-normal)',
                   zIndex: 2,
                 }}
               />
             )}
 
-            {/* 3-1. 비디오 케이스 */}
             {isVideo && (
               <video
                 ref={videoRef}
@@ -484,7 +457,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
               />
             )}
 
-            {/* 3-2. 이미지 스크롤 케이스 */}
             {isScrollImage && (
               <Image
                 src={data['main-contents']!}
@@ -499,7 +471,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
               />
             )}
 
-            {/* 3-3. 일반 이미지 케이스 (특수 컨텐츠가 없는 경우 원본 출력) */}
             {!hasHoverContent && (
               <Image
                 src={data['main-image']}
@@ -515,12 +486,8 @@ export default function WorkDetail({ data }: WorkDetailProps) {
         </FadeIn>
       </section>
 
-      {/* ==========================================
-          [사이드바 + 주요기능 + 주요이슈 컨테이너] (이하 기존 코드 유지)
-      ========================================== */}
       {data.features?.length || data.issues?.length ? (
         <Container>
-          {/* ... 사이드바 및 본문 영역 동일 ... */}
           <div className={s['content-with-sidebar']}>
             <aside className={`${s['sidebar']} ${isUp ? s['up'] : ''}`}>
               <nav className={s['sticky-nav']}>
@@ -746,7 +713,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                             width: '100%',
                                             height: 'auto',
                                             display: 'block',
-                                            borderRadius: '12px',
                                           }}
                                         />
                                       </div>
@@ -777,7 +743,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                             width: '100%',
                                             height: 'auto',
                                             display: 'block',
-                                            borderRadius: '12px',
                                           }}
                                         />
                                       </div>
@@ -806,7 +771,6 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                                             width: '100%',
                                             height: 'auto',
                                             display: 'block',
-                                            borderRadius: '12px',
                                           }}
                                         />
                                       </div>

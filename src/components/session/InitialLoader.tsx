@@ -13,7 +13,7 @@ export default function InitialLoader() {
   const hasRunRef = useRef(false);
   const isVideoLoadedRef = useRef(false);
 
-  // 1. 스크롤 방지 로직 (기존과 동일)
+  // 스크롤 방지 로직 (기존과 동일)
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
@@ -41,14 +41,14 @@ export default function InitialLoader() {
     };
   }, [isLoading]);
 
-  // 2. 비디오 로드 감지 및 5초 강제 통과
+  // 비디오 로드 감지 및 5초 강제 통과
   useEffect(() => {
     const handleVideoLoaded = () => {
       isVideoLoadedRef.current = true;
     };
     window.addEventListener('video-loaded', handleVideoLoaded);
 
-    // 💡 수정됨: 무한 로딩 방지용 안전장치를 8초에서 5초로 단축 (5000ms)
+    // 무한 로딩 방지용 안전장치를 8초에서 5초로 단축 (5000ms)
     const fallbackTimer = setTimeout(() => {
       isVideoLoadedRef.current = true;
     }, 5000);
@@ -59,7 +59,7 @@ export default function InitialLoader() {
     };
   }, []);
 
-  // 3. 숫자 카운팅 로직 (98, 99에서 속도 늦추기)
+  // 숫자 카운팅 로직 (98, 99에서 속도 늦추기)
   useEffect(() => {
     if (hasRunRef.current || pathname !== '/') {
       setIsLoading(false);
@@ -79,7 +79,6 @@ export default function InitialLoader() {
         return;
       }
 
-      // 💡 핵심: 98 이전에는 3씩 빠르게 증가시키고, 98부터는 1씩 증가
       // Math.min을 통해 96 -> 99로 건너뛰지 않고 무조건 98에 딱 멈추도록 보정
       const nextProgress =
         progress < 98
@@ -97,7 +96,6 @@ export default function InitialLoader() {
       }
     };
 
-    // 💡 수정됨: 98, 99 구간일 때는 타이머 딜레이를 400ms로 길게 늘려서 숫자가 머무는 시간을 확보
     const delay = progress >= 98 ? 400 : 30;
     timer = setTimeout(tick, delay);
 

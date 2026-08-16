@@ -21,7 +21,7 @@ export default function TabCategory({
   const lastScrollY = useRef(0);
   const isReady = useRef(false);
 
-  // 💡 [추가] 탭 버튼들을 감싸고 있는 래퍼에 ref 달기
+  // 탭 버튼들을 감싸고 있는 래퍼에 ref 달기
   const tabWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,17 +51,14 @@ export default function TabCategory({
     };
   }, []);
 
-  // =========================================================================
-  // 💡 [추가] 선택된 카테고리 탭이 모바일/가로 스크롤 환경에서 화면 중앙에 오도록 이동
-  // =========================================================================
   useEffect(() => {
     if (!tabWrapRef.current || !activeCategory) return;
 
-    // 실제 가로 스크롤바가 생기는 부모 요소(Container)를 타겟으로 잡습니다.
+    // 실제 가로 스크롤바가 생기는 부모 요소(Container)를 타겟으로 잡기
     const scrollContainer = tabWrapRef.current.parentElement;
     if (!scrollContainer) return;
 
-    // data-id 속성으로 현재 활성화된 버튼 요소를 찾습니다.
+    // data-id 속성으로 현재 활성화된 버튼 요소를 찾기
     const activeBtn = tabWrapRef.current.querySelector(
       `button[data-id="${activeCategory}"]`,
     ) as HTMLButtonElement;
@@ -113,12 +110,11 @@ export default function TabCategory({
     <div className={`${s['tab-wrapper']} ${isUp ? s['up'] : ''}`}>
       <FadeIn threshold={0.2}>
         <Container className={s['tab-container']}>
-          {/* 💡 ref 속성 추가 */}
           <div className={s['tab-wrap']} ref={tabWrapRef}>
             {categories.map((category) => (
               <button
                 key={category}
-                data-id={category} // 💡 DOM에서 요소를 찾기 위해 data-id 주입
+                data-id={category} // DOM에서 요소를 찾기 위해 data-id 주입
                 className={`${s['tab-button']} ${activeCategory === category ? s['active'] : ''}`}
                 onClick={() => handleTabClick(category)}
               >

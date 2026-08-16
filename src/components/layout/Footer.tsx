@@ -20,13 +20,18 @@ export default function Footer() {
 
         <ul className={s['footer-wrap']}>
           <li className={s['menu-item']}>
-            <Link href="/" className={s['menu-link']}>
+            <a href="mailto:ryugs@gmail.com" className={s['menu-link']}>
               ryugs@gmail.com ↗
-            </Link>
+            </a>
           </li>
 
           <li className={s['menu-item']}>
-            <Link href="/" className={s['menu-link']}>
+            <Link
+              href={'https://github.com/ryugs1014?tab=repositories'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={s['menu-link']}
+            >
               GitHub ↗
             </Link>
           </li>

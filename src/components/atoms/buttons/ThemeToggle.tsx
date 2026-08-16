@@ -15,7 +15,7 @@ export default function ThemeToggle() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 
-    // 1. 커스텀 이벤트 리스너 등록: 다른 컴포넌트에서 테마를 변경했는지 감지합니다.
+    // 1. 커스텀 이벤트 리스너 등록: 다른 컴포넌트에서 테마를 변경했는지 감지
     const syncTheme = (e: Event) => {
       const customEvent = e as CustomEvent;
       setTheme(customEvent.detail); // 전달받은 새 테마로 내 상태도 업데이트
@@ -34,7 +34,7 @@ export default function ThemeToggle() {
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-color-scheme', newTheme);
 
-    // 2. 테마 변경 알림 발송: 내 상태를 바꾼 후, 다른 <ThemeToggle /> 들에게도 알립니다.
+    // 2. 테마 변경 알림 발송: 내 상태를 바꾼 후, 다른 <ThemeToggle /> 들에게도 알림
     window.dispatchEvent(new CustomEvent('theme-change', { detail: newTheme }));
   };
 

@@ -6,8 +6,6 @@ import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import { fetchStacks } from '@/api/stack';
-import FadeIn from '@/components/atoms/animation/FadeIn';
-import FadeInPortfolio from '@/components/atoms/animation/FadeInPortfolio';
 import FadeInMain from '@/components/atoms/animation/FadeInMain';
 
 interface Stack {

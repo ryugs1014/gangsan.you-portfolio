@@ -6,8 +6,8 @@ import s from './FadeIn.module.scss';
 
 interface FadeInProps {
   children: React.ReactNode;
-  delay?: number; // 딜레이를 줄 수 있는 옵션
-  threshold?: number; // 화면에 얼마나 보였을 때 실행할지 (0 ~ 1)
+  delay?: number;
+  threshold?: number;
 }
 
 export default function FadeIn({

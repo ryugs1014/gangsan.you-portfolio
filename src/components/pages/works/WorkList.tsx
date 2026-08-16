@@ -119,16 +119,6 @@ export default function WorkList({ portfolios }: WorkListProps) {
                         >
                           사이트 방문
                         </Link>
-
-                        {/*<Link*/}
-                        {/*  href={work.github}*/}
-                        {/*  target="_blank"*/}
-                        {/*  rel="noopener noreferrer"*/}
-                        {/*  className={s['out-link']}*/}
-                        {/*  onClick={(e) => e.stopPropagation()}*/}
-                        {/*>*/}
-                        {/*  GitHub ↗*/}
-                        {/*</Link>*/}
                       </div>
                     </div>
                   </div>

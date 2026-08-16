@@ -16,10 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Stacks() {
-  // 1. 서버에서 스택 데이터를 가져옵니다.
   const stacks = await fetchStacks();
 
-  // 2. 데이터를 카테고리별로 그룹화합니다.
   const groupedStacks = stacks.reduce(
     (acc: Record<string, any[]>, current: any) => {
       const { category } = current;
@@ -32,8 +30,6 @@ export default async function Stacks() {
     {},
   );
 
-  // 3. 그룹화된 카테고리 키를 이용해 탭 데이터를 생성합니다.
-  // ID는 카테고리 이름을 소문자로 바꾸고 공백을 하이픈으로 변경하여 만듭니다 (예: "Front End" -> "front-end")
   const tabs = Object.keys(groupedStacks).map((category) => ({
     name: category,
     id: category.toLowerCase().replace(/\s+/g, '-'),
@@ -47,10 +43,6 @@ export default async function Stacks() {
           완성도 높은 결과물로 다듬어냅니다.
         </PageTitle>
       </FadeIn>
-
-      {/*<FadeIn delay={0.3}>*/}
-      {/*  <Section_Banner />*/}
-      {/*</FadeIn>*/}
 
       <TabNavigation tabs={tabs} />
 

@@ -10,17 +10,10 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (window.innerWidth <= 768) return;
 
-    // const lenis = new Lenis({
-    //   duration: 1.2,
-    //   easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    //   // 💡 타입 에러를 일으키던 smoothTouch 옵션을 제거했습니다.
-    //   // (제거해도 모바일/터치 기기에서는 기본적으로 스무스 스크롤이 적용되지 않습니다.)
-    // });
-
     const lenis = new Lenis({
-      duration: 0.6, // 기존 1.2보다 2배 빠른 쫀득한 스크롤
+      duration: 0.6,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      wheelMultiplier: 1, // 마우스 휠 감도 (필요시 조절)
+      wheelMultiplier: 1,
     });
 
     (window as any).lenisInstance = lenis;

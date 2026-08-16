@@ -22,12 +22,8 @@ export default function TabNavigation({ tabs }: TabNavigationProps) {
   const isReady = useRef(false);
   const tabWrapRef = useRef<HTMLDivElement>(null);
 
-  // =========================================================================
-  // 💡 [추가] 클릭으로 인한 강제 스크롤 중인지 판별하기 위한 Ref와 Timer
-  // =========================================================================
   const isClickScrolling = useRef(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // =========================================================================
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -63,11 +59,11 @@ export default function TabNavigation({ tabs }: TabNavigationProps) {
 
   useEffect(() => {
     const handleActiveTab = () => {
-      // 💡 [수정] 클릭해서 이동 중일 때는 위치 계산 로직을 무시하고, 스크롤이 멈출 때까지 기다립니다.
+      // 클릭해서 이동 중일 때는 위치 계산 로직을 무시하고, 스크롤이 멈출 때까지 기다림
       if (isClickScrolling.current) {
         if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
 
-        // 스크롤 이벤트가 100ms 동안 멈추면(도착하면) 다시 일반 스크롤 감지를 켭니다.
+        // 스크롤 이벤트가 100ms 동안 멈추면(도착하면) 다시 일반 스크롤 감지 ON
         scrollTimeoutRef.current = setTimeout(() => {
           isClickScrolling.current = false;
         }, 100);
@@ -132,14 +128,14 @@ export default function TabNavigation({ tabs }: TabNavigationProps) {
       // 이미 해당 위치에 있다면 무시
       if (Math.abs(window.scrollY - offsetPosition) < 5) return;
 
-      // 💡 [수정] 클릭 이동 상태 활성화 및 목적지 탭을 즉시 active 시킵니다.
+      // 클릭 이동 상태 활성화 및 목적지 탭을 즉시 active
       isClickScrolling.current = true;
       setActiveTab(id);
 
       const lenis = (window as any).lenisInstance;
 
       if (lenis) {
-        // 💡 1. 데스크탑 (Lenis 활성화 상태)
+        // 1. 데스크탑 (Lenis 활성화 상태)
         lenis.scrollTo(offsetPosition, {
           duration: 1.2,
           force: true, // 기존 이동 중인 애니메이션을 취소하고 강제 이동

@@ -39,7 +39,6 @@ export default function FadeInPortfolio({ children }: FadeInPortfolioProps) {
     <motion.div
       ref={ref}
       className={s['fade-wrapper']}
-      // 💡 통째로 전개(...)하는 대신, 개별 속성에 조건부를 걸어줍니다.
 
       // 모바일 전용 속성 (데스크탑일 땐 undefined로 처리되어 무시됨)
       initial={isMobile ? { opacity: 0, y: 300 } : undefined}
@@ -50,7 +49,7 @@ export default function FadeInPortfolio({ children }: FadeInPortfolioProps) {
       }
       style={{
         position: 'relative', // 이전의 경고 제거용
-        willChange: 'opacity, transform', // 💡 [핵심 최적화] GPU 하드웨어 가속 켜기
+        willChange: 'opacity, transform', // GPU 하드웨어 가속 켜기
         ...(!isMobile ? { opacity, y } : {}),
       }}
     >

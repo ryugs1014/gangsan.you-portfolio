@@ -25,10 +25,10 @@ export default function Section_01() {
       const vh = window.innerHeight;
       const scrollY = -top;
 
-      // 전체 컨테이너가 1000svh이고 sticky가 100svh이므로
-      // 실제 스크롤이 작동하는 구간은 0 ~ 900vh 입니다.
+      // 전체 컨테이너가 1000svh이고 sticky가 100svh
+      // 실제 스크롤이 작동하는 구간은 0 ~ 900vh
 
-      // 1. 비디오 확장 (0 ~ 150vh 구간)
+      // 비디오 확장 (0 ~ 150vh 구간)
       let currentProgress = scrollY / (1.5 * vh);
       currentProgress = Math.max(0, Math.min(1, currentProgress));
       setProgress(currentProgress);
@@ -41,13 +41,9 @@ export default function Section_01() {
         );
       }
 
-      // 2. 비디오 확장 후 배경 오버레이 어두워짐 (150vh ~ 200vh 구간)
+      // 비디오 확장 후 배경 오버레이 어두워짐 (150vh ~ 200vh 구간)
       let bgOp = (scrollY - 1.5 * vh) / (0.5 * vh);
       setOverlayOpacity(Math.max(0, Math.min(1, bgOp)));
-
-      // ============================================================
-      // [타이밍 로직 - 1000svh 기준 재설정]
-      // ============================================================
 
       // --- 첫 번째 텍스트 (220vh ~ 450vh) ---
       let t1Op = 1;

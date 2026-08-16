@@ -9,14 +9,14 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. 300px 이상 스크롤 시 버튼 표시
+      // 300px 이상 스크롤 시 버튼 표시
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
 
-      // 2. Footer 영역 도달 감지
+      // Footer 영역 도달 감지
       const footer = document.querySelector('footer');
       if (footer) {
         const footerRect = footer.getBoundingClientRect();

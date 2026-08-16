@@ -119,17 +119,22 @@ export default function MobileMenu() {
 
           <ul className={s['mobile-footer-wrap']}>
             <li className={s['menu-item']}>
-              <Link href="/" className={s['menu-link']}>
+              <a href="mailto:ryugs@gmail.com" className={s['menu-link']}>
                 <span>ryugs@gmail.com</span>
 
                 <div className={s['svg-box']}>
                   <RotateArrow width="24" height="24" viewBox="0 0 36 36" />
                 </div>
-              </Link>
+              </a>
             </li>
 
             <li className={s['menu-item']}>
-              <Link href="/" className={s['menu-link']}>
+              <Link
+                href={'https://github.com/ryugs1014?tab=repositories'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s['menu-link']}
+              >
                 <span>GitHub</span>
 
                 <div className={s['svg-box']}>

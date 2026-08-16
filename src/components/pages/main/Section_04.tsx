@@ -29,9 +29,6 @@ interface Portfolio {
   [key: string]: any;
 }
 
-// =========================================================================
-// 💡 [추가] 개별 포트폴리오 아이템 컴포넌트 (상태 및 비디오 독립적 관리)
-// =========================================================================
 const PortfolioItemCard = memo(function PortfolioItemCard({
   work,
   isMobile,
@@ -45,13 +42,10 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
   const cardRef = useRef<HTMLLIElement>(null);
 
   const hasHoverContent = Boolean(work['main-contents']);
-  // 💡 비디오인지, 스크롤 이미지인지 명확하게 구분합니다.
   const isVideo = hasHoverContent && work['main-contents']?.includes('/video/');
   const isScrollImage = hasHoverContent && !isVideo;
 
-  // 💡 [모바일 전용] 스크롤 시 화면 중앙 감지 로직
   useEffect(() => {
-    // 데스크탑이거나 감지할 요소가 없으면 종료
     if (!isMobile || !cardRef.current) {
       if (!isMobile) setIsHovered(false); // 데스크탑 전환 시 상태 초기화
       return;
@@ -69,7 +63,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
         });
       },
       {
-        // 💡 핵심: 화면 위쪽 40%, 아래쪽 40%를 제외한 "가운데 20%" 영역에 닿았을 때만 작동!
+        // 화면 위쪽 40%, 아래쪽 40%를 제외한 가운데 20% 영역에 닿았을 때만 작동
         rootMargin: '-40% 0px -40% 0px',
         threshold: 0,
       },
@@ -82,7 +76,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
     };
   }, [isMobile]);
 
-  // 💡 비디오 재생/일시정지 로직을 상태(isHovered)에 동기화
+  // 비디오 재생/일시정지 로직을 상태(isHovered)에 동기화
   useEffect(() => {
     if (isVideo && videoRef.current) {
       if (isHovered) {
@@ -94,7 +88,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
     }
   }, [isHovered, isVideo]);
 
-  // 💡 데스크탑용 마우스 이벤트 (모바일에서는 무시)
+  // 데스크탑용 마우스 이벤트 (모바일에서는 무시)
   const handleMouseEnter = () => {
     if (isMobile) return;
     setIsHovered(true);
@@ -131,7 +125,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
             <div className={`${s['info-logo']} ${s[`logo-${work.id}`] || ''}`}>
               {work['logo-icon'] ? (
                 <>
-                  {/* 1. 라이트모드용 로고 */}
                   <Image
                     src={work['logo-icon']}
                     alt={`${work.id} logo`}
@@ -142,7 +135,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
                     unoptimized={true}
                   />
 
-                  {/* 2. 다크모드용 로고 (다크모드 전용 경로가 있으면 그걸 쓰고, 없으면 기존 아이콘 재사용) */}
                   <Image
                     src={work['logo-icon-dark'] || work['logo-icon']}
                     alt={`${work.id} dark logo`}
@@ -168,7 +160,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
           </div>
 
           <div className={s['work-image']}>
-            {/* 💡 케이스 1: 비디오인 경우 (기존 방식: 썸네일 위에 비디오 띄우기) */}
             {isVideo && (
               <>
                 <Image
@@ -200,7 +191,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
               </>
             )}
 
-            {/* 💡 케이스 2: 스크롤 이미지인 경우 (썸네일 없이 원본 이미지만 사용) */}
             {isScrollImage && (
               <Image
                 src={work['main-contents']!}
@@ -214,7 +204,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
               />
             )}
 
-            {/* 💡 케이스 3: 특별한 컨텐츠가 없는 일반 포트폴리오인 경우 */}
             {!hasHoverContent && (
               <Image
                 src={
@@ -231,7 +220,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
             )}
 
             <div className={s['work-links']}>
-              {/* 링크 컴포넌트 생략 (기존과 동일) */}
               <div className={s['web-links']}>
                 <Link
                   href={work.link}
@@ -262,9 +250,6 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
   );
 });
 
-// =========================================================================
-// 메인 컴포넌트 (기존 로직 유지)
-// =========================================================================
 export default function Section_04() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
   const [isMobile, setIsMobile] = useState(false);
@@ -303,7 +288,7 @@ export default function Section_04() {
           const lenis = (window as any).lenisInstance;
           if (lenis) lenis.resize();
 
-          // 💡 [추가] 저장된 스크롤 위치가 있다면 복구
+          // 저장된 스크롤 위치가 있다면 복구
           const savedY = sessionStorage.getItem('mainScrollY');
           if (savedY) {
             const targetY = parseInt(savedY, 10);
@@ -345,7 +330,6 @@ export default function Section_04() {
         <div className={s['works-wrap']}>
           <div className={s['category-group']}>
             <ul className={s['portfolio-list']}>
-              {/* 💡 분리한 컴포넌트로 맵핑 */}
               {portfolios.map((work) => (
                 <PortfolioItemCard
                   key={work.id}

@@ -8,10 +8,9 @@ import Spline from '@splinetool/react-spline';
 export default function Section_Banner() {
   const splineApp = useRef<any>(null);
 
-  // ✅ Spline 로딩 완료 상태 추가
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // ✅ 화면에 들어왔는지 감지 (FadeIn 컴포넌트의 기능 가져오기)
+  // 화면에 들어왔는지 감지 (FadeIn 컴포넌트의 기능 가져오기)
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -25,7 +24,7 @@ export default function Section_Banner() {
     splineApp.current = spline;
     spline.setZoom(0.7);
 
-    // ✅ Spline 로드가 완료되면 상태를 true로 변경
+    // Spline 로드가 완료되면 상태를 true로 변경
     setIsLoaded(true);
   };
 
@@ -56,7 +55,7 @@ export default function Section_Banner() {
     };
   }, []);
 
-  // ✅ 화면에 보이고(inView) && 로딩도 끝났을 때(isLoaded) true
+  // 화면에 보이고(inView) && 로딩도 끝났을 때(isLoaded) true
   const showAnimation = inView && isLoaded;
 
   return (

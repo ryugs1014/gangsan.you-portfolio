@@ -43,11 +43,17 @@ export default function Section_06() {
               </li>
               <li className={s['button-list-section']}>
                 <div className={s['contact-buttons']}>
-                  <button className={s['link-button']}>
-                    <span>GitHub</span>
+                  <Link
+                    href={'https://github.com/ryugs1014?tab=repositories'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className={s['link-button']}>
+                      <span>GitHub</span>
 
-                    <RightArrowSVG responsivSize={true} />
-                  </button>
+                      <RightArrowSVG responsivSize={true} />
+                    </button>
+                  </Link>
 
                   <button className={s['link-button']}>
                     <span>이력서</span>

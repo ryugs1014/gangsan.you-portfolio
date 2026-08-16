@@ -1,14 +1,14 @@
 @use '../rem' as *;
 
 // ===============================
-// ✅ typo 사용 예시
+// typo 사용 예시
 // ===============================
 
 // * font-size: rem(16); font-weight: 500; line-height: 1.4;
 //@include font-style(16, 500, 1.4);
 
 // ===============================
-// ✅ typo mixin 설정
+// typo mixin 설정
 // ===============================
 @mixin typo($size, $weight: 400, $lh: 1.5, $ls: rem(-0.16)) {
   font-size: rem($size);

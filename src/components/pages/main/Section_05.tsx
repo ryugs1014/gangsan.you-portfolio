@@ -149,9 +149,6 @@ export default function Section_05() {
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
-  // ==========================================
-  // 터치 이벤트 핸들러 (Mobile / Tablet)
-  // ==========================================
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!sliderRef.current) return;
     isDown.current = true;
