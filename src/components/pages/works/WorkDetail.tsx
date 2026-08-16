@@ -270,21 +270,29 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   }, []);
 
   // 💡 [추가] 비디오 재생/정지 제어
+  // 💡 [수정] 비디오 재생/정지 제어 (새로고침 시 재생 안되는 이슈 해결)
   useEffect(() => {
     if (isVideo && videoRef.current) {
+      // 1. 브라우저 정책(새로고침 시 자동재생 차단)을 우회하기 위해
+      //    DOM 요소에 직접 음소거 상태임을 한 번 더 강력하게 못 박아줍니다.
+      videoRef.current.muted = true;
+      videoRef.current.defaultMuted = true;
+
       if (isActive && !isPaused) {
-        videoRef.current.play().catch(() => {});
+        // 2. 비디오 재생 시도 (비동기 처리)
+        const playPromise = videoRef.current.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            // 로딩이 덜 되었거나 정책에 막혔을 때 에러를 삼키고 넘어갑니다.
+            console.warn('Video auto-play prevented:', error);
+          });
+        }
       } else {
         videoRef.current.pause();
       }
     }
-  }, [isActive, isVideo, isPaused]);
-
-  useEffect(() => {
-    return () => {
-      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
-    };
-  }, []);
+  }, [isActive, isVideo, isPaused, isMediaLoaded]); // 💡 [핵심] isMediaLoaded를 추가하여 영상이 준비된 순간 다시 실행되게 함
 
   const handleMouseEnter = () => {
     if (!data.next) return;

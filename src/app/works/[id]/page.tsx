@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: data
-      ? `${data['work-title']} | 유강산 포트폴리오`
+      ? `유강산 포트폴리오 | ${data['work-title']}`
       : '포트폴리오 상세',
   };
 }

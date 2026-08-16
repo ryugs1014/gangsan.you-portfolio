@@ -11,7 +11,6 @@ export default function Section_01() {
   const [progress, setProgress] = useState(0);
   const [overlayOpacity, setOverlayOpacity] = useState(0);
 
-  // ✅ 각각 [투명도(전체 컨테이너), Y축 위치(글자 Reveal 박스 내부)]를 관리
   const [text1, setText1] = useState({ opacity: 0, translateY: 100 });
   const [text2, setText2] = useState({ opacity: 0, translateY: 100 });
   const [text3, setText3] = useState({ opacity: 0, translateY: 100 });
@@ -26,8 +25,11 @@ export default function Section_01() {
       const vh = window.innerHeight;
       const scrollY = -top;
 
-      // 1. 비디오 확장 (0 ~ 200vh 구간)
-      let currentProgress = scrollY / (2 * vh);
+      // 전체 컨테이너가 1000svh이고 sticky가 100svh이므로
+      // 실제 스크롤이 작동하는 구간은 0 ~ 900vh 입니다.
+
+      // 1. 비디오 확장 (0 ~ 150vh 구간)
+      let currentProgress = scrollY / (1.5 * vh);
       currentProgress = Math.max(0, Math.min(1, currentProgress));
       setProgress(currentProgress);
 
@@ -39,64 +41,59 @@ export default function Section_01() {
         );
       }
 
-      // 2. 비디오 확장 후 배경 오버레이 어두워짐 (200vh ~ 250vh 구간)
-      let bgOp = (scrollY - 2 * vh) / (0.5 * vh);
+      // 2. 비디오 확장 후 배경 오버레이 어두워짐 (150vh ~ 200vh 구간)
+      let bgOp = (scrollY - 1.5 * vh) / (0.5 * vh);
       setOverlayOpacity(Math.max(0, Math.min(1, bgOp)));
 
       // ============================================================
-      // [타이밍 로직]
-      // 1. 등장 (Reveal): 상자는 투명도 1, 글자가 Y축 100% -> 0%로 올라옴
-      // 2. 유지 (Stay): Y축 0% 유지, 투명도 1 유지
-      // 3. 퇴장 (FadeOut): Y축 0% 유지, 상자의 투명도 1 -> 0으로 제자리에서 사라짐
+      // [타이밍 로직 - 1000svh 기준 재설정]
       // ============================================================
 
-      // --- 첫 번째 텍스트 (250vh ~ 500vh) ---
-      // 250~350: 글자 올라옴 / 350~400: 머무름 / 400~500: 제자리에서 투명해짐
-      // --- 첫 번째 텍스트 (300vh ~ 650vh) ---
+      // --- 첫 번째 텍스트 (220vh ~ 450vh) ---
       let t1Op = 1;
       let t1Y = 100;
-      if (scrollY >= 3.0 * vh && scrollY < 4.0 * vh) {
-        t1Y = 100 - ((scrollY - 3.0 * vh) / vh) * 100; // 올라옴
-      } else if (scrollY >= 4.0 * vh && scrollY < 5.5 * vh) {
+      if (scrollY >= 2.2 * vh && scrollY < 3.0 * vh) {
+        t1Y = 100 - ((scrollY - 2.2 * vh) / (0.8 * vh)) * 100; // 올라옴
+      } else if (scrollY >= 3.0 * vh && scrollY < 4.0 * vh) {
         t1Y = 0; // 머무름
-      } else if (scrollY >= 5.5 * vh && scrollY < 6.5 * vh) {
+      } else if (scrollY >= 4.0 * vh && scrollY < 4.5 * vh) {
         t1Y = 0;
-        t1Op = 1 - (scrollY - 5.5 * vh) / vh; // 사라짐
-      } else if (scrollY >= 6.5 * vh) {
+        t1Op = 1 - (scrollY - 4.0 * vh) / (0.5 * vh); // 사라짐
+      } else if (scrollY >= 4.5 * vh) {
         t1Y = 0;
         t1Op = 0;
-      } else if (scrollY < 3.0 * vh) {
+      } else if (scrollY < 2.2 * vh) {
         t1Op = 0;
       }
       setText1({ opacity: t1Op, translateY: t1Y });
 
-      // --- 두 번째 텍스트 (700vh ~ 1050vh) ---
+      // --- 두 번째 텍스트 (480vh ~ 710vh) ---
       let t2Op = 1;
       let t2Y = 100;
-      if (scrollY >= 7.0 * vh && scrollY < 8.0 * vh) {
-        t2Y = 100 - ((scrollY - 7.0 * vh) / vh) * 100; // 올라옴
-      } else if (scrollY >= 8.0 * vh && scrollY < 9.5 * vh) {
+      if (scrollY >= 4.8 * vh && scrollY < 5.6 * vh) {
+        t2Y = 100 - ((scrollY - 4.8 * vh) / (0.8 * vh)) * 100; // 올라옴
+      } else if (scrollY >= 5.6 * vh && scrollY < 6.6 * vh) {
         t2Y = 0; // 머무름
-      } else if (scrollY >= 9.5 * vh && scrollY < 10.5 * vh) {
+      } else if (scrollY >= 6.6 * vh && scrollY < 7.1 * vh) {
         t2Y = 0;
-        t2Op = 1 - (scrollY - 9.5 * vh) / vh; // 사라짐
-      } else if (scrollY >= 10.5 * vh) {
+        t2Op = 1 - (scrollY - 6.6 * vh) / (0.5 * vh); // 사라짐
+      } else if (scrollY >= 7.1 * vh) {
         t2Y = 0;
         t2Op = 0;
-      } else if (scrollY < 7.0 * vh) {
+      } else if (scrollY < 4.8 * vh) {
         t2Op = 0;
       }
       setText2({ opacity: t2Op, translateY: t2Y });
 
-      // --- 세 번째 텍스트 (1100vh ~ 끝) ---
+      // --- 세 번째 텍스트 (740vh ~ 끝) ---
       let t3Op = 1;
       let t3Y = 100;
-      if (scrollY >= 11.0 * vh && scrollY < 12.0 * vh) {
-        t3Y = 100 - ((scrollY - 11.0 * vh) / vh) * 100; // 올라옴
-      } else if (scrollY >= 12.0 * vh) {
+      if (scrollY >= 7.4 * vh && scrollY < 8.2 * vh) {
+        t3Y = 100 - ((scrollY - 7.4 * vh) / (0.8 * vh)) * 100; // 올라옴
+      } else if (scrollY >= 8.2 * vh) {
         t3Y = 0;
-        t3Op = 1; // 세 번째 텍스트는 스크롤 끝까지 머무름
-      } else if (scrollY < 11.0 * vh) {
+        t3Op = 1; // 세 번째 텍스트는 섹션이 자연스럽게 올라갈 때까지 유지
+      } else if (scrollY < 7.4 * vh) {
         t3Op = 0;
       }
       setText3({ opacity: t3Op, translateY: t3Y });
@@ -178,7 +175,6 @@ export default function Section_01() {
             <div className={s['overlay-bg']} />
 
             <div className={s['text-container']}>
-              {/* 첫 번째 텍스트 */}
               <div
                 className={s['overlay-text-wrapper']}
                 style={{ opacity: text1.opacity }}
@@ -195,7 +191,6 @@ export default function Section_01() {
                 </div>
               </div>
 
-              {/* 두 번째 텍스트 */}
               <div
                 className={s['overlay-text-wrapper']}
                 style={{ opacity: text2.opacity }}
@@ -212,7 +207,6 @@ export default function Section_01() {
                 </div>
               </div>
 
-              {/* 세 번째 텍스트 */}
               <div
                 className={s['overlay-text-wrapper']}
                 style={{ opacity: text3.opacity }}

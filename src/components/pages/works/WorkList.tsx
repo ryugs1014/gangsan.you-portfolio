@@ -14,6 +14,7 @@ export interface Portfolio {
   id: string;
   category: string;
   'work-title': string;
+  'short-work-explan': string;
   'work-explan': string;
   'key-features': string;
   github: string;
@@ -137,7 +138,9 @@ export default function WorkList({ portfolios }: WorkListProps) {
                       <h4 className={s['work-title']}>{work['work-title']}</h4>
                     </div>
 
-                    <p className={s['work-explan']}>{work['work-explan']}</p>
+                    <p className={s['work-explan']}>
+                      {work['short-work-explan']}
+                    </p>
                   </div>
                 </div>
               </div>

@@ -44,8 +44,12 @@
     @include flex-box(start, center, row, rem(8));
     color: var(--color-gray-0);
 
+    .logo-main {
+      color: var(--color-white-fix);
+    }
+
     .logo-sub {
-      color: var(--color-gray-700);
+      color: #5e5f61;
     }
   }
 

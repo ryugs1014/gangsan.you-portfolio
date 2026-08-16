@@ -521,7 +521,7 @@
 
     .item-button {
       @include grid-box(null, rem(16));
-      padding: rem(40) 0;
+      //padding: rem(40) 0;
     }
 
     .work-info {
@@ -579,6 +579,7 @@
         @include typo(14, 600, 1);
         padding: 0;
         box-shadow: 0 rem(4) rem(8) rgba(0, 0, 0, 0.04);
+        display: none;
 
         > span {
           display: none;
