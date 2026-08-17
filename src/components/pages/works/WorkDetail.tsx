@@ -12,6 +12,7 @@ import SlideLeftArrow from '@public/svg/common/slide-left-arrow.svg';
 import SlideRightArrow from '@public/svg/common/slide-right-arrow.svg';
 import PlayIcon from '@public/svg/common/play.svg';
 import PauseIcon from '@public/svg/common/pause.svg';
+import ApkDownloadModal from '@/components/atoms/modal/ApkDownloadModal';
 
 export interface FeatureItem {
   title: string;
@@ -196,7 +197,8 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [isMediaLoaded, setIsMediaLoaded] = useState(false);
-  const [isPaused, setIsPaused] = useState(false); // 💡 일시정지 상태 추가
+  const [isPaused, setIsPaused] = useState(false);
+  const [isApkModalOpen, setIsApkModalOpen] = useState(false);
 
   // 데이터 유형 판별 로직
   const hasHoverContent = Boolean(data?.['main-contents']);
@@ -350,6 +352,13 @@ export default function WorkDetail({ data }: WorkDetailProps) {
     }, 600);
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (data.category === 'Mobile App') {
+      e.preventDefault();
+      setIsApkModalOpen(true);
+    }
+  };
+
   if (!data) return null;
 
   return (
@@ -376,8 +385,11 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${s['link-btn']} ${s['primary']}`}
+                onClick={handleLinkClick}
               >
-                사이트 방문하기
+                {data.category === 'Mobile App'
+                  ? 'APK 다운로드'
+                  : '사이트 방문하기'}
               </a>
             </div>
           </FadeIn>
@@ -570,7 +582,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                         </span>
                       </div>
                       <div className={s['info-item']}>
-                        <span className={s['label']}>기여도</span>
+                        <span className={s['label']}>주요 역할</span>
                         <span className={s['value']}>
                           {data['work-contribution']}
                         </span>
@@ -613,8 +625,11 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={s['site-link']}
+                      onClick={handleLinkClick}
                     >
-                      사이트 방문 ↗
+                      {data.category === 'Mobile App'
+                        ? '앱 다운로드 ↗'
+                        : '사이트 방문하기 ↗'}
                     </a>
                   </div>
                 </div>
@@ -832,6 +847,12 @@ export default function WorkDetail({ data }: WorkDetailProps) {
           </div>
         </a>
       )}
+
+      <ApkDownloadModal
+        isOpen={isApkModalOpen}
+        onClose={() => setIsApkModalOpen(false)}
+        apkUrl={data.link}
+      />
     </article>
   );
 }

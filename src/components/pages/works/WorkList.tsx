@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Container from '@/components/layout/Container';
 import s from './WorkList.module.scss';
-import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import FadeIn from '@/components/atoms/animation/FadeIn';
 import Image from 'next/image';
-import BlackArrow from '@public/svg/common/black-arrow.svg';
+import ApkDownloadModal from '@/components/atoms/modal/ApkDownloadModal';
 
 export interface Portfolio {
   id: string;
@@ -29,6 +28,8 @@ interface WorkListProps {
 export default function WorkList({ portfolios }: WorkListProps) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
+  const [isApkModalOpen, setIsApkModalOpen] = useState(false);
+  const [currentApkUrl, setCurrentApkUrl] = useState('');
 
   useEffect(() => {
     const handleResize = () => {
@@ -73,6 +74,19 @@ export default function WorkList({ portfolios }: WorkListProps) {
     }, 600);
   };
 
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    work: Portfolio,
+  ) => {
+    e.stopPropagation();
+
+    if (work.category === 'Mobile App') {
+      e.preventDefault();
+      setCurrentApkUrl(work.link);
+      setIsApkModalOpen(true);
+    }
+  };
+
   if (!portfolios || portfolios.length === 0) {
     return (
       <Container>
@@ -84,60 +98,72 @@ export default function WorkList({ portfolios }: WorkListProps) {
   }
 
   return (
-    <Container>
-      <ul className={s['portfolio-list']}>
-        {portfolios.map((work) => (
-          <FadeIn key={work.id} threshold={0.2}>
-            <li className={s['portfolio-item-wrap']}>
-              <div
-                className={s['detail-button']}
-                onClick={(e) => handleGoDetail(work.id, e)}
-              >
-                <div className={s['portfolio-item']}>
-                  <div className={s['work-image']}>
-                    <Image
-                      src={
-                        isMobile && work['sub-image']
-                          ? work['sub-image']
-                          : work['main-image']
-                      }
-                      alt={`${work.id} icon`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      style={{ objectFit: 'cover' }}
-                      unoptimized={true}
-                    />
+    <>
+      <Container>
+        <ul className={s['portfolio-list']}>
+          {portfolios.map((work) => (
+            <FadeIn key={work.id} threshold={0.2}>
+              <li className={s['portfolio-item-wrap']}>
+                <div
+                  className={s['detail-button']}
+                  onClick={(e) => handleGoDetail(work.id, e)}
+                >
+                  <div className={s['portfolio-item']}>
+                    <div className={s['work-image']}>
+                      <Image
+                        src={
+                          isMobile && work['sub-image']
+                            ? work['sub-image']
+                            : work['main-image']
+                        }
+                        alt={`${work.id} icon`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        style={{ objectFit: 'cover' }}
+                        unoptimized={true}
+                      />
 
-                    <div className={s['work-links']}>
-                      <div className={s['web-links']}>
-                        <Link
-                          href={work.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={s['site-link']}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          사이트 방문
-                        </Link>
+                      <div className={s['work-links']}>
+                        <div className={s['web-links']}>
+                          <Link
+                            href={work.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={s['site-link']}
+                            onClick={(e) => handleLinkClick(e, work)}
+                          >
+                            {work.category === 'Mobile App'
+                              ? 'APK 다운로드'
+                              : '사이트 방문'}
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className={s['work-info']}>
-                    <div className={s['title-wrap']}>
-                      <h4 className={s['work-title']}>{work['work-title']}</h4>
+                    <div className={s['work-info']}>
+                      <div className={s['title-wrap']}>
+                        <h4 className={s['work-title']}>
+                          {work['work-title']}
+                        </h4>
+                      </div>
+
+                      <p className={s['work-explan']}>
+                        {work['short-work-explan']}
+                      </p>
                     </div>
-
-                    <p className={s['work-explan']}>
-                      {work['short-work-explan']}
-                    </p>
                   </div>
                 </div>
-              </div>
-            </li>
-          </FadeIn>
-        ))}
-      </ul>
-    </Container>
+              </li>
+            </FadeIn>
+          ))}
+        </ul>
+      </Container>
+
+      <ApkDownloadModal
+        isOpen={isApkModalOpen}
+        onClose={() => setIsApkModalOpen(false)}
+        apkUrl={currentApkUrl}
+      />
+    </>
   );
 }

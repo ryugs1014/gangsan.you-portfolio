@@ -24,7 +24,7 @@
     "key-features": "일기 · 메모 · 할 일 목록(To-do List), 앱 테마 및 UXUI 설정, 구글 드라이브 백업 · 복원, PDF 내보내기, 데이터 초기화, 앱 잠금 및 생체인증",
     "key-techs": "React Native, Expo, TypeScript, Zustand, OAuth(Google Sign-in), Google Drive API, Async Storage, GitHub, Vercel",
     "github": "https://github.com/ryugs1014/dongle-diary",
-    "link": "https://expo.dev/accounts/ryugss-team/projects/o-memo/builds/a938375c-4001-45fc-bb06-85ff60a9a513",
+    "link": "https://github.com/ryugs1014/dongle-diary/releases/download/apk/application-dongle-diary-v1.0.0.apk",
 
     "features": [
       {

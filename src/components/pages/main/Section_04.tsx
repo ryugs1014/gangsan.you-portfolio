@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef, memo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import s from './Section_04.module.scss';
 import Link from 'next/link';
@@ -8,8 +8,8 @@ import { fetchPortfolios } from '@/api/portfolio';
 import RightArrowSVG from '@/components/atoms/common/RightArrowSVG';
 import Image from 'next/image';
 import FadeInPortfolio from '@/components/atoms/animation/FadeInPortfolio';
-import BlackArrow from '@public/svg/common/black-arrow.svg';
 import FadeInMain from '@/components/atoms/animation/FadeInMain';
+import ApkDownloadModal from '@/components/atoms/modal/ApkDownloadModal';
 
 interface Portfolio {
   id: string;
@@ -32,9 +32,11 @@ interface Portfolio {
 const PortfolioItemCard = memo(function PortfolioItemCard({
   work,
   isMobile,
+  onOpenApkModal,
 }: {
   work: Portfolio;
   isMobile: boolean;
+  onOpenApkModal: (url: string) => void;
 }) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
@@ -108,6 +110,18 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
     setTimeout(() => {
       router.push(`/works/${work.id}?from=main`);
     }, 600);
+  };
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    work: Portfolio,
+  ) => {
+    e.stopPropagation();
+
+    if (work.category === 'Mobile App') {
+      e.preventDefault();
+      onOpenApkModal(work.link);
+    }
   };
 
   return (
@@ -226,9 +240,12 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   className={s['site-link']}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => handleLinkClick(e, work)}
                 >
-                  사이트 방문
+                  {/*사이트 방문*/}
+                  {work.category === 'Mobile App'
+                    ? 'APK 다운로드'
+                    : '사이트 방문하기'}
                 </Link>
               </div>
 
@@ -253,6 +270,13 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
 export default function Section_04() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
   const [isMobile, setIsMobile] = useState(false);
+  const [isApkModalOpen, setIsApkModalOpen] = useState(false);
+  const [currentApkUrl, setCurrentApkUrl] = useState('');
+
+  const handleOpenApkModal = useCallback((url: string) => {
+    setCurrentApkUrl(url);
+    setIsApkModalOpen(true);
+  }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -303,44 +327,53 @@ export default function Section_04() {
   }, [portfolios]);
 
   return (
-    <section id="section-04" className={s['section-container']}>
-      <div className={s['section-wrap']}>
-        <FadeInMain>
-          <div className={s['title-section']}>
-            <div className={s['text-section']}>
-              <div className={s['section-title']}>프로젝트</div>
-              <div className={s['section-text']}>
-                고객의 이야기를 가장 가까이에서 듣고,
-                <br />
-                만족을 넘어서는 경험을 제공해요.
+    <>
+      <section id="section-04" className={s['section-container']}>
+        <div className={s['section-wrap']}>
+          <FadeInMain>
+            <div className={s['title-section']}>
+              <div className={s['text-section']}>
+                <div className={s['section-title']}>프로젝트</div>
+                <div className={s['section-text']}>
+                  고객의 이야기를 가장 가까이에서 듣고,
+                  <br />
+                  만족을 넘어서는 경험을 제공해요.
+                </div>
+              </div>
+
+              <div className={s['button-section']}>
+                <Link href={'/works'} className={s['site-link']}>
+                  <button className={s['more-button']}>
+                    <span>자세히 보러가기</span>
+                    <RightArrowSVG />
+                  </button>
+                </Link>
               </div>
             </div>
+          </FadeInMain>
 
-            <div className={s['button-section']}>
-              <Link href={'/works'} className={s['site-link']}>
-                <button className={s['more-button']}>
-                  <span>자세히 보러가기</span>
-                  <RightArrowSVG />
-                </button>
-              </Link>
+          <div className={s['works-wrap']}>
+            <div className={s['category-group']}>
+              <ul className={s['portfolio-list']}>
+                {portfolios.map((work) => (
+                  <PortfolioItemCard
+                    key={work.id}
+                    work={work}
+                    isMobile={isMobile}
+                    onOpenApkModal={handleOpenApkModal}
+                  />
+                ))}
+              </ul>
             </div>
           </div>
-        </FadeInMain>
-
-        <div className={s['works-wrap']}>
-          <div className={s['category-group']}>
-            <ul className={s['portfolio-list']}>
-              {portfolios.map((work) => (
-                <PortfolioItemCard
-                  key={work.id}
-                  work={work}
-                  isMobile={isMobile}
-                />
-              ))}
-            </ul>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <ApkDownloadModal
+        isOpen={isApkModalOpen}
+        onClose={() => setIsApkModalOpen(false)}
+        apkUrl={currentApkUrl}
+      />
+    </>
   );
 }
