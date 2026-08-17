@@ -27,7 +27,7 @@ export default function Footer() {
 
           <li className={s['menu-item']}>
             <Link
-              href={'https://github.com/ryugs1014?tab=repositories'}
+              href={'https://github.com/ryugs1014'}
               target="_blank"
               rel="noopener noreferrer"
               className={s['menu-link']}

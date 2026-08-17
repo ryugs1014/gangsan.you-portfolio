@@ -129,7 +129,7 @@ export default function Header() {
               </div>
 
               <Link
-                href={'https://github.com/ryugs1014?tab=repositories'}
+                href={'https://github.com/ryugs1014'}
                 target="_blank"
                 rel="noopener noreferrer"
               >

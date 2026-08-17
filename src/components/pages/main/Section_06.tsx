@@ -44,7 +44,7 @@ export default function Section_06() {
               <li className={s['button-list-section']}>
                 <div className={s['contact-buttons']}>
                   <Link
-                    href={'https://github.com/ryugs1014?tab=repositories'}
+                    href={'https://github.com/ryugs1014'}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
