@@ -111,8 +111,8 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
   };
 
   return (
-    <FadeInPortfolio>
-      <li className={s['portfolio-item']} ref={cardRef}>
+    <li className={s['portfolio-item']} ref={cardRef}>
+      <FadeInPortfolio>
         <div
           className={s['item-button']}
           onClick={handleGoDetail}
@@ -245,8 +245,8 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
             </div>
           </div>
         </div>
-      </li>
-    </FadeInPortfolio>
+      </FadeInPortfolio>
+    </li>
   );
 });
 

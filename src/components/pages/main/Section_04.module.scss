@@ -48,13 +48,11 @@
   @include grid-box(); // 각 포트폴리오 아이템 간의 간격
   width: 100%; // 오른쪽 영역 너비
   padding: 0 rem(40);
-  > div {
-    &:last-child {
-      .portfolio-item {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: rem(240);
-      }
+  &:last-child {
+    .portfolio-item {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: rem(240);
     }
   }
 }
@@ -507,11 +505,9 @@
 
   .portfolio-list {
     padding: 0 rem(20);
-    > div {
-      &:last-child {
-        .portfolio-item {
-          margin-bottom: 0;
-        }
+    &:last-child {
+      .portfolio-item {
+        margin-bottom: 0;
       }
     }
   }
