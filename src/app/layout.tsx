@@ -8,6 +8,7 @@ import ScrollToTop from '@/components/atoms/buttons/ScrollToTop';
 import InitialLoader from '@/components/session/InitialLoader';
 import SmoothScroll from '@/components/atoms/animation/SmoothScroll';
 import PageExitEffect from '@/components/atoms/animation/PageExitEffect';
+import AccessLog from '@/components/atoms/common/AccessLog';
 
 import { Analytics } from '@vercel/analytics/react';
 
@@ -52,6 +53,7 @@ export default function RootLayout({
         {/*<SmoothScroll />*/}
         <InitialLoader />
         <PageExitEffect />
+        <AccessLog />
 
         <div className="app-wrapper">
           <Header />
