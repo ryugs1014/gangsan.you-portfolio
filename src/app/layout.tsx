@@ -9,6 +9,8 @@ import InitialLoader from '@/components/session/InitialLoader';
 import SmoothScroll from '@/components/atoms/animation/SmoothScroll';
 import PageExitEffect from '@/components/atoms/animation/PageExitEffect';
 
+import { Analytics } from '@vercel/analytics/react';
+
 const themeScript = `
   (function() {
     try {
@@ -57,6 +59,8 @@ export default function RootLayout({
           <Footer />
           <ScrollToTop />
         </div>
+
+        <Analytics />
       </body>
     </html>
   );
