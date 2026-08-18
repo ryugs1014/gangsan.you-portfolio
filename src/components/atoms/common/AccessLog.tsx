@@ -8,7 +8,7 @@ export default function AccessLog() {
 
     const trackVisit = async () => {
       try {
-        await fetch('/api/visit', {
+        await fetch('/api/access', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
