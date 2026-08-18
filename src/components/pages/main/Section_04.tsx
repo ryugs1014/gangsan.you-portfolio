@@ -18,6 +18,7 @@ interface Portfolio {
   'main-image': string;
   'sub-image': string;
   'main-contents'?: string;
+  'main-contents-optimized'?: string;
   'font-theme': string;
   category: string;
   'work-title': string;
@@ -43,8 +44,9 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLLIElement>(null);
 
-  const hasHoverContent = Boolean(work['main-contents']);
-  const isVideo = hasHoverContent && work['main-contents']?.includes('/video/');
+  const hasHoverContent = Boolean(work['main-contents-optimized']);
+  const isVideo =
+    hasHoverContent && work['main-contents-optimized']?.includes('/video/');
   const isScrollImage = hasHoverContent && !isVideo;
 
   useEffect(() => {
@@ -194,7 +196,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
                 >
                   <video
                     ref={videoRef}
-                    src={work['main-contents']}
+                    src={work['main-contents-optimized']}
                     preload="none"
                     muted
                     loop
@@ -207,7 +209,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
 
             {isScrollImage && (
               <Image
-                src={work['main-contents']!}
+                src={work['main-contents-optimized']!}
                 alt={`${work.id} preview`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

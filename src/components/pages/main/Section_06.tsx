@@ -55,11 +55,18 @@ export default function Section_06() {
                     </button>
                   </Link>
 
-                  <button className={s['link-button']}>
-                    <span>이력서</span>
+                  <a
+                    href="/file/유강산_이력서_사람인.pdf"
+                    download="유강산_이력서_사람인.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className={s['link-button']}>
+                      <span>이력서</span>
 
-                    <RightArrowSVG responsivSize={true} />
-                  </button>
+                      <RightArrowSVG responsivSize={true} />
+                    </button>
+                  </a>
 
                   <Link href={'/contact'} className={s['site-link']}>
                     <button className={s['link-button']}>
