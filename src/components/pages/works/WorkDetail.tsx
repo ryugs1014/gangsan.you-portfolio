@@ -199,6 +199,7 @@ export default function WorkDetail({ data }: WorkDetailProps) {
   const [isMediaLoaded, setIsMediaLoaded] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isApkModalOpen, setIsApkModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('info-section');
 
   // 데이터 유형 판별 로직
   const hasHoverContent = Boolean(data?.['main-contents']);
@@ -287,6 +288,44 @@ export default function WorkDetail({ data }: WorkDetailProps) {
       }
     }
   }, [isActive, isVideo, isPaused, isMediaLoaded]); // isMediaLoaded를 추가하여 영상이 준비된 순간 다시 실행되게 함
+
+  useEffect(() => {
+    // 렌더링이 완료될 시간을 살짝 벌어줍니다 (DOM 요소를 확실히 찾기 위함)
+    const initObserver = setTimeout(() => {
+      const sectionIds = ['info-section'];
+      data.features?.forEach((_, idx) => sectionIds.push(`feature-${idx}`));
+      data.issues?.forEach((_, idx) => sectionIds.push(`issue-${idx}`));
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // 화면에 들어온 요소 중 가장 마지막 요소를 활성화 (스크롤이 빠를 때 대비)
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        {
+          // 헤더 높이만큼 띄우고, 화면 중앙쯤 왔을 때 감지되도록 마진 조정
+          rootMargin: '-150px 0px -50% 0px',
+          threshold: 0,
+        },
+      );
+
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.observe(element);
+        } else {
+          console.warn(`Observer target not found: ${id}`); // 요소를 못 찾을 경우 콘솔에 경고 표시
+        }
+      });
+
+      return () => observer.disconnect();
+    }, 100);
+
+    return () => clearTimeout(initObserver);
+  }, [data]);
 
   const handleMouseEnter = () => {
     if (!data.next) return;
@@ -438,13 +477,12 @@ export default function WorkDetail({ data }: WorkDetailProps) {
               }}
             />
 
-            {!isMediaLoaded && (
+            {isMediaLoaded && (
               <div
+                className={s['image-skeleton']}
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  backgroundColor: 'var(--color-bg-normal)',
-                  zIndex: 2,
                 }}
               />
             )}
@@ -507,7 +545,9 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                   <span>← 돌아가기</span>
                 </button>
                 <ul className={s['nav-list']}>
-                  <li className={s['nav-item']}>
+                  <li
+                    className={`${s['nav-item']} ${activeSection === 'info-section' ? s['active'] : ''}`}
+                  >
                     <button onClick={() => scrollToTarget('info-section')}>
                       프로젝트 개요
                     </button>
@@ -516,18 +556,21 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                     <li className={s['nav-group']}>
                       <span className={s['nav-group-title']}>주요 기능</span>
                       <ul className={s['nav-sub-list']}>
-                        {data.features.map((feature, idx) => (
-                          <li
-                            key={`nav-feat-${idx}`}
-                            className={s['nav-sub-item']}
-                          >
-                            <button
-                              onClick={() => scrollToTarget(`feature-${idx}`)}
+                        {data.features.map((feature, idx) => {
+                          const id = `feature-${idx}`;
+                          return (
+                            <li
+                              key={`nav-feat-${idx}`}
+                              className={`${s['nav-sub-item']} ${activeSection === id ? s['active'] : ''}`}
                             >
-                              {feature.title}
-                            </button>
-                          </li>
-                        ))}
+                              <button
+                                onClick={() => scrollToTarget(`feature-${idx}`)}
+                              >
+                                {feature.title}
+                              </button>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </li>
                   )}
@@ -535,18 +578,21 @@ export default function WorkDetail({ data }: WorkDetailProps) {
                     <li className={s['nav-group']}>
                       <span className={s['nav-group-title']}>주요 이슈</span>
                       <ul className={s['nav-sub-list']}>
-                        {data.issues.map((issue, idx) => (
-                          <li
-                            key={`nav-issue-${idx}`}
-                            className={s['nav-sub-item']}
-                          >
-                            <button
-                              onClick={() => scrollToTarget(`issue-${idx}`)}
+                        {data.issues.map((issue, idx) => {
+                          const id = `issue-${idx}`;
+                          return (
+                            <li
+                              key={`nav-issue-${idx}`}
+                              className={`${s['nav-sub-item']} ${activeSection === id ? s['active'] : ''}`}
                             >
-                              {issue.title}
-                            </button>
-                          </li>
-                        ))}
+                              <button
+                                onClick={() => scrollToTarget(`issue-${idx}`)}
+                              >
+                                {issue.title}
+                              </button>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </li>
                   )}

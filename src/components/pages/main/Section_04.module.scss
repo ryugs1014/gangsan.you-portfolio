@@ -234,11 +234,14 @@
 
     .out-link,
     .site-link {
+      @include flex-box(center, center);
       @include typo(14, 600, 1);
       padding: rem(12) rem(17);
       border-radius: rem(100);
       box-sizing: border-box;
       //border: rem(1) solid var(--color-line-noraml);
+      min-width: rem(98);
+      text-align: center;
     }
 
     .out-link {
@@ -568,6 +571,7 @@
         @include typo(12, 600, 1);
         padding: rem(10) rem(12);
         box-shadow: 0 rem(4) rem(8) rgba(0, 0, 0, 0.04);
+        min-width: rem(80);
       }
 
       .detail-button {

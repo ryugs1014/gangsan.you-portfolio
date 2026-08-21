@@ -51,7 +51,10 @@ export default function Section_06() {
                     <button className={s['link-button']}>
                       <span>GitHub</span>
 
-                      <RightArrowSVG responsivSize={true} />
+                      <RightArrowSVG
+                        className={s['link']}
+                        responsivSize={true}
+                      />
                     </button>
                   </Link>
 
@@ -64,7 +67,10 @@ export default function Section_06() {
                     <button className={s['link-button']}>
                       <span>이력서</span>
 
-                      <RightArrowSVG responsivSize={true} />
+                      <RightArrowSVG
+                        className={s['file']}
+                        responsivSize={true}
+                      />
                     </button>
                   </a>
 

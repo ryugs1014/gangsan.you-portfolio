@@ -13,7 +13,7 @@ interface FadeInPortfolioProps {
 export default function FadeInMain({
   children,
   delay = 0,
-  threshold = 0.15,
+  threshold = 0,
 }: FadeInPortfolioProps) {
   // inView 상태를 직접 쓰지 않고, 별도의 상태로 관리합니다.
   const [isVisible, setIsVisible] = useState(false);

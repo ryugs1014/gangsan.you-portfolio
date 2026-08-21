@@ -70,6 +70,14 @@
     .link-button {
       @include flex-box(end, center, row, rem(12));
       color: var(--color-gray-1000);
+
+      .link {
+        transform: rotate(-45deg);
+      }
+
+      .file {
+        transform: rotate(90deg);
+      }
     }
   }
 }

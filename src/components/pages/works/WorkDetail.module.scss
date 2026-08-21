@@ -1,6 +1,12 @@
 @use '@/styles/mixins' as *;
 @use '@/styles/rem' as *;
 
+.image-skeleton {
+  width: 100%;
+  background-color: var(--color-bg-normal);
+  aspect-ratio: 16 / 9;
+}
+
 .detail-container {
   padding-top: rem(165);
   @include grid-box(null, rem(240));
@@ -223,12 +229,6 @@
     }
   }
 
-  &:hover {
-    &:after {
-      animation: bg-shadow 5s ease-in-out 1 forwards;
-    }
-  }
-
   &:after {
     content: '';
     position: absolute;
@@ -236,24 +236,17 @@
     left: 0;
     width: 0;
     height: 100%;
-    //background-color: rgba(0, 0, 0, 0.15);
-
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-
+    background-color: rgba(0, 0, 0, 0.15);
     user-select: none;
     pointer-events: none;
+    transition: width 0.5s ease-in-out;
   }
 
-  @keyframes bg-shadow {
-    0% {
-      width: 0;
-    }
-    100% {
+  &:hover {
+    &:after {
+      /* 마우스를 올리면 width가 100%로 늘어납니다 */
       width: 100%;
+      transition: width 5s ease-in-out;
     }
   }
 
@@ -469,6 +462,14 @@
       list-style: none;
       padding: 0;
       margin: 0;
+    }
+
+    .nav-sub-item {
+      &.active {
+        button {
+          color: var(--color-gray-1000);
+        }
+      }
     }
 
     .nav-sub-item button {

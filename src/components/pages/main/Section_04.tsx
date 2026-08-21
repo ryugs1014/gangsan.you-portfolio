@@ -245,9 +245,7 @@ const PortfolioItemCard = memo(function PortfolioItemCard({
                   onClick={(e) => handleLinkClick(e, work)}
                 >
                   {/*사이트 방문*/}
-                  {work.category === 'Mobile App'
-                    ? 'APK 다운로드'
-                    : '사이트 방문하기'}
+                  {work.category === 'Mobile App' ? 'APK 파일' : '사이트 방문'}
                 </Link>
               </div>
 
