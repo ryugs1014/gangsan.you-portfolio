@@ -108,7 +108,7 @@ export default function TabCategory({
 
   return (
     <div className={`${s['tab-wrapper']} ${isUp ? s['up'] : ''}`}>
-      <FadeIn threshold={0.2}>
+      <FadeIn threshold={0}>
         <Container className={s['tab-container']}>
           <div className={s['tab-wrap']} ref={tabWrapRef}>
             {categories.map((category) => (

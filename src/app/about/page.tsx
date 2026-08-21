@@ -42,7 +42,7 @@ export default async function About() {
 
       <TabNavigation tabs={ABOUT_TABS} />
 
-      <FadeIn threshold={0.2}>
+      <FadeIn threshold={0}>
         <div className={s['section-wrap']}>
           <Section_01 />
 

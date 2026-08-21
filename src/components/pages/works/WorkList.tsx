@@ -102,7 +102,7 @@ export default function WorkList({ portfolios }: WorkListProps) {
       <Container>
         <ul className={s['portfolio-list']}>
           {portfolios.map((work) => (
-            <FadeIn key={work.id} threshold={0.2}>
+            <FadeIn key={work.id} threshold={0}>
               <li className={s['portfolio-item-wrap']}>
                 <div
                   className={s['detail-button']}
