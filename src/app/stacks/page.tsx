@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: '유강산 포트폴리오 | STACKS',
   description:
     '트렌드를 유연하게 받아들이고, 완성도 높은 결과물로 다듬어냅니다.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 export default async function Stacks() {

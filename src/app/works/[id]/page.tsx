@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: data
       ? `유강산 포트폴리오 | ${data['work-title']}`
       : '포트폴리오 상세',
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
   };
 }
 

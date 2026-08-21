@@ -11,6 +11,14 @@ import Section_02 from '@/components/pages/main/Section_02';
 export const metadata: Metadata = {
   title: '유강산 포트폴리오 | CONTACT',
   description: '함께 작업하기를 희망 하시거나, 다른 문의가 있으신가요?',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 export default async function Contact() {

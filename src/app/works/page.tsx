@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: '유강산 포트폴리오 | WORKS',
   description:
     '고객의 이야기를 가장 가까이에서 듣고, 만족을 넘어서는 경험을 제공합니다.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 export default async function Works() {

@@ -15,6 +15,14 @@ import FadeIn from '@/components/atoms/animation/FadeIn';
 export const metadata: Metadata = {
   title: '유강산 포트폴리오 | ABOUT',
   description: '되는 방법을 먼저 찾고, 더 나은 결과를 만들어 갑니다.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 const ABOUT_TABS = [
