@@ -33,21 +33,6 @@ const nextConfig: NextConfig = {
     includePaths: [path.join(__dirname, 'src')],
   },
 
-  // 검색 엔진 접근을 차단 헤더 설정 추가
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow, nosnippet, noarchive',
-          },
-        ],
-      },
-    ];
-  },
-
   // 1. next build(배포) 시 사용될 Webpack 설정
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule: any) =>
